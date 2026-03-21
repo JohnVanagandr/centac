@@ -82,5 +82,73 @@
       <a href="#contacto" class="mobile-link hover:text-brand transition-colors">Contáctanos</a>
     </nav>
   </div>
+<!-- Hero slider -->
+  <section id="inicio" class="relative bg-navy overflow-hidden h-[85vh] slider-container">
+    <div id="slider-track" class="slider-track h-full">
+  
+      <div class="slide relative h-full flex items-center">
+        <div
+          class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581092160562-40aa08e29b83?w=1600&q=80')] bg-cover bg-center opacity-20">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-transparent"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 w-full">
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-white/10 border border-white/20 text-brand-light text-xs font-bold uppercase tracking-widest mb-6">
+            Nuestra Estrategia Educativa
+          </span>
+          <h2 class="font-display text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
+            Formación <span class="text-gradient">Técnico-Práctica</span><br>Certificada
+          </h2>
+          <p class="text-lg text-gray-300 max-w-xl mb-8">
+            Docentes capacitados. Aprendizaje certificado. Formación con salida laboral garantizada a través del
+            fortalecimiento de tus habilidades.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#oferta"
+              class="bg-brand text-white px-8 py-3 rounded-full font-bold shadow-brand hover:bg-brand-light transition-colors">
+              Ver Programas
+            </a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="slide relative h-full flex items-center">
+        <div
+          class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=80')] bg-cover bg-center opacity-20">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-r from-navy via-navy/90 to-transparent"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 w-full">
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-gold text-navy text-xs font-bold uppercase tracking-widest mb-6">
+            Aprende Haciendo
+          </span>
+          <h2 class="font-display text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
+            Aprende en <span class="text-gradient">Escenarios Reales</span>
+          </h2>
+          <p class="text-lg text-gray-300 max-w-xl mb-8">
+            Nuestros talleres están perfectamente acondicionados y dotados con equipos, materiales y herramientas
+            profesionales.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="#contacto"
+              class="bg-white/10 text-white border border-white/30 px-8 py-3 rounded-full font-bold hover:bg-white/20 transition-colors">
+              Conectar con Asesor
+            </a>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    <button id="prev-slide"
+      class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md transition-all z-20">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button id="next-slide"
+      class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/30 text-white w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-md transition-all z-20">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </section>
+  
   <script src="app.js" type="module"></script>
 </body>
