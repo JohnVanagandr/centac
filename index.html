@@ -4,11 +4,83 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
-  <meta name="description" content="" />
+  <title>CENTAC — Corporación Educativa de Tecnología, Arte y Conocimiento</title>
+  <meta name="description"
+    content="Formamos talento a través de programas técnico-prácticos de corta duración. 70% práctica y 30% teoría." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Nunito:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="tailwind-config.js"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-  <script src="app.js"></script>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+  <!-- Top var -->
+  <div class="bg-navy-deeper text-gray-300 text-sm py-2 hidden md:block z-50 relative">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <a href="mailto:info@centac.edu.co" class="hover:text-brand transition-colors font-semibold">
+        <i class="fa-solid fa-envelope text-brand mr-2"></i> info@centac.edu.co
+      </a>
+      <div class="space-x-4">
+        <span class="text-brand font-bold text-xs uppercase tracking-widest">
+          Descuentos | Novedades | Noticias importantes | Actualizaciones
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- Header -->
+  <header id="navbar" class="sticky top-0 z-40 bg-white shadow-sm transition-shadow duration-300">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+  
+      <a href="#" class="flex items-center gap-3">
+        <div
+          class="w-12 h-12 bg-brand rounded-xl flex items-center justify-center text-white font-display font-black text-2xl shadow-brand">
+          C
+        </div>
+        <div>
+          <h1 class="font-display font-black text-navy text-2xl leading-none">CENTAC</h1>
+          <p class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Técnico-Práctica</p>
+        </div>
+      </a>
+  
+      <nav class="hidden md:flex gap-8 font-semibold text-navy">
+        <a href="#inicio" class="hover:text-brand transition-colors">Inicio</a>
+        <a href="#nosotros" class="hover:text-brand transition-colors">Nosotros</a>
+        <a href="#oferta" class="hover:text-brand transition-colors">Oferta Académica</a>
+        <a href="#contacto" class="hover:text-brand transition-colors">Contáctanos</a>
+      </nav>
+  
+      <div class="flex items-center gap-4">
+        <a href="#contacto"
+          class="hidden md:block bg-brand hover:bg-brand-dark text-white px-6 py-2.5 rounded-full font-bold shadow-brand transition-all transform hover:-translate-y-1">
+          Inscríbete Hoy
+        </a>
+        <button id="menu-btn" class="md:hidden text-navy text-2xl focus:outline-none" aria-label="Abrir menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+  <!-- Movil menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-navy z-50 flex flex-col px-6 py-8 md:hidden" aria-hidden="true">
+    <div class="flex justify-between items-center mb-12">
+      <span class="font-display font-black text-white text-2xl">Menú</span>
+      <button id="close-menu-btn" class="text-white text-3xl focus:outline-none" aria-label="Cerrar menú">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-6 font-display text-3xl text-white">
+      <a href="#inicio" class="mobile-link hover:text-brand transition-colors">Inicio</a>
+      <a href="#nosotros" class="mobile-link hover:text-brand transition-colors">Nosotros</a>
+      <a href="#oferta" class="mobile-link hover:text-brand transition-colors">Oferta Académica</a>
+      <a href="#contacto" class="mobile-link hover:text-brand transition-colors">Contáctanos</a>
+    </nav>
+  </div>
+  <script src="app.js" type="module"></script>
 </body>
