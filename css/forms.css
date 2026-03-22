@@ -1,0 +1,17 @@
+/* forms.css - Estilos de Formulario */
+.input-field {
+  width: 100%;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: #F05A28;
+  box-shadow: 0 0 0 4px rgba(240, 90, 40, 0.1);
+  background-color: #ffffff;
+}

@@ -1,0 +1,12 @@
+/* Usamos variables o valores fijos para que el navegador lo entienda directo */
+.slider-track {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 500ms ease-out;
+}
+
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+}
