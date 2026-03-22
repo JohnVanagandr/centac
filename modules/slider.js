@@ -43,16 +43,34 @@ const stopAutoplay = () => {
 // --- 3. Definición de Eventos ---
 
 const setEventListeners = () => {
-  // Botones de navegación
   if (nextBtn && prevBtn) {
     nextBtn.addEventListener("click", nextSlide);
     prevBtn.addEventListener("click", prevSlide);
   }
 
-  // Control de accesibilidad y pausa
   if (sliderContainer) {
     sliderContainer.addEventListener("mouseenter", stopAutoplay);
     sliderContainer.addEventListener("mouseleave", startAutoplay);
+
+    // Soporte para Swipe (Toque en móviles)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sliderContainer.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAutoplay();
+    }, { passive: true });
+
+    sliderContainer.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleGesture();
+      startAutoplay();
+    }, { passive: true });
+
+    const handleGesture = () => {
+      if (touchEndX < touchStartX - 50) nextSlide(); // Deslizar a la izquierda
+      if (touchEndX > touchStartX + 50) prevSlide(); // Deslizar a la derecha
+    };
   }
 };
 
