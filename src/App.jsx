@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
 import Slider from "./components/Hero/Slider";
 import Estrategia from "./components/features/Estrategia";
 import Nosotros from "./components/features/Nosotros";
@@ -11,13 +12,15 @@ function App() {
   return (
     <main className="overflow-x-hidden">
       <Navbar />
-      {/* Así de limpio queda nuestro orquestador principal */}
-      <Slider />
-      <Estrategia />
-      <Nosotros />
-      <Oferta />
-      <Contacto />
-      <BannerFinanciacion />
+      <div className="flex-grow">
+        <Slider />
+        <Estrategia />
+        <Nosotros />
+        <Oferta />
+        <Contacto />
+        <BannerFinanciacion />
+      </div>
+      <Footer />
     </main>
   );
 }
