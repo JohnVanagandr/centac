@@ -1,30 +1,49 @@
 import React from "react";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Slider from "./components/Hero/Slider";
-import Estrategia from "./components/features/Estrategia";
-import Nosotros from "./components/features/Nosotros";
-import Oferta from "./components/features/Oferta";
-import Contacto from "./components/features/Contacto";
-import BannerFinanciacion from "./components/features/BannerFinanciacion";
-import BackToTop from "./components/common/BackToTop";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
+// Importamos el Layout
+import PublicLayout from "./layouts/PublicLayout";
+
+// Importamos las Páginas
+import Home from "./pages/public/Home";
+
+const App = () => {
   return (
-    <main className="overflow-x-hidden">
-      <Navbar />
-      <div className="flex-grow">
-        <Slider />
-        <Estrategia />
-        <Nosotros />
-        <Oferta />
-        <Contacto />
-        <BannerFinanciacion />
-      </div>
-      <Footer />
-      <BackToTop />
-    </main>
+    <BrowserRouter>
+      <Routes>
+        {
+        /* ==========================================
+            ZONA PÚBLICA (Lo que ven los aspirantes)
+            ========================================== */
+        }
+        <Route path="/" element={<PublicLayout />}>
+          {
+            /* El 'index' le dice a React Router que esta es la vista por defecto en la raíz "/" */
+          }
+          <Route index element={<Home />} />
+
+          {
+            /* Aquí dejaremos el espacio para la vista individual de mañana */
+          }
+          {
+            /* <Route path="oferta/:slug" element={<OfertaDetalle />} /> */
+          }
+        </Route>
+
+        {
+        /* ==========================================
+            ZONA PRIVADA (El futuro Dashboard Administrativo)
+            ========================================== */
+        }
+        {
+        /* <Route path="/admin" element={<PrivateLayout />}>
+          <Route index element={<DashboardHome />} />
+        </Route> 
+        */
+        }
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
