@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+// src/components/Hero/Slider.jsx
+import React, { useState, useEffect } from "react";
 
 const Slider = () => {
   // 1. EL ESTADO: React vigila este número. Si cambia, redibuja el slider automáticamente.
@@ -53,6 +54,18 @@ const Slider = () => {
   const prevSlide = () =>
     setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
 
+  // 4. EL AUTOPLAY (Efecto Secundario)
+  useEffect(() => {
+    // Creamos el temporizador para avanzar cada 5 segundos
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 5000);
+
+    // Función de limpieza: destruye el temporizador si el usuario interactúa
+    // o si el componente desaparece de la pantalla
+    return () => clearInterval(timer);
+  }, [currentIndex]); // Dependencia: se reinicia cada vez que currentIndex cambia
+
   // NOTA PARA LOS APRENDICES: En JSX usamos 'className' en lugar de 'class'
   return (
     <section className="slider-container h-[85vh] w-full relative">
@@ -67,11 +80,13 @@ const Slider = () => {
             key={slide.id}
             className="slide relative h-full flex items-center min-w-full flex-shrink-0"
           >
-            {/* Fondo con imagen dinámica */}
+            {/* Fondo con imagen (Corregido: Solo controla la imagen y su opacidad base) */}
             <div
-              className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy/80"
+              className="absolute inset-0 bg-cover bg-center opacity-30"
               style={{ backgroundImage: `url(${slide.bgImg})` }}
             ></div>
+
+            {/* Capa de degradado oscuro superior para mejorar contraste */}
             <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy/80"></div>
 
             {/* Contenido del Slide */}
@@ -83,7 +98,7 @@ const Slider = () => {
               </span>
               <h2 className="font-display text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
                 {slide.titlePre}{" "}
-                {/* Corrección: Degradado nativo de Tailwind usando las variables de tu @theme */}
+                {/* Degradado nativo de Tailwind usando las variables de tu @theme */}
                 <span className="bg-gradient-to-r from-brand to-gold bg-clip-text text-transparent">
                   {slide.titleHighlight}
                 </span>
@@ -107,7 +122,6 @@ const Slider = () => {
       </div>
 
       {/* Controles del Slider */}
-      {/* Corrección: w-12 h-12 y flex center para círculos perfectos, además de cursor-pointer */}
       <button
         onClick={prevSlide}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/30 text-white rounded-full backdrop-blur-sm transition-all cursor-pointer"
