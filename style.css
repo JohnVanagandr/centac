@@ -1,5 +1,9 @@
-@import url('./css/base.css');
-@import url('./css/animations.css');
-@import url('./css/slider.css');
-@import url('./css/forms.css');
-@import url('./css/navigation.css');
+/* 1. Primero cargamos el motor de Tailwind v4 */
+@import "tailwindcss";
+
+/* 2. Inmediatamente después, tus módulos nativos */
+@import "./css/base.css";
+@import "./css/animations.css";
+@import "./css/slider.css";
+@import "./css/forms.css";
+@import "./css/navigation.css";
