@@ -1,148 +1,142 @@
-// src/components/Hero/Slider.jsx
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { sliderData } from "../../data/sliderData";
+import { useSlider } from "../../hooks/useSlider";
 
 const Slider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const slides = [
-    {
-      id: 1,
-      badge: "Nuestra Estrategia Educativa",
-      badgeStyle: "bg-white/10 border-white/20 text-brand-light",
-      titlePre: "Formación ",
-      titleHighlight: "Técnico-Práctica",
-      titlePost: "Certificada",
-      desc: "Docentes capacitados. Aprendizaje certificado. Formación con salida laboral garantizada a través del fortalecimiento de tus habilidades.",
-      btnText: "Ver Programas",
-      btnStyle: "bg-brand text-white shadow-brand hover:bg-brand-light",
-      bgImg:
-        "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=1600&q=80",
-    },
-    {
-      id: 2,
-      badge: "Aprende Haciendo",
-      badgeStyle: "bg-gold text-navy",
-      titlePre: "Aprende en ",
-      titleHighlight: "Escenarios Reales",
-      titlePost: "",
-      desc: "Nuestros talleres están perfectamente acondicionados y dotados con equipos, materiales y herramientas profesionales.",
-      btnText: "Conectar con Asesor",
-      btnStyle:
-        "bg-white/10 text-white border border-white/30 hover:bg-white/20",
-      bgImg:
-        "https://images.unsplash.com/photo-1581092160562-40aa08e29b83?w=1600&q=80",
-    },
-    {
-      id: 3,
-      badge: "Tu Futuro Profesional",
-      badgeStyle: "bg-brand text-white",
-      titlePre: "Impulsa tu ",
-      titleHighlight: "Éxito Laboral",
-      titlePost: "Efectivo",
-      desc: "Nuestros egresados cuentan con una alta tasa de vinculación. Te conectamos con las demandas reales de las empresas líderes.",
-      btnText: "Iniciar mi Registro",
-      btnStyle: "bg-brand text-white shadow-brand hover:bg-brand-light",
-      bgImg:
-        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&q=80",
-    },
-  ];
-
-  const nextSlide = () => setCurrentIndex((prev) => (prev + 1) % slides.length);
-  const prevSlide = () =>
-    setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [currentIndex]);
+  const { currentIndex, nextSlide, prevSlide, goToSlide } = useSlider(
+    sliderData.length,
+  );
 
   return (
-    <section className="relative h-[85vh] w-full overflow-hidden bg-navy-dark">
-      {/* Recorremos las slides. Todas están posicionadas absolutamente una sobre otra */}
-      {slides.map((slide, index) => {
-        // Determinamos si este slide es el que debería verse actualmente
-        const isActive = index === currentIndex;
-
-        return (
-          <div
-            key={slide.id}
-            // La transición de opacidad hace el efecto de "Fade-in / Fade-out"
-            className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
-              isActive ? "opacity-100 z-10" : "opacity-0 z-0"
-            }`}
-          >
-            {/* 1. Fondo con efecto Ken Burns (Zoom lento) */}
-            {/* Si está activo, hace un zoom a scale-105 durante 5 segundos */}
-            <div
-              className={`absolute inset-0 bg-cover bg-center transition-transform duration-[5000ms] ease-linear opacity-30 ${
-                isActive ? "scale-105" : "scale-100"
+    <section
+      id="inicio"
+      className="relative h-[85vh] w-full overflow-hidden bg-navy"
+    >
+      {sliderData.map((slide, index) => (
+        <div
+          key={slide.id}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
+        >
+          {/* Fondo con Overlay */}
+          <div className="absolute inset-0">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              className={`w-full h-full object-cover transition-transform duration-[8000ms] ease-linear ${
+                index === currentIndex ? "scale-110" : "scale-100"
               }`}
-              style={{ backgroundImage: `url(${slide.bgImg})` }}
-            ></div>
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent"></div>
+          </div>
 
-            {/* 2. Capa de degradado oscuro (se mantiene igual) */}
-            <div className="absolute inset-0 bg-gradient-to-r from-navy-dark via-navy to-navy/80"></div>
+          {/* Contenido Central */}
+          <div className="relative h-full max-w-7xl mx-auto px-6 flex items-center">
+            <div
+              className={`max-w-3xl transition-all duration-1000 delay-300 transform ${
+                index === currentIndex
+                  ? "translate-y-0 opacity-100"
+                  : "translate-y-12 opacity-0"
+              }`}
+            >
+              {/* Badge Amarilla Estilo CENTAC */}
+              <span className="inline-block bg-gold text-navy font-bold text-[10px] uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-lg">
+                {slide.badge}
+              </span>
 
-            {/* 3. Contenedor del Texto centrado verticalmente */}
-            <div className="relative z-20 h-full max-w-7xl mx-auto px-4 w-full flex flex-col justify-center">
-              {/* Animación del texto: Sube y aparece solo cuando el slide está activo */}
-              <div
-                className={`transform transition-all duration-1000 delay-300 ${
-                  isActive
-                    ? "translate-y-0 opacity-100"
-                    : "translate-y-12 opacity-0"
-                }`}
-              >
-                <span
-                  className={`inline-block py-1 px-3 rounded-full text-xs font-bold uppercase tracking-widest mb-6 ${slide.badgeStyle}`}
+              {/* Título Impactante */}
+              <h2 className="font-display text-5xl md:text-7xl font-black text-white mb-6 leading-[1.1]">
+                {slide.title}{" "}
+                <span className="text-brand">{slide.titleHighlight}</span>
+              </h2>
+
+              {/* Descripción con Inter (Sans) */}
+              <p className="text-gray-200 text-lg md:text-xl mb-10 leading-relaxed max-w-xl font-medium opacity-90">
+                {slide.description}
+              </p>
+
+              {/* Botón Sólido */}
+              <div className="flex items-center gap-6">
+                <a
+                  href={slide.buttonLink}
+                  className="bg-brand hover:bg-brand-dark text-white px-10 py-4 rounded-full font-bold text-lg shadow-brand transition-all transform hover:-translate-y-1 flex items-center gap-3 group"
                 >
-                  {slide.badge}
-                </span>
-
-                <h2 className="font-display text-5xl lg:text-7xl font-black text-white leading-tight mb-6">
-                  {slide.titlePre}{" "}
-                  <span className="bg-gradient-to-r from-brand to-gold bg-clip-text text-transparent">
-                    {slide.titleHighlight}
-                  </span>
-                  <br />
-                  {slide.titlePost}
-                </h2>
-
-                <p className="text-lg text-gray-300 max-w-xl mb-8">
-                  {slide.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-4">
-                  <a
-                    href="#contacto"
-                    className={`px-8 py-3 rounded-full font-bold transition-colors ${slide.btnStyle}`}
+                  {slide.buttonText}
+                  <svg
+                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    {slide.btnText}
-                  </a>
-                </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </a>
               </div>
             </div>
           </div>
-        );
-      })}
+        </div>
+      ))}
 
-      {/* Controles del Slider */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/30 text-white rounded-full backdrop-blur-sm transition-all cursor-pointer"
-        aria-label="Anterior slide"
-      >
-        &#10094;
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center bg-white/10 hover:bg-white/30 text-white rounded-full backdrop-blur-sm transition-all cursor-pointer"
-        aria-label="Siguiente slide"
-      >
-        &#10095;
-      </button>
+      {/* Flechas Laterales Minimalistas */}
+      <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 z-30 flex justify-between pointer-events-none">
+        <button
+          onClick={prevSlide}
+          className="p-3 rounded-full bg-white/5 text-white/50 hover:bg-brand hover:text-white transition-all cursor-pointer pointer-events-auto backdrop-blur-sm"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+        <button
+          onClick={nextSlide}
+          className="p-3 rounded-full bg-white/5 text-white/50 hover:bg-brand hover:text-white transition-all cursor-pointer pointer-events-auto backdrop-blur-sm"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {/* Indicadores (Dots) Pro */}
+      <div className="absolute bottom-10 left-6 z-30 flex gap-2">
+        {sliderData.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`h-1.5 rounded-full transition-all duration-500 ${
+              index === currentIndex
+                ? "w-10 bg-brand"
+                : "w-4 bg-white/20 hover:bg-white/40"
+            }`}
+          />
+        ))}
+      </div>
     </section>
   );
 };
