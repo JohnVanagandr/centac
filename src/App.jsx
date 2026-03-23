@@ -4,6 +4,7 @@ import Slider from "./components/Hero/Slider";
 import Estrategia from "./components/features/Estrategia";
 import Nosotros from "./components/features/Nosotros";
 import Oferta from "./components/features/Oferta";
+import Contacto from "./components/features/Contacto";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Estrategia />
       <Nosotros />
       <Oferta />
+      <Contacto />
     </main>
   );
 }
