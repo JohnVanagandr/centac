@@ -1,7 +1,14 @@
 /* 1. Motor de Tailwind */
 @import "tailwindcss";
 
-/* 2. TU CONFIGURACIÓN VISUAL (Reemplaza al antiguo script) */
+/* 2. Tus módulos nativos (Deben ir debajo del theme) */
+@import "./src/styles/base.css";
+@import "./src/styles/animations.css";
+@import "./src/styles/slider.css";
+@import "./src/styles/forms.css";
+@import "./src/styles/navigation.css";
+
+/* 3. TU CONFIGURACIÓN VISUAL (Reemplaza al antiguo script) */
 @theme {
   /* Colores Brand */
   --color-brand: #F05A28;
@@ -25,10 +32,3 @@
   --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
   --shadow-brand: 0 6px 24px rgba(240, 90, 40, 0.3);
 }
-
-/* 3. Tus módulos nativos (Deben ir debajo del theme) */
-@import "./css/base.css";
-@import "./css/animations.css";
-@import "./css/slider.css";
-@import "./css/forms.css";
-@import "./css/navigation.css";
