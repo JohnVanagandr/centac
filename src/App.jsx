@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./components/layout/Navbar";
 import Slider from "./components/Hero/Slider";
 import Estrategia from "./components/features/Estrategia";
+import Nosotros from "./components/features/Nosotros";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       {/* Así de limpio queda nuestro orquestador principal */}
       <Slider />
       <Estrategia />
+      <Nosotros />
     </main>
   );
 }
