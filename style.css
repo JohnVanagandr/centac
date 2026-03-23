@@ -1,7 +1,32 @@
-/* 1. Primero cargamos el motor de Tailwind v4 */
+/* 1. Motor de Tailwind */
 @import "tailwindcss";
 
-/* 2. Inmediatamente después, tus módulos nativos */
+/* 2. TU CONFIGURACIÓN VISUAL (Reemplaza al antiguo script) */
+@theme {
+  /* Colores Brand */
+  --color-brand: #F05A28;
+  --color-brand-light: #FF7A4D;
+  --color-brand-dark: #C8441A;
+
+  /* Colores Navy */
+  --color-navy: #0A2D6E;
+  --color-navy-dark: #071D48;
+  --color-navy-deeper: #04122d;
+
+  /* Color Gold */
+  --color-gold: #FFB800;
+
+  /* Tipografías */
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-body: "Nunito", sans-serif;
+
+  /* Sombras personalizadas */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
+  --shadow-brand: 0 6px 24px rgba(240, 90, 40, 0.3);
+}
+
+/* 3. Tus módulos nativos (Deben ir debajo del theme) */
 @import "./css/base.css";
 @import "./css/animations.css";
 @import "./css/slider.css";
