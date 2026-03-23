@@ -1,14 +1,9 @@
 import React from "react";
 import Reveal from "../common/Reveal";
+import { aboutData } from "../../data/abouData";
 
 const Nosotros = () => {
-  // Arreglo de estadísticas para iterar y mantener el código limpio
-  const statsData = [
-    { id: 1, value: "10+", label: "Años de Experiencia" },
-    { id: 2, value: "5", label: "Talleres Equipados" },
-    { id: 3, value: "+1k", label: "Egresados" },
-    { id: 4, value: "100%", label: "Práctico y Oficial" },
-  ];
+
 
   return (
     <section id="nosotros" className="relative z-20 flex flex-col">
@@ -36,7 +31,7 @@ const Nosotros = () => {
 
           {/* Grilla de Estadísticas Dinámica */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-4 divide-y md:divide-y-0 md:divide-x divide-white/10">
-            {statsData.map((stat) => (
+            {aboutData.map((stat) => (
               <div key={stat.id} className="px-4 pt-4 md:pt-0">
                 <div className="font-display text-6xl lg:text-7xl font-black text-white mb-2">
                   {stat.value}
