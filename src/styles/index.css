@@ -2,11 +2,11 @@
 @import "tailwindcss";
 
 /* 2. Tus módulos nativos (Deben ir debajo del theme) */
-@import "./src/styles/base.css";
-@import "./src/styles/animations.css";
-@import "./src/styles/slider.css";
-@import "./src/styles/forms.css";
-@import "./src/styles/navigation.css";
+@import "./base.css";
+@import "./animations.css";
+@import "./slider.css";
+@import "./forms.css";
+@import "./navigation.css";
 
 /* 3. TU CONFIGURACIÓN VISUAL (Reemplaza al antiguo script) */
 @theme {
