@@ -1,13 +1,14 @@
-// src/pages/auth/Login.jsx
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useForm } from "../../hooks/useForm"; 
+import { useForm } from "../../hooks/useForm";
 import { usersData } from "../../data/usersData";
+import { AuthContext } from "../../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
+  const { login } = useContext(AuthContext);
 
   const initialState = { email: "", password: "" };
 
@@ -28,10 +29,8 @@ const Login = () => {
     setServerError("");
 
     try {
-      // Simulamos el tiempo de respuesta del servidor (1.5 segundos)
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      // 3. Buscamos en nuestra base de datos simulada
       const foundUser = usersData.find(
         (user) =>
           user.email === formValues.email &&
@@ -39,12 +38,7 @@ const Login = () => {
       );
 
       if (foundUser) {
-        console.log(
-          `Login exitoso. Bienvenido, ${foundUser.name} (${foundUser.role})`,
-        );
-
-        // Simulamos la creación de una sesión guardando los datos básicos en LocalStorage
-        // Omitimos la contraseña por seguridad básica
+        // Preparamos los datos limpios que queremos compartir globalmente
         const sessionData = {
           id: foundUser.id,
           name: foundUser.name,
@@ -52,12 +46,15 @@ const Login = () => {
           role: foundUser.role,
           avatar: foundUser.avatar,
         };
-        localStorage.setItem("centac_session", JSON.stringify(sessionData));
+
+        // ¡AQUÍ ESTÁ LA MAGIA!
+        // Llamamos al contexto. Él se encargará de guardar en LocalStorage,
+        // actualizar el estado global y avisarle al resto de la app.
+        login(sessionData);
 
         // Redirigimos al Home
         navigate("/");
       } else {
-        // Si no lo encuentra, arroja error
         setServerError(
           "Credenciales incorrectas. Verifica tu correo y contraseña.",
         );
