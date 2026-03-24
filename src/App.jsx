@@ -9,6 +9,7 @@ import ScrollToHash from "./components/common/ScrollToHash";
 import Home from "./pages/public/Home";
 import CatalogoOfertas from "./pages/public/CatalogoOfertas";
 import OfertaDetalle from "./pages/public/OfertaDetalle";
+import Login from "./pages/auth/Login";
 
 const App = () => {
   return (
@@ -16,19 +17,25 @@ const App = () => {
       <ScrollToHash />
       <Routes>
         {/* ==========================================
-            ZONA PÚBLICA (Lo que ven los aspirantes)
+            GRUPO 1: ZONA PÚBLICA (Con Navbar y Footer)
             ========================================== */}
         <Route path="/" element={<PublicLayout />}>
           {/* El 'index' le dice a React Router que esta es la vista por defecto en la raíz "/" */}
           <Route index element={<Home />} />
 
-          {/* 2. AGREGAMOS LA RUTA DEL CATÁLOGO */}
+          {/* Catálogo y detalles */}
           <Route path="ofertas" element={<CatalogoOfertas />} />
           <Route path="oferta/:slug" element={<OfertaDetalle />} />
         </Route>
 
+        {/* =========================================
+            GRUPO 2: Rutas Auth / Independientes (Sin Navbar)
+            ¡Importante! Esta ruta va por FUERA del PublicLayout
+            ========================================= */}
+        <Route path="/login" element={<Login />} />
+
         {/* ==========================================
-            ZONA PRIVADA (El futuro Dashboard Administrativo)
+            GRUPO 3: ZONA PRIVADA (El futuro Dashboard Administrativo)
             ========================================== */}
         {/* <Route path="/admin" element={<PrivateLayout />}>
           <Route index element={<DashboardHome />} />
