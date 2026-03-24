@@ -5,10 +5,7 @@ import { programasData } from "../../data/ofertaData";
 import CardOferta from "../common/CardOferta"; // Importamos la pieza de Lego
 
 const Oferta = () => {
-  // Opcional: Si quieres que en el Home solo salgan las que son 'isTop'
-  const programasDestacados = programasData.filter(
-    (prog) => prog.isTop === true,
-  );
+const programasDestacados = programasData.filter((prog) => prog.isTop === true);
   // Si prefieres mostrar las 4 primeras, cambia a: programasData.slice(0, 4);
 
   return (
@@ -32,7 +29,7 @@ const Oferta = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Mapeamos usando el componente reutilizable */}
-          {programasData.map((programa) => (
+          {programasDestacados.map((programa) => (
             <CardOferta key={programa.id} programa={programa} />
           ))}
         </div>

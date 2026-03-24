@@ -3,11 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Importamos el Layout
 import PublicLayout from "./layouts/PublicLayout";
+import ScrollToHash from "./components/common/ScrollToHash";
 
 // Importamos las Páginas
 import Home from "./pages/public/Home";
 import CatalogoOfertas from "./pages/public/CatalogoOfertas";
-import ScrollToHash from "./components/common/ScrollToHash";
+import OfertaDetalle from "./pages/public/OfertaDetalle";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
 
           {/* 2. AGREGAMOS LA RUTA DEL CATÁLOGO */}
           <Route path="ofertas" element={<CatalogoOfertas />} />
+          <Route path="oferta/:slug" element={<OfertaDetalle />} />
         </Route>
 
         {/* ==========================================
