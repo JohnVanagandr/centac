@@ -1,30 +1,49 @@
 import React from "react";
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-import Slider from "./components/Hero/Slider";
-import Estrategia from "./components/features/Estrategia";
-import Nosotros from "./components/features/Nosotros";
-import Oferta from "./components/features/Oferta";
-import Contacto from "./components/features/Contacto";
-import BannerFinanciacion from "./components/features/BannerFinanciacion";
-import BackToTop from "./components/common/BackToTop";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-function App() {
+// Importamos el Layout
+import PublicLayout from "./layouts/PublicLayout";
+import ScrollToHash from "./components/common/ScrollToHash";
+
+// Importamos las Páginas
+import Home from "./pages/public/Home";
+import CatalogoOfertas from "./pages/public/CatalogoOfertas";
+import OfertaDetalle from "./pages/public/OfertaDetalle";
+import Login from "./pages/auth/Login";
+
+const App = () => {
   return (
-    <main className="overflow-x-hidden">
-      <Navbar />
-      <div className="flex-grow">
-        <Slider />
-        <Estrategia />
-        <Nosotros />
-        <Oferta />
-        <Contacto />
-        <BannerFinanciacion />
-      </div>
-      <Footer />
-      <BackToTop />
-    </main>
+    <BrowserRouter>
+      <ScrollToHash />
+      <Routes>
+        {/* ==========================================
+            GRUPO 1: ZONA PÚBLICA (Con Navbar y Footer)
+            ========================================== */}
+        <Route path="/" element={<PublicLayout />}>
+          {/* El 'index' le dice a React Router que esta es la vista por defecto en la raíz "/" */}
+          <Route index element={<Home />} />
+
+          {/* Catálogo y detalles */}
+          <Route path="ofertas" element={<CatalogoOfertas />} />
+          <Route path="oferta/:slug" element={<OfertaDetalle />} />
+        </Route>
+
+        {/* =========================================
+            GRUPO 2: Rutas Auth / Independientes (Sin Navbar)
+            ¡Importante! Esta ruta va por FUERA del PublicLayout
+            ========================================= */}
+        <Route path="/login" element={<Login />} />
+
+        {/* ==========================================
+            GRUPO 3: ZONA PRIVADA (El futuro Dashboard Administrativo)
+            ========================================== */}
+        {/* <Route path="/admin" element={<PrivateLayout />}>
+          <Route index element={<DashboardHome />} />
+        </Route> 
+        */}
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
