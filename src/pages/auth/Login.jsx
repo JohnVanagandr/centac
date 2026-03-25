@@ -45,7 +45,7 @@ const Login = () => {
           avatar: foundUser.avatar,
         };
         login(sessionData);
-        navigate("/dashboard"); // Redirigimos al área privada
+        navigate("/dashboard");
       } else {
         setServerError(
           "Credenciales incorrectas. Verifica tu correo y contraseña.",
