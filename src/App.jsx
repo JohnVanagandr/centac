@@ -24,6 +24,7 @@ import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
 import OfertasList from "./pages/private/Ofertas/OfertasList";
+import OfertaEditor from "./pages/private/Ofertas/OfertaEditor";
 
 const App = () => {
   return (
@@ -65,7 +66,7 @@ const App = () => {
               />
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
               {/* <Route path="ofertas/nueva" element={<OfertaEditor />} /> */}
-              {/* <Route path="ofertas/editar/:slug" element={<OfertaEditor />} /> */}
+              <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />
             </Route>
           </Route>
         </Routes>

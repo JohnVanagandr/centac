@@ -146,7 +146,7 @@ const OfertasList = () => {
                     <div className="flex items-center justify-end gap-2">
                       {/* Botón Editar */}
                       <Link
-                        to={`/dashboard/ofertas/editar/${programa.slug}`}
+                        to={`/dashboard/ofertas/editar/${programa.id}`}
                         className="w-8 h-8 rounded-lg bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-brand hover:border-brand/30 hover:bg-brand/5 transition-all"
                         title="Editar Programa"
                       >
