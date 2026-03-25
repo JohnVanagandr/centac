@@ -7,7 +7,7 @@ const PrivateHeader = ({ onMenuOpen }) => {
 
   return (
     // Agregamos mx-5 mt-5 para que flote y coincida con el Sidebar
-    <header className="mx-6 mt-5 h-20 bg-white rounded-2xl border border-slate-200/60 shadow-sm px-8 flex items-center justify-between transition-all duration-300">
+    <header className="mx-6 mt-5 h-20 bg-white rounded-2xl border border-slate-200/60 shadow-sm px-8 flex items-center justify-between z-20">
       {/* Sección Izquierda: Navegación y Título */}
       <div className="flex items-center gap-4">
         <button

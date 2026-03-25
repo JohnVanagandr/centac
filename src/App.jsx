@@ -17,6 +17,8 @@ import OfertaDetalle from "./pages/public/OfertaDetalle";
 import Login from "./pages/auth/Login";
 // 4. Páaginas Privadas
 import DashboardHome from "./pages/private/DashboardHome";
+import Solicitudes from "./pages/private/Solicitudes";
+import SolicitudDetalle from "./pages/private/SolicitudDetalle";
 
 const App = () => {
   return (
@@ -47,6 +49,11 @@ const App = () => {
             <Route element={<PrivateLayout />}>
               <Route path="/dashboard" element={<DashboardHome />} />
               {/* <Route path="/dashboard/cursos" element={<MisCursos />} /> */}
+              <Route path="/dashboard/solicitudes" element={<Solicitudes />} />
+              <Route
+                path="/dashboard/solicitudes/:id"
+                element={<SolicitudDetalle />}
+              />
               {/* ... más rutas privadas aquí ... */}
             </Route>
           </Route>

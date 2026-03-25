@@ -31,4 +31,11 @@ export const sidebarData = [
     icon: "person",
     category: "Usuario",
   },
+  {
+    id: 5,
+    name: "Solicitudes",
+    path: "/dashboard/solicitudes",
+    icon: "forum",
+    category: "Gestión",
+  },
 ];
