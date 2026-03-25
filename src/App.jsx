@@ -23,6 +23,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import Register from "./pages/auth/Register";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import OfertasList from "./pages/private/Ofertas/OfertasList";
 
 const App = () => {
   return (
@@ -57,13 +58,14 @@ const App = () => {
             {/* El Layout Privado envuelve todas las vistas internas */}
             <Route element={<PrivateLayout />}>
               <Route path="/dashboard" element={<DashboardHome />} />
-              {/* <Route path="/dashboard/cursos" element={<MisCursos />} /> */}
               <Route path="/dashboard/solicitudes" element={<Solicitudes />} />
               <Route
                 path="/dashboard/solicitudes/:id"
                 element={<SolicitudDetalle />}
               />
-              {/* ... más rutas privadas aquí ... */}
+              <Route path="/dashboard/ofertas" element={<OfertasList />} />
+              {/* <Route path="ofertas/nueva" element={<OfertaEditor />} /> */}
+              {/* <Route path="ofertas/editar/:slug" element={<OfertaEditor />} /> */}
             </Route>
           </Route>
         </Routes>

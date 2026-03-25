@@ -12,8 +12,8 @@ export const sidebarData = [
   },
   {
     id: 2,
-    name: "Cursos",
-    path: "/dashboard/cursos",
+    name: "Ofertas",
+    path: "/dashboard/ofertas",
     icon: "book",
     category: "Principal",
   },
