@@ -3,7 +3,7 @@ import { useForm } from "../../hooks/useForm";
 import { registrarNuevoLead } from "./leadService";
 import { publicOfertasService } from "../../services/public/publicOfertasService";
 
-const validarContacto = (valores) => {
+const validarLead = (valores) => {
   let errores = {};
   if (!valores.nombre.trim()) errores.nombre = "Ingresa tu nombre completo.";
   if (!valores.email) errores.email = "El correo es obligatorio.";
@@ -13,12 +13,19 @@ const validarContacto = (valores) => {
   return errores;
 };
 
-export const useContactoForm = () => {
+export const useLeadRegistration = () => {
   const [programas, setProgramas] = useState([]);
 
-  const { values, errors, handleChange, handleSubmit, isSubmitting, isSubmitted } = useForm(
+  const {
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    isSubmitted,
+  } = useForm(
     { nombre: "", email: "", telefono: "", programa: "", mensaje: "" },
-    validarContacto
+    validarLead,
   );
 
   useEffect(() => {
@@ -34,5 +41,13 @@ export const useContactoForm = () => {
     }
   });
 
-  return { values, errors, handleChange, onSubmit, isSubmitting, isSubmitted, programas };
+  return {
+    values,
+    errors,
+    handleChange,
+    onSubmit,
+    isSubmitting,
+    isSubmitted,
+    programas,
+  };
 };

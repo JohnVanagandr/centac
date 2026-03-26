@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ofertasService } from "../../../../services/ofertasService";
+import { ofertasService } from "../../../../services/private/ofertasService";
 
 export const useOfertaForm = (id, onSuccess) => {
   const isEditing = Boolean(id);

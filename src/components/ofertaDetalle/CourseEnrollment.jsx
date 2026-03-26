@@ -1,6 +1,6 @@
 import React from "react";
 import Reveal from "../common/Reveal";
-import FormularioContacto from "../common/FormularioContacto"; // Importamos TU formulario completo
+import LeadRegistration from "../LeadRegistration/index";
 
 const CourseEnrollment = () => {
   return (
@@ -33,7 +33,7 @@ const CourseEnrollment = () => {
             </h3>
 
             {/* Inyectamos tu componente exacto */}
-            <FormularioContacto />
+            <LeadRegistration />
           </div>
         </div>
       </Reveal>

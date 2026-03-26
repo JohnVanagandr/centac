@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// IMPORTANTE: Importamos nuestro nuevo servicio en lugar del archivo estático
-import { ofertasService } from "../../../services/ofertasService"; 
+
+import { ofertasService } from "../../../services/private/ofertasService"; 
 
 const OfertasList = () => {
   // 1. Nuevos Estados para manejar la Asincronía

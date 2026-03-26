@@ -1,56 +1,12 @@
 // src/components/features/Contacto.jsx
 import React from "react";
 import Reveal from "../common/Reveal";
-import { useForm } from "../../hooks/useForm"; // Importamos nuestro Hook
-import FormularioContacto from "../common/FormularioContacto";
+import LeadRegistration from "../LeadRegistration";
 
-// --- REGLAS DE VALIDACIÓN ESPECÍFICAS PARA ESTE FORMULARIO ---
-const validarContacto = (valores) => {
-  let errores = {};
 
-  if (!valores.nombre.trim()) {
-    errores.nombre = "Por favor, ingresa tu nombre completo.";
-  }
-
-  if (!valores.email) {
-    errores.email = "El correo electrónico es obligatorio.";
-  } else if (!/\S+@\S+\.\S+/.test(valores.email)) {
-    errores.email = "El formato del correo no es válido.";
-  }
-
-  if (!valores.telefono.trim()) {
-    errores.telefono = "El número de teléfono es obligatorio.";
-  } else if (!/^[0-9\s-]{7,15}$/.test(valores.telefono)) {
-    errores.telefono = "Ingresa un número de teléfono válido.";
-  }
-
-  if (!valores.programa) {
-    errores.programa = "Debes seleccionar un programa de interés.";
-  }
-
-  return errores;
-};
 
 const Contacto = () => {
   // Inicializamos nuestro Custom Hook
-  const {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-    isSubmitting,
-    isSubmitted,
-  } = useForm(
-    { nombre: "", email: "", telefono: "", programa: "", mensaje: "" }, // Estado Inicial
-    validarContacto, // Función de validación
-  );
-
-  // Esta es la acción que se ejecuta SOLO si la validación es exitosa
-  const simularEnvioBackend = async (datosValidados) => {
-    console.log("Enviando al servidor:", datosValidados);
-    // Simulamos la espera de la red (1.5 segundos) usando una Promesa
-    return new Promise((resolve) => setTimeout(resolve, 1500));
-  };
 
   return (
     <section id="contacto" className="py-20 bg-navy relative overflow-hidden">
@@ -84,7 +40,7 @@ const Contacto = () => {
             </h3>
 
             {/* Pasamos nuestra función de acción al handleSubmit del Hook */}
-            <FormularioContacto />
+            <LeadRegistration />
           </div>
         </div>
       </Reveal>

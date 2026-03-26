@@ -1,8 +1,16 @@
 import React from "react";
-import { useContactoForm } from "./useContactoForm";
+import { useLeadRegistration } from "./useLeadRegistration";
 
-const FormularioContacto = () => {
-  const { values, errors, handleChange, onSubmit, isSubmitting, isSubmitted, programas } = useContactoForm();
+const LeadRegistration = () => {
+  const {
+    values,
+    errors,
+    handleChange,
+    onSubmit,
+    isSubmitting,
+    isSubmitted,
+    programas,
+  } = useLeadRegistration();
 
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>
@@ -84,4 +92,4 @@ const FormularioContacto = () => {
   );
 };
 
-export default FormularioContacto;
+export default LeadRegistration;

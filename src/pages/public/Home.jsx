@@ -5,7 +5,7 @@ import Oferta from "../../components/features/Oferta";
 import Slider from "../../components/Hero/Slider";
 import Nosotros from "../../components/features/Nosotros";
 import BannerFinanciacion from "../../components/features/BannerFinanciacion";
-import FormularioContacto from "../../components/FormularioContacto/FormularioContacto";
+import Contacto from "../../components/features/Contacto";
 
 const Home = () => {
   return (
@@ -14,7 +14,7 @@ const Home = () => {
       <Estrategia />
       <Nosotros />
       <Oferta />
-      <FormularioContacto />
+      <Contacto />
       <BannerFinanciacion />
     </>
   );
