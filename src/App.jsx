@@ -65,7 +65,7 @@ const App = () => {
                 element={<SolicitudDetalle />}
               />
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
-              {/* <Route path="ofertas/nueva" element={<OfertaEditor />} /> */}
+              <Route path="/dashboard/ofertas/nueva" element={<OfertaEditor />} />
               <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />
             </Route>
           </Route>
