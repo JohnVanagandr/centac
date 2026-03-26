@@ -1,6 +1,6 @@
 import React from "react";
-import Reveal from "../common/Reveal";
-import { pilaresData } from "../../data/estrategiaData"; // Importamos el .js
+import Reveal from "@/components/common/Reveal";
+import { pilaresData } from "@/data/estrategiaData"; // Importamos el .js
 
 // 1. DICCIONARIO DE ÍCONOS (El componente se encarga de lo visual)
 const renderIcon = (iconName) => {

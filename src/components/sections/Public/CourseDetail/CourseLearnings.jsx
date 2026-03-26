@@ -1,6 +1,6 @@
 import React from "react";
-import Reveal from "../common/Reveal";
-import IconMapper from "../common/IconMapper";
+import Reveal from "../../../common/Reveal";
+import IconMapper from "../../../common/IconMapper";
 
 const CourseLearnings = ({ learnings }) => {
   if (!learnings || learnings.length === 0) return null;

@@ -1,7 +1,5 @@
 import React from "react";
-// Si usas tu componente Reveal para animaciones, puedes importarlo.
-// Si no, simplemente quita el wrapper <Reveal>
-import Reveal from "../common/Reveal";
+import Reveal from "../../../common/Reveal";
 
 const CourseAbout = ({ desc, highlights }) => {
   return (

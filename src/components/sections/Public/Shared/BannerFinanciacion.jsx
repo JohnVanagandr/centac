@@ -1,5 +1,5 @@
 import React from "react";
-import Reveal from "../common/Reveal";
+import Reveal from "@/components/common/Reveal";
 
 const BannerFinanciacion = () => {
   return (

@@ -3,15 +3,17 @@ import { useParams, Navigate } from "react-router-dom";
 import { programasData } from "../../data/ofertaData";
 
 // Importamos nuestras piezas de Lego
-import CourseHero from "../../components/ofertaDetalle/CourseHero";
-import CourseAbout from '../../components/ofertaDetalle/CourseAbout';
-import CourseLearnings from "../../components/ofertaDetalle/CourseLearnings";
-import CourseEnrollment from "../../components/ofertaDetalle/CourseEnrollment";
-import BannerFinanciacion from "../../components/features/BannerFinanciacion";
-import CourseModules from "../../components/ofertaDetalle/CourseModules";
-import CourseInstructor from "../../components/ofertaDetalle/CourseInstructor";
-import CourseProfiles from "../../components/ofertaDetalle/CourseProfiles";
-import CourseTestimonials from "../../components/ofertaDetalle/CourseTestimonials";
+import {
+  CourseHero,
+  CourseAbout,
+  CourseLearnings,
+  CourseEnrollment,
+  CourseModules,
+  CourseInstructor,
+  CourseProfiles,
+  CourseTestimonials,
+} from "../../components/sections/Public/CourseDetail";
+import BannerFinanciacion from "../../components/sections/Public/Shared/BannerFinanciacion";
 
 const OfertaDetalle = () => {
   // 1. Extraemos el 'slug' de la URL (ej: 'mecanica-de-motos')

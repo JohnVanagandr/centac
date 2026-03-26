@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Importamos Link
-import Reveal from "../common/Reveal";
-import { programasData } from "../../data/ofertaData";
-import CardOferta from "../common/CardOferta"; // Importamos la pieza de Lego
+import Reveal from "@/components/common/Reveal";
+import { programasData } from "@/data/ofertaData";
+import CardOferta from "@/components/sections/Public/Shared/CardOferta"; 
+import { Button } from "@/components/ui/Navigation";
 
 const Oferta = () => {
-const programasDestacados = programasData.filter((prog) => prog.isTop === true);
-  // Si prefieres mostrar las 4 primeras, cambia a: programasData.slice(0, 4);
+  const programasDestacados = programasData.filter((prog) => prog.isTop === true);  
 
   return (
     <section id="oferta" className="py-24 bg-gray-50 flex-grow relative">
@@ -36,25 +36,31 @@ const programasDestacados = programasData.filter((prog) => prog.isTop === true);
 
         <div className="mt-16 text-center">
           {/* Reemplazamos <a> por <Link> apuntando a la nueva vista */}
-          <Link
-            to="/ofertas"
-            className="inline-flex items-center justify-center px-8 py-4 text-base font-black text-white uppercase tracking-wider transition-all duration-300 transform rounded-full bg-navy hover:bg-brand hover:-translate-y-1 shadow-xl hover:shadow-brand/40 group"
-          >
-            Explorar toda la oferta
-            <svg
-              className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+          <div className="flex justify-center mt-12 pb-10">
+            <Button
+              as={Link}
+              to="/ofertas"
+              variant="outline" // Cambio clave: Outline para que sea más ligero
+              intent="secondary" // Usamos tu azul Navy corporativo
+              size="lg"
+              className="group" // Para animar el icono
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
+              Explorar toda la oferta
+              <svg
+                className="w-5 h-5 ml-3 group-hover:translate-x-2 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Button>
+          </div>
         </div>
       </Reveal>
     </section>

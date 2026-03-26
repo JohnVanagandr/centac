@@ -1,6 +1,6 @@
 import React from "react";
-import Reveal from "../common/Reveal";
-import LeadRegistration from "../LeadRegistration/index";
+import LeadRegistration from "../../../LeadRegistration";
+import Reveal from "../../../common/Reveal";
 
 const CourseEnrollment = () => {
   return (

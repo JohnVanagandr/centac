@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { sidebarData } from "../../../data/sidebarData";
+import { sidebarData } from "@/data/sidebarData";
 
 const Sidebar = ({ isOpen, closeMenu }) => {
   const location = useLocation();

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Asegúrate de importar Link
-import { navLinks } from "../../../data/navigationData";
+import { navLinks } from "@/data/navigationData";
 
 const NavLink = ({ link, isHome, closeMenu, mobile }) => {
   const baseClass = mobile ? "hover:text-brand transition-colors" : "nav-link-style";

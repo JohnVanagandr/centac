@@ -1,11 +1,14 @@
 import React from "react";
 
-import Estrategia from "../../components/features/Estrategia";
-import Oferta from "../../components/features/Oferta";
-import Slider from "../../components/Hero/Slider";
-import Nosotros from "../../components/features/Nosotros";
-import BannerFinanciacion from "../../components/features/BannerFinanciacion";
-import Contacto from "../../components/features/Contacto";
+import {
+  Slider,
+  Estrategia,
+  Nosotros,
+  Oferta,
+  Contacto
+} from "../../components/sections/Public/Home";
+import BannerFinanciacion from "../../components/sections/Public/Shared/BannerFinanciacion";
+
 
 const Home = () => {
   return (

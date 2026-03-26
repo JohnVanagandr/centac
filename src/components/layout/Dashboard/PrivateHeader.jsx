@@ -1,6 +1,6 @@
 // src/components/layout/Dashboard/PrivateHeader.jsx
 import React, { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext";
+import { AuthContext } from "@/context/AuthContext";
 
 const PrivateHeader = ({ onMenuOpen }) => {
   const { user } = useContext(AuthContext);

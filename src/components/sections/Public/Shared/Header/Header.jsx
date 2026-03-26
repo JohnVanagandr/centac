@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
-import { useNavbar } from "../../../hooks/useNavbar";
-import { AuthContext } from "../../../context/AuthContext";
+import { useNavbar } from "@/hooks/useNavbar";
+import { AuthContext } from "@/context/AuthContext";
 import Logo from "./Logo";
 import Navigation from "./Navigation";
 import NavActions from "./NavActions";
 import MobileMenu from "./MobileMenu";
-
-const Navbar = () => {
+const Header = () => {
   const { isMenuOpen, isScrolled, isHome, toggleMenu, closeMenu } = useNavbar();
   // Consumimos el estado global en lugar del estado local
   const { isLoggedIn, logout, user } = useContext(AuthContext);
@@ -48,4 +47,4 @@ return (
 );
 };
 
-export default Navbar;
+export default Header;

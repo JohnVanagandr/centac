@@ -1,5 +1,12 @@
 import React from "react";
 import { useLeadRegistration } from "./useLeadRegistration";
+import {
+  InputField,
+  SelectField,
+  TextAreaField
+} from "@/components/ui/Form";
+import { Alert } from "@/components/ui/Feedback";
+import { Button } from "@/components/ui/Navigation";
 
 const LeadRegistration = () => {
   const {
@@ -14,79 +21,76 @@ const LeadRegistration = () => {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>
-      {/* CAMPO: NOMBRE */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-1">Nombre Completo</label>
-        <input
-          name="nombre"
-          type="text"
-          value={values.nombre}
-          onChange={handleChange}
-          className={`w-full px-4 py-3 rounded-xl border bg-gray-50 focus:bg-white outline-none transition-all ${errors.nombre ? "border-red-500 ring-1 ring-red-100" : "border-gray-200 focus:border-brand"}`}
-          placeholder="Ej. Juan Pérez"
-        />
-        {errors.nombre && <p className="text-red-500 text-xs font-bold mt-1">{errors.nombre}</p>}
-      </div>
+      {/* NOMBRE COMPLETO */}
+      <InputField
+        label="Nombre Completo"
+        name="nombre"
+        value={values.nombre}
+        onChange={handleChange}
+        error={errors.nombre}
+        placeholder="Ej. Juan Pérez"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* CAMPO: EMAIL */}
-        <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Correo Electrónico</label>
-          <input
-            name="email"
-            type="email"
-            value={values.email}
-            onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none transition-all ${errors.email ? "border-red-500" : "border-gray-200 focus:border-brand"}`}
-          />
-          {errors.email && <p className="text-red-500 text-xs font-bold mt-1">{errors.email}</p>}
-        </div>
-
-        {/* CAMPO: TELÉFONO */}
-        <div>
-          <label className="block text-sm font-bold text-gray-700 mb-1">Teléfono</label>
-          <input
-            name="telefono"
-            type="tel"
-            value={values.telefono}
-            onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-xl border bg-gray-50 outline-none transition-all ${errors.telefono ? "border-red-500" : "border-gray-200 focus:border-brand"}`}
-          />
-          {errors.telefono && <p className="text-red-500 text-xs font-bold mt-1">{errors.telefono}</p>}
-        </div>
-      </div>
-
-      {/* CAMPO: PROGRAMA */}
-      <div>
-        <label className="block text-sm font-bold text-gray-700 mb-1">Programa de Interés</label>
-        <select
-          name="programa"
-          value={values.programa}
+        {/* CORREO ELECTRÓNICO */}
+        <InputField
+          label="Correo Electrónico"
+          name="email"
+          type="email"
+          value={values.email}
           onChange={handleChange}
-          className={`w-full px-4 py-3 rounded-xl border bg-gray-50 cursor-pointer outline-none transition-all ${errors.programa ? "border-red-500" : "border-gray-200 focus:border-brand"}`}
-        >
-          <option value="" disabled>Selecciona un programa...</option>
-          {programas.map((p) => (
-            <option key={p.id} value={p.id}>{p.title}</option>
-          ))}
-        </select>
-        {errors.programa && <p className="text-red-500 text-xs font-bold mt-1">{errors.programa}</p>}
+          error={errors.email}
+          placeholder="ejemplo@correo.com"
+        />
+
+        {/* TELÉFONO */}
+        <InputField
+          label="Teléfono / Celular"
+          name="telefono"
+          type="tel"
+          value={values.telefono}
+          onChange={handleChange}
+          error={errors.telefono}
+          placeholder="300 123 4567"
+        />
       </div>
 
-      {/* BOTÓN */}
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className={`w-full py-3.5 rounded-xl font-bold text-white transition-all ${isSubmitting ? "bg-gray-400" : "bg-brand hover:bg-brand-dark shadow-lg shadow-brand/20"}`}
-      >
-        {isSubmitting ? "Enviando solicitud..." : "Enviar Información"}
-      </button>
+      {/* PROGRAMA DE INTERÉS */}
+      <SelectField
+        label="Programa de Interés"
+        name="programa"
+        value={values.programa}
+        onChange={handleChange}
+        error={errors.programa}
+        options={programas} // La data viene del custom hook
+        placeholder="Selecciona un programa..."
+      />
 
-      {/* MENSAJE DE ÉXITO */}
+      {/* MENSAJE (Opcional) */}
+      <TextAreaField
+        label="Mensaje (Opcional)"
+        name="mensaje"
+        value={values.mensaje}
+        onChange={handleChange}
+        placeholder="¿Tienes alguna duda específica sobre el ingreso?"
+      />
+
+      {/* BOTÓN DE ACCIÓN */}
+      <Button
+        type="submit"
+        intent="primary" // Naranja Brand (Máxima conversión)
+        size="full" // Se ajusta al ancho del formulario
+        isLoading={isSubmitting} // Maneja el Spinner y el texto automáticamente
+      >
+        Enviar mi solicitud
+      </Button>
+
+      {/* FEEDBACK DE ÉXITO */}
       {isSubmitted && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm font-bold animate-bounce">
-          ¡Listo! Nos pondremos en contacto contigo pronto.
-        </div>
+        <Alert type="success" title="¡Registro Exitoso!">
+          Hemos recibido tus datos. Un asesor de CENTAC te contactará en las
+          próximas 24 horas.
+        </Alert>
       )}
     </form>
   );

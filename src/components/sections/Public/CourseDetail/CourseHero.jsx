@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "../../../ui/Navigation";
 
 const CourseHero = ({ data }) => {
   return (
@@ -39,16 +40,20 @@ const CourseHero = ({ data }) => {
 
           {/* 4. Botones (Naranja y Azul) */}
           <div className="flex flex-wrap gap-5 mt-14 mb-24">
-            <a
+            <Button
+              as="a"
               href="#inscripcion"
-              className="bg-brand hover:bg-brand-dark text-white px-10 py-4 rounded-full font-black uppercase tracking-wider transition transform hover:-translate-y-1 shadow-lg shadow-brand/20"
+              intent="primary"
+              size="lg"
+              className="animate-pulse-soft"
             >
               Inscríbete Ahora
-            </a>
-            {/* Usamos el color azul aproximado de la presentación */}
-            <button className="bg-[#3182CE] hover:bg-blue-600 text-white px-10 py-4 rounded-full font-bold transition transform hover:-translate-y-1 shadow-lg shadow-blue-500/20">
+            </Button>
+
+            {/* Botón Secundario (Borde Blanco para contraste total) */}
+            <Button variant="outline" intent="white" size="lg">
               Ver clase demostrativa
-            </button>
+            </Button>
           </div>
 
           {/* 5. Bloques de Información (Abajo a la izquierda con iconos naranjas) */}

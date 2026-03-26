@@ -2,29 +2,35 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // 1. Contexto y Guardián
-import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./components/auth/PrivateRoute";
+import { AuthProvider } from "@/context/AuthContext";
+import PrivateRoute from "@/components/auth/PrivateRoute";
 
 // 2. Layouts y Componentes Comunes
-import PublicLayout from "./layouts/PublicLayout";
-import PrivateLayout from "./layouts/PrivateLayout";
-import ScrollToHash from "./components/common/ScrollToHash";
+import PublicLayout from "@/layouts/PublicLayout";
+import PrivateLayout from "@/layouts/PrivateLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+import ScrollToHash from "@/components/utils/ScrollToHash";
 
 // 3. Páginas Públicas y Auth
-import Home from "./pages/public/Home";
-import CatalogoOfertas from "./pages/public/CatalogoOfertas";
-import OfertaDetalle from "./pages/public/OfertaDetalle";
-import Login from "./pages/auth/Login";
+import {
+  Home,
+  CatalogoOfertas,
+  OfertaDetalle
+} from "@/pages/public";
+
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword
+} from "@/pages/auth";
+
 // 4. Páaginas Privadas
-import DashboardHome from "./pages/private/DashboardHome";
-import Solicitudes from "./pages/private/Solicitudes";
-import SolicitudDetalle from "./pages/private/SolicitudDetalle";
-import AuthLayout from "./layouts/AuthLayout";
-import Register from "./pages/auth/Register";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import ResetPassword from "./pages/auth/ResetPassword";
-import OfertasList from "./pages/private/Ofertas/OfertasList";
-import OfertaEditor from "./pages/private/Ofertas/OfertaEditor";
+import DashboardHome from "@/pages/private/DashboardHome";
+import Solicitudes from "@/pages/private/Solicitudes";
+import SolicitudDetalle from "@/pages/private/SolicitudDetalle";
+import OfertasList from "@/pages/private/Ofertas/OfertasList";
+import OfertaEditor from "@/pages/private/Ofertas/OfertaEditor";
 
 const App = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { sliderData } from "../../data/sliderData";
-import { useSlider } from "../../hooks/useSlider";
+import { sliderData } from "@/data/sliderData";
+import { useSlider } from "@/hooks/useSlider";
 
 const Slider = () => {
   const { currentIndex, nextSlide, prevSlide, goToSlide } = useSlider(

@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { programasData } from "../../data/ofertaData";
-import CardOferta from "../../components/common/CardOferta";
+import CardOferta from "../../components/sections/Public/Shared/CardOferta"; 
 
-const CatalogoOfertas = () => {
-  // Pequeño truco para que la página siempre empiece arriba al navegar
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+const CatalogoOfertas = () => {  
+  console.log(programasData);
+  
   return (
     <div className="min-h-screen bg-gray-50 pt-[80px] pb-16">
       {/* Cabecera de la página */}
@@ -24,7 +21,7 @@ const CatalogoOfertas = () => {
       {/* Grilla principal con TODAS las tarjetas */}
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {programasData.map((programa) => (
+          {programasData.map((programa) => (  
             <CardOferta key={programa.id} programa={programa} />
           ))}
         </div>
