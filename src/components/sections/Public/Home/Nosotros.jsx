@@ -1,5 +1,5 @@
 import React from "react";
-import Reveal from "@/components/common/Reveal";
+import { Reveal } from "@/components/utils";
 import { aboutData } from "@/data/abouData";
 
 const Nosotros = () => {

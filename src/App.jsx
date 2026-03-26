@@ -1,9 +1,11 @@
-import React from "react";
+// NUEVO: Importamos los hooks de React y tu SplashScreen
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SplashScreen } from "@/components/ui/Feedback"; 
 
 // 1. Contexto y Guardián
 import { AuthProvider } from "@/context/AuthContext";
-import PrivateRoute from "@/components/auth/PrivateRoute";
+import { PrivateRoute } from "@/components/utils";
 
 // 2. Layouts y Componentes Comunes
 import PublicLayout from "@/layouts/PublicLayout";
@@ -12,20 +14,10 @@ import AuthLayout from "@/layouts/AuthLayout";
 import ScrollToHash from "@/components/utils/ScrollToHash";
 
 // 3. Páginas Públicas y Auth
-import {
-  Home,
-  CatalogoOfertas,
-  OfertaDetalle
-} from "@/pages/public";
+import { Home, CatalogoOfertas, OfertaDetalle } from "@/pages/public";
+import { Login, Register, ForgotPassword, ResetPassword } from "@/pages/auth";
 
-import {
-  Login,
-  Register,
-  ForgotPassword,
-  ResetPassword
-} from "@/pages/auth";
-
-// 4. Páaginas Privadas
+// 4. Páginas Privadas
 import DashboardHome from "@/pages/private/DashboardHome";
 import Solicitudes from "@/pages/private/Solicitudes";
 import SolicitudDetalle from "@/pages/private/SolicitudDetalle";
@@ -33,6 +25,28 @@ import OfertasList from "@/pages/private/Ofertas/OfertasList";
 import OfertaEditor from "@/pages/private/Ofertas/OfertaEditor";
 
 const App = () => {
+  // ==========================================
+  // Lógica del Splash Screen
+  // ==========================================
+  const [isAppLoading, setIsAppLoading] = useState(true);
+
+  useEffect(() => {
+    const hideSplash = () => setTimeout(() => setIsAppLoading(false), 1500);
+
+    if (document.readyState === "complete") {
+      hideSplash();
+    } else {
+      window.addEventListener("load", hideSplash);
+      return () => window.removeEventListener("load", hideSplash);
+    }
+  }, []);
+
+  if (isAppLoading) {
+    return <SplashScreen />;
+  }
+  // ==========================================
+
+  // Si ya cargó, ejecuta tu enrutador 
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -60,16 +74,11 @@ const App = () => {
           {/* ==========================================
               GRUPO 3: ZONA PRIVADA (Protegida por el Guardián)
               ========================================== */}
-          {/* Al usar <PrivateRoute /> como elemento padre, protege TODO lo que esté adentro */}
           <Route element={<PrivateRoute />}>
-            {/* El Layout Privado envuelve todas las vistas internas */}
             <Route element={<PrivateLayout />}>
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/dashboard/solicitudes" element={<Solicitudes />} />
-              <Route
-                path="/dashboard/solicitudes/:id"
-                element={<SolicitudDetalle />}
-              />
+              <Route path="/dashboard/solicitudes/:id" element={<SolicitudDetalle />} />
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
               <Route path="/dashboard/ofertas/nueva" element={<OfertaEditor />} />
               <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />

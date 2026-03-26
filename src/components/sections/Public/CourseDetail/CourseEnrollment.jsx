@@ -1,6 +1,6 @@
 import React from "react";
-import LeadRegistration from "../../../LeadRegistration";
-import Reveal from "../../../common/Reveal";
+import {LeadRegistration} from "@/components/sections/Public/Shared/LeadRegistration";
+import { Reveal } from "@/components/utils";
 
 const CourseEnrollment = () => {
   return (

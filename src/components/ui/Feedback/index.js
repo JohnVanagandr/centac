@@ -1,2 +1,3 @@
 export { default as Alert } from "./Alert";
 export { default as Spinner } from "./Spinner";
+export { default as SplashScreen } from "./SplashScreen";

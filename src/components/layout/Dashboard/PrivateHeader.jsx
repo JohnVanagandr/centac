@@ -1,4 +1,3 @@
-// src/components/layout/Dashboard/PrivateHeader.jsx
 import React, { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Importamos el enrutador
-import IconMapper from "@/components/common/IconMapper";
+import IconMapper from "@/components/ui/Icons/IconMapper";
 import { Button } from "@/components/ui/Navigation";
 import { Badge } from "@/components/ui/DataDisplay";
 

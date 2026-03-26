@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "@/hooks/useForm";
 import { registrarNuevoLead } from "./leadService";
-import { publicOfertasService } from "../../services/public/publicOfertasService";
+import { publicOfertasService } from "@/services/public/ofertasService";
 
 const validarLead = (valores) => {
   let errores = {};

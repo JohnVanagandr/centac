@@ -1,7 +1,6 @@
-// src/components/features/Contacto.jsx
 import React from "react";
-import Reveal from "@/components/common/Reveal";
-import LeadRegistration from "@/components/LeadRegistration";
+import {Reveal} from "@/components/utils";
+import {LeadRegistration} from "@/components/sections/Public/Shared/LeadRegistration";
 
 
 

@@ -5,7 +5,7 @@ export const registrarNuevoLead = async (values) => {
     full_name: values.nombre,
     email: values.email,
     phone: values.telefono,
-    oferta_id: values.programa, // Viene el ID del programa seleccionado
+    oferta_id: values.programa,
     message: values.mensaje || "Solicitud de información básica.",
     status: "pendiente",
     priority: "media",

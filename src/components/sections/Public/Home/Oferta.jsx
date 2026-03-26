@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Importamos Link
-import Reveal from "@/components/common/Reveal";
+import { Reveal } from "@/components/utils";
 import { programasData } from "@/data/ofertaData";
 import CardOferta from "@/components/sections/Public/Shared/CardOferta"; 
 import { Button } from "@/components/ui/Navigation";

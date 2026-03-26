@@ -1,5 +1,5 @@
 import React from "react";
-import Reveal from "../../../common/Reveal";
+import { Reveal } from "@/components/utils";
 
 const CourseAbout = ({ desc, highlights }) => {
   return (
