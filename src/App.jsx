@@ -15,7 +15,17 @@ import AuthLayout from "@/layouts/AuthLayout";
 import ScrollToHash from "@/components/utils/ScrollToHash";
 
 // 3. Páginas Públicas y Auth
-import { Home, CatalogoOfertas, OfertaDetalle } from "@/pages/public";
+import {
+  Home,
+  Estrategia,
+  CatalogoOfertas,
+  OfertaDetalle,
+  Historia,
+  Tramites,
+  PqrPublico,
+  Faq,
+  Contacto,
+} from "@/pages/public";
 import { Login, Register, ForgotPassword, ResetPassword } from "@/pages/auth";
 
 // 4. Páginas Privadas
@@ -49,8 +59,16 @@ const App = () => {
               ========================================== */}
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<Home />} />
+            <Route path="nosotros/estrategia" element={<Estrategia />} />
+            <Route path="nosotros/estrategia" element={<Estrategia />} />
+            <Route path="nosotros/historia" element={<Historia />} />
+            <Route path="servicios/tramites" element={<Tramites />} />
             <Route path="ofertas" element={<CatalogoOfertas />} />
             <Route path="oferta/:slug" element={<OfertaDetalle />} />
+            <Route path="servicios/tramites" element={<Tramites />} />
+            <Route path="servicios/pqr" element={<PqrPublico />} />
+            <Route path="servicios/faq" element={<Faq />} />
+            <Route path="contacto" element={<Contacto />} />
           </Route>
 
           {/* =========================================
@@ -70,10 +88,19 @@ const App = () => {
             <Route element={<PrivateLayout />}>
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/dashboard/solicitudes" element={<Solicitudes />} />
-              <Route path="/dashboard/solicitudes/:id" element={<SolicitudDetalle />} />
+              <Route
+                path="/dashboard/solicitudes/:id"
+                element={<SolicitudDetalle />}
+              />
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
-              <Route path="/dashboard/ofertas/nueva" element={<OfertaEditor />} />
-              <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />
+              <Route
+                path="/dashboard/ofertas/nueva"
+                element={<OfertaEditor />}
+              />
+              <Route
+                path="/dashboard/ofertas/editar/:id"
+                element={<OfertaEditor />}
+              />
               <Route path="/dashboard/pqr" element={<PqrPage />} />
               <Route path="/dashboard/perfil" element={<ProfilePage />} />
             </Route>

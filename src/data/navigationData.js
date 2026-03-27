@@ -20,12 +20,7 @@ export const navLinks = [
         id: "sub-historia",
         name: "Nuestra Historia",
         href: "/nosotros/historia",
-      },
-      {
-        id: "sub-directorio",
-        name: "Directorio de Instructores",
-        href: "/nosotros/directorio",
-      },
+      }
     ],
   },
   {
