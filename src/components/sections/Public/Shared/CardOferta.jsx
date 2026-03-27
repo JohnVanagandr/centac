@@ -10,10 +10,8 @@ const CardOferta = ({ programa }) => {
     <div className="bg-white rounded-3xl border border-gray-100 shadow-card hover:shadow-card-hover transition-all duration-300 transform hover:-translate-y-2 overflow-hidden group flex flex-col h-full">
       <div className="h-56 overflow-hidden relative">
         <div className="absolute top-4 left-4 z-20 flex gap-2">
-          {isTop && <Badge intent="accent">Top</Badge>}
-          <span className="bg-navy/80 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-md">
-            70% Práctica
-          </span>
+          {isTop && <Badge variant="subtle" intent="neutral">Top</Badge>}
+           <Badge variant="glass" intent="neutral">70% Práctica</Badge>
         </div>
         <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/10 transition-colors duration-500 z-10"></div>
         <img

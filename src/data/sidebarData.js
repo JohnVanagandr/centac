@@ -19,10 +19,10 @@ export const sidebarData = [
   },
   {
     id: 3,
-    name: "Certificados",
-    path: "/dashboard/certificados",
-    icon: "school",
-    category: "Académico",
+    name: "PQR",
+    path: "/dashboard/pqr",
+    icon: "chat_bubble",
+    category: "Gestión"
   },
   {
     id: 4,

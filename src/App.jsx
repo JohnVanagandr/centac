@@ -23,6 +23,8 @@ import Solicitudes from "@/pages/private/Solicitudes";
 import SolicitudDetalle from "@/pages/private/SolicitudDetalle";
 import OfertasList from "@/pages/private/Ofertas/OfertasList";
 import OfertaEditor from "@/pages/private/Ofertas/OfertaEditor";
+import PqrPage from "./pages/private/Pqr/PqrPage";
+import ProfilePage from "./pages/private/Profile/ProfilePage";
 
 const App = () => {
   // ==========================================
@@ -82,6 +84,8 @@ const App = () => {
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
               <Route path="/dashboard/ofertas/nueva" element={<OfertaEditor />} />
               <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />
+              <Route path="/dashboard/pqr" element={<PqrPage />} />
+              <Route path="/dashboard/perfil" element={<ProfilePage />} />
             </Route>
           </Route>
         </Routes>

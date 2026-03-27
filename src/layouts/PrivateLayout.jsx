@@ -1,42 +1,39 @@
-// src/layouts/PrivateLayout.jsx
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/layout/Dashboard/Sidebar";
-import PrivateHeader from "../components/layout/Dashboard/PrivateHeader";
+import Sidebar from "@/components/sections/Private/Shared/Sidebar/Sidebar";
+import Header from "@/components/sections/Private/Shared/Header/Header";
 
 const PrivateLayout = () => {
+  // Estado para controlar el Sidebar en móviles
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
   return (
-    // 1. h-screen y overflow-hidden evita que toda la página haga scroll
-    <div className="h-screen bg-[#F8FAFC] flex overflow-hidden font-sans">
-      {/* Sidebar Fijo */}
-      <Sidebar
-        isOpen={isSidebarOpen}
-        closeMenu={() => setIsSidebarOpen(false)}
-      />
+    <div className="min-h-screen bg-slate-50 flex">
+      {/* 1. NAVEGACIÓN LATERAL */}
+      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
 
-      {/* Overlay móvil */}
-      {isSidebarOpen && (
-        <div
-          className="fixed inset-0 bg-slate-900/20 backdrop-blur-[2px] z-30 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-        ></div>
-      )}
+      {/* 2. ÁREA DE CONTENIDO PRINCIPAL */}
+      <div className="flex-1 flex flex-col min-w-0 lg:pl-72 transition-all duration-300">
+        
+        {/* HEADER: Recibe la función para abrir el menú en móviles */}
+        <Header onMenuOpen={toggleSidebar} />
 
-      {/* 2. Contenedor Derecho: También h-screen y flex-col */}
-      <div className="flex-1 flex flex-col min-w-0 h-screen lg:ml-80 transition-all duration-300">
-        {/* 3. El Header ahora se queda arriba porque no está dentro del área con scroll */}
-        <div className="flex-none">
-          <PrivateHeader onMenuOpen={() => setIsSidebarOpen(true)} />
-        </div>
-
-        {/* 4. ÁREA DE SCROLL: Solo el contenido se mueve */}
-        <main className="flex-1 overflow-y-auto p-6 md:p-10 custom-scrollbar">
-          <div className="max-w-[1500px] mx-auto pb-20">
+        {/* CONTENIDO DINÁMICO (Vistas del Dashboard) */}
+        <main className="p-4 lg:p-6 flex-1">
+          <div className="max-w-7xl mx-auto">
             <Outlet />
           </div>
         </main>
+
+        {/* FOOTER INTERNO (Opcional - Toque de Instructor) */}
+        <footer className="px-10 py-6 text-center lg:text-left">
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+            © 2026 CENTAC - Gestión Académica Integral
+          </p>
+        </footer>
       </div>
     </div>
   );

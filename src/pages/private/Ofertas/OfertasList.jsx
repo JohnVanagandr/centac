@@ -38,7 +38,7 @@ const OfertasList = () => {
   );
 
   return (
-    <div className="p-6 md:p-10 max-w-7xl mx-auto animate-in fade-in duration-500">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       
       {/* Header del Gestor */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
