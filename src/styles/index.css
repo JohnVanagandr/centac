@@ -10,31 +10,35 @@
 
 /* 3. TU CONFIGURACIÓN VISUAL (Reemplaza al antiguo script) */
 @theme {
-  /* Colores Brand */
-  --color-brand: #F05A28;
-  /* Naranja (Técnico Laboral) */
-  --color-brand-light: #FF7A4D;
-  --color-brand-dark: #C8441A;
+  /* Colores Brand (Naranja del Logo CENTAC) */
+  --color-brand: #FF8C00;
+  --color-brand-light: #FFAC4D;
+  --color-brand-dark: #CC7000;
 
-  /* Colores Navy */
+  /* Colores Primary (Azul brillante del Logo) */
+  --color-primary: #0075FF;
+  --color-primary-light: #4D9BFF;
+  --color-primary-dark: #0059CC;
+
+  /* Colores Navy (Estructurales para fondos oscuros) */
   --color-navy: #0A2D6E;
-  /* Azul Corporativo */
   --color-navy-dark: #071D48;
   --color-navy-deeper: #04122d;
 
   /* Color Gold */
   --color-gold: #FFB800;
-  /* Para "NUEVA" u ofertas */
 
   /* Tipografías corporativas */
   --font-display: "Barlow Condensed", sans-serif;
   --font-body: "Nunito", sans-serif;
 
-  /* Sombras personalizadas */
+  /* Sombras personalizadas inyectadas a Tailwind */
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
   --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
-  --shadow-brand: 0 6px 24px rgba(240, 90, 40, 0.3);
+  --shadow-brand: 0 6px 24px rgba(255, 140, 0, 0.3);
+  --shadow-primary: 0 6px 24px rgba(0, 117, 255, 0.3);
 
+  /* Animaciones (opcional si ya las tenías configuradas) */
   --animate-pulse-soft: pulse-soft 2s infinite ease-in-out;
   --animate-shimmer: shimmer 3s infinite linear;
 

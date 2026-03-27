@@ -14,14 +14,16 @@ const InputField = ({
 
   return (
     <div className="w-full">
+      {/* NAVY: Usado para la lectura y estructura del formulario */}
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-bold text-gray-700 mb-1"
+          className="block text-sm font-bold text-navy mb-1.5"
         >
           {label}
         </label>
       )}
+
       <input
         id={name}
         name={name}
@@ -29,15 +31,19 @@ const InputField = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className={`w-full px-4 py-3 rounded-xl border bg-gray-50 focus:bg-white focus:ring-2 outline-none transition-all ${
+        // Agregamos text-navy para lo que el usuario escribe y placeholder:text-slate-400
+        className={`w-full px-4 py-3 rounded-xl border bg-slate-50 font-body text-navy placeholder:text-slate-400 focus:bg-white focus:ring-4 outline-none transition-all duration-300 ${
           hasError
-            ? "border-red-500 focus:ring-red-200 focus:border-red-500"
-            : "border-gray-200 focus:ring-brand/20 focus:border-brand"
+            ? "border-red-500 focus:ring-red-500/20 focus:border-red-500 text-red-600"
+            : "border-slate-200 hover:border-slate-300 focus:ring-primary/20 focus:border-primary"
+          /* PRIMARY: El azul eléctrico brilla cuando el input está activo (focus) */
         }`}
-        {...props} // Esto permite pasar cualquier atributo extra (autocomplete, disabled, etc.)
+        {...props}
       />
+
+      {/* Mensaje de error (Se mantiene en rojo semántico universal) */}
       {hasError && (
-        <p className="text-red-500 text-xs font-bold mt-1 animate-in fade-in slide-in-from-top-1">
+        <p className="text-red-500 text-xs font-bold mt-1.5 animate-in fade-in slide-in-from-top-1">
           {error}
         </p>
       )}
