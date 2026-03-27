@@ -1,7 +1,8 @@
-// NUEVO: Importamos los hooks de React y tu SplashScreen
-import React, { useState, useEffect } from "react";
+// Importamos los hooks de React y tu SplashScreen
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SplashScreen } from "@/components/ui/Feedback"; 
+import { useSplashScreen } from "./hooks/useSplashScreen";
 
 // 1. Contexto y Guardián
 import { AuthProvider } from "@/context/AuthContext";
@@ -26,27 +27,16 @@ import OfertaEditor from "@/pages/private/Ofertas/OfertaEditor";
 import PqrPage from "./pages/private/Pqr/PqrPage";
 import ProfilePage from "./pages/private/Profile/ProfilePage";
 
+
 const App = () => {
   // ==========================================
   // Lógica del Splash Screen
   // ==========================================
-  const [isAppLoading, setIsAppLoading] = useState(true);
-
-  useEffect(() => {
-    const hideSplash = () => setTimeout(() => setIsAppLoading(false), 1500);
-
-    if (document.readyState === "complete") {
-      hideSplash();
-    } else {
-      window.addEventListener("load", hideSplash);
-      return () => window.removeEventListener("load", hideSplash);
-    }
-  }, []);
+  const isAppLoading = useSplashScreen(1000);
 
   if (isAppLoading) {
     return <SplashScreen />;
   }
-  // ==========================================
 
   // Si ya cargó, ejecuta tu enrutador 
   return (
