@@ -12,18 +12,21 @@
 @theme {
   /* Colores Brand */
   --color-brand: #F05A28;
+  /* Naranja (Técnico Laboral) */
   --color-brand-light: #FF7A4D;
   --color-brand-dark: #C8441A;
 
   /* Colores Navy */
   --color-navy: #0A2D6E;
+  /* Azul Corporativo */
   --color-navy-dark: #071D48;
   --color-navy-deeper: #04122d;
 
   /* Color Gold */
   --color-gold: #FFB800;
+  /* Para "NUEVA" u ofertas */
 
-  /* Tipografías */
+  /* Tipografías corporativas */
   --font-display: "Barlow Condensed", sans-serif;
   --font-body: "Nunito", sans-serif;
 
@@ -31,4 +34,18 @@
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.05);
   --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
   --shadow-brand: 0 6px 24px rgba(240, 90, 40, 0.3);
+
+  --animate-pulse-soft: pulse-soft 2s infinite ease-in-out;
+  --animate-shimmer: shimmer 3s infinite linear;
+
+  /* 2. Definimos los Keyframes dentro del theme para orden */
+  @keyframes pulse-soft {
+    0%, 100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.05);
+    }
+  }
 }

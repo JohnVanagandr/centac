@@ -1,32 +1,54 @@
-import React from "react";
+// NUEVO: Importamos los hooks de React y tu SplashScreen
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SplashScreen } from "@/components/ui/Feedback"; 
 
 // 1. Contexto y Guardián
-import { AuthProvider } from "./context/AuthContext";
-import PrivateRoute from "./components/auth/PrivateRoute";
+import { AuthProvider } from "@/context/AuthContext";
+import { PrivateRoute } from "@/components/utils";
 
 // 2. Layouts y Componentes Comunes
-import PublicLayout from "./layouts/PublicLayout";
-import PrivateLayout from "./layouts/PrivateLayout";
-import ScrollToHash from "./components/common/ScrollToHash";
+import PublicLayout from "@/layouts/PublicLayout";
+import PrivateLayout from "@/layouts/PrivateLayout";
+import AuthLayout from "@/layouts/AuthLayout";
+import ScrollToHash from "@/components/utils/ScrollToHash";
 
 // 3. Páginas Públicas y Auth
-import Home from "./pages/public/Home";
-import CatalogoOfertas from "./pages/public/CatalogoOfertas";
-import OfertaDetalle from "./pages/public/OfertaDetalle";
-import Login from "./pages/auth/Login";
-// 4. Páaginas Privadas
-import DashboardHome from "./pages/private/DashboardHome";
-import Solicitudes from "./pages/private/Solicitudes";
-import SolicitudDetalle from "./pages/private/SolicitudDetalle";
-import AuthLayout from "./layouts/AuthLayout";
-import Register from "./pages/auth/Register";
-import ForgotPassword from "./pages/auth/ForgotPassword";
-import ResetPassword from "./pages/auth/ResetPassword";
-import OfertasList from "./pages/private/Ofertas/OfertasList";
-import OfertaEditor from "./pages/private/Ofertas/OfertaEditor";
+import { Home, CatalogoOfertas, OfertaDetalle } from "@/pages/public";
+import { Login, Register, ForgotPassword, ResetPassword } from "@/pages/auth";
+
+// 4. Páginas Privadas
+import DashboardHome from "@/pages/private/DashboardHome";
+import Solicitudes from "@/pages/private/Solicitudes";
+import SolicitudDetalle from "@/pages/private/SolicitudDetalle";
+import OfertasList from "@/pages/private/Ofertas/OfertasList";
+import OfertaEditor from "@/pages/private/Ofertas/OfertaEditor";
+import PqrPage from "./pages/private/Pqr/PqrPage";
+import ProfilePage from "./pages/private/Profile/ProfilePage";
 
 const App = () => {
+  // ==========================================
+  // Lógica del Splash Screen
+  // ==========================================
+  const [isAppLoading, setIsAppLoading] = useState(true);
+
+  useEffect(() => {
+    const hideSplash = () => setTimeout(() => setIsAppLoading(false), 1500);
+
+    if (document.readyState === "complete") {
+      hideSplash();
+    } else {
+      window.addEventListener("load", hideSplash);
+      return () => window.removeEventListener("load", hideSplash);
+    }
+  }, []);
+
+  if (isAppLoading) {
+    return <SplashScreen />;
+  }
+  // ==========================================
+
+  // Si ya cargó, ejecuta tu enrutador 
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -54,19 +76,16 @@ const App = () => {
           {/* ==========================================
               GRUPO 3: ZONA PRIVADA (Protegida por el Guardián)
               ========================================== */}
-          {/* Al usar <PrivateRoute /> como elemento padre, protege TODO lo que esté adentro */}
           <Route element={<PrivateRoute />}>
-            {/* El Layout Privado envuelve todas las vistas internas */}
             <Route element={<PrivateLayout />}>
               <Route path="/dashboard" element={<DashboardHome />} />
               <Route path="/dashboard/solicitudes" element={<Solicitudes />} />
-              <Route
-                path="/dashboard/solicitudes/:id"
-                element={<SolicitudDetalle />}
-              />
+              <Route path="/dashboard/solicitudes/:id" element={<SolicitudDetalle />} />
               <Route path="/dashboard/ofertas" element={<OfertasList />} />
-              {/* <Route path="ofertas/nueva" element={<OfertaEditor />} /> */}
+              <Route path="/dashboard/ofertas/nueva" element={<OfertaEditor />} />
               <Route path="/dashboard/ofertas/editar/:id" element={<OfertaEditor />} />
+              <Route path="/dashboard/pqr" element={<PqrPage />} />
+              <Route path="/dashboard/perfil" element={<ProfilePage />} />
             </Route>
           </Route>
         </Routes>

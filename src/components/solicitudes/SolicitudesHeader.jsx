@@ -65,7 +65,6 @@ const SolicitudesHeader = ({ stats }) => (
         <span className="material-symbols-rounded text-xl group-hover:translate-y-0.5 transition-transform">
           download
         </span>
-        <span>Exportar</span>
       </button>
     </div>
   </div>
