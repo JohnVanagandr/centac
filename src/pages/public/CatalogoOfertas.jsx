@@ -6,7 +6,7 @@ const CatalogoOfertas = () => {
   console.log(programasData);
   
   return (
-    <div className="min-h-screen bg-gray-50 pt-[80px] pb-16">
+    <div className="min-h-screen bg-gray-50 pb-16">
       {/* Cabecera de la página */}
       <div className="bg-navy py-16 text-center mb-16 px-4">
         <h1 className="font-display text-4xl md:text-5xl font-black text-white uppercase mb-4">

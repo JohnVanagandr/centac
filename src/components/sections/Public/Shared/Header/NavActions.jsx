@@ -1,40 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const NavActions = ({
-  isHome,
-  isScrolled,
-  toggleMenu,
-  isLoggedIn,
-  onLogout,
-  user,
-}) => (
-  <div className="flex items-center gap-3 lg:gap-4">
-    {/* Botón público de inscripción (Solo si NO está logueado) */}
+const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => (
+  <div className="flex items-center gap-4 lg:gap-6">
+    {/* 1. CALL TO ACTION PÚBLICO (Botón Inscribirse) */}
     {!isLoggedIn && (
       <Link
-        to={isHome ? "#contacto" : "/#contacto"}
-        className={`hidden lg:block bg-brand hover:bg-navy text-white rounded-full font-bold transition-all transform hover:-translate-y-1 ${
-          isScrolled ? "px-4 py-1.5 text-xs" : "px-6 py-2"
+        to="/contacto" // Ya usamos rutas reales de React Router
+        className={`hidden lg:flex items-center justify-center bg-brand hover:bg-brand/90 text-white rounded-full font-bold transition-all duration-300 shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:-translate-y-0.5 ${
+          isScrolled ? "px-5 py-2 text-[14px]" : "px-7 py-2.5 text-[15px]"
         }`}
       >
         Inscríbete Hoy
       </Link>
     )}
 
-    {/* Contenedor de Acceso (Oculto en móvil, se maneja en el toggleMenu) */}
-    <div className="hidden md:flex items-center border-l border-gray-200 ml-2 pl-4">
+    {/* 2. ZONA DE ACCESO (Separador visual con el resto del menú) */}
+    <div className="hidden md:flex items-center border-l-2 border-slate-100 ml-2 pl-6">
       {isLoggedIn ? (
-        // --- AQUÍ ESTÁ EL BUGFIX ---
+        // --- ESTADO LOGUEADO ---
         <div className="flex items-center gap-4">
-          <span className="text-sm font-bold text-navy hidden lg:block">
-            Hola, {user?.name.split(" ")[0]}
+          <span className="text-[14px] font-medium text-slate-500 hidden lg:block">
+            Hola,{" "}
+            <span className="font-bold text-navy">
+              {user?.name.split(" ")[0]}
+            </span>
           </span>
 
-          {/* NUEVO: Botón para ir al Dashboard */}
+          {/* Botón Panel Premium */}
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-brand transition-all shadow-sm hover:-translate-y-0.5"
+            className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg font-bold text-[13px] uppercase tracking-wider hover:bg-brand transition-colors duration-300 shadow-sm"
           >
             <svg
               className="w-4 h-4"
@@ -45,21 +41,21 @@ const NavActions = ({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                strokeWidth="2.5"
+                d="M4 6h16M4 12h16M4 18h7"
               />
             </svg>
-            Ir al Panel
+            Panel
           </Link>
 
-          {/* Botón de Salir (Se mantiene, pero más sutil) */}
+          {/* Botón Salir (Minimalista) */}
           <button
             onClick={onLogout}
             title="Cerrar Sesión"
-            className="text-gray-400 hover:text-red-500 p-2 rounded-lg hover:bg-red-50 transition-colors flex items-center justify-center"
+            className="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all group"
           >
             <svg
-              className="w-5 h-5"
+              className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -74,13 +70,13 @@ const NavActions = ({
           </button>
         </div>
       ) : (
-        // --- Estado: NO Logueado ---
+        // --- ESTADO NO LOGUEADO ---
         <Link
           to="/auth/login"
-          className="text-navy font-bold text-sm hover:text-brand transition-colors flex items-center gap-2"
+          className="text-[15px] font-semibold text-navy hover:text-brand transition-colors flex items-center gap-2 group"
         >
           <svg
-            className="w-5 h-5"
+            className="w-5 h-5 text-slate-400 group-hover:text-brand transition-colors"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -97,10 +93,10 @@ const NavActions = ({
       )}
     </div>
 
-    {/* Botón Menú Móvil */}
+    {/* 3. MENÚ HAMBURGUESA (Móviles) */}
     <button
       onClick={toggleMenu}
-      className="md:hidden text-navy p-2 outline-none hover:bg-gray-50 rounded-lg transition-colors"
+      className="md:hidden text-navy p-2 outline-none hover:bg-slate-50 rounded-lg transition-colors"
     >
       <svg
         className="w-7 h-7"

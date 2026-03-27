@@ -1,4 +1,3 @@
-// src/components/layout/Navbar/MobileMenu.jsx
 import React from "react";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
@@ -6,22 +5,27 @@ import { Link } from "react-router-dom";
 const MobileMenu = ({
   isMenuOpen,
   closeMenu,
-  isHome,
+  isHome, // Lo mantenemos por si lo usas en otro lado, aunque ya no es estrictamente necesario
   isLoggedIn,
   onLogout,
 }) => (
   <div
-    className={`fixed inset-0 bg-navy z-[60] flex flex-col px-6 py-8 md:hidden transition-transform duration-500 ${
+    // Cambiamos a un fondo ligeramente más sofisticado y aseguramos que ocupe el 100% de la altura real (h-screen)
+    className={`fixed inset-0 h-screen bg-slate-900 z-[60] flex flex-col md:hidden transition-transform duration-500 ease-out ${
       isMenuOpen ? "translate-x-0" : "translate-x-full"
     }`}
   >
-    <div className="flex justify-between items-center mb-10">
-      <span className="font-display font-black text-white text-2xl uppercase">
-        Menú<span className="text-brand">.</span>
+    {/* 1. HEADER DEL MENÚ (Fijo arriba) */}
+    <div className="flex justify-between items-center px-6 py-6 border-b border-white/10 bg-slate-900 z-10">
+      <span className="font-display font-black text-white text-xl tracking-wider uppercase">
+        Navegación<span className="text-brand">.</span>
       </span>
-      <button onClick={closeMenu} className="text-white p-2">
+      <button
+        onClick={closeMenu}
+        className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all"
+      >
         <svg
-          className="w-8 h-8"
+          className="w-6 h-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -36,19 +40,21 @@ const MobileMenu = ({
       </button>
     </div>
 
-    <div className="flex-grow">
-      <Navigation isHome={isHome} closeMenu={closeMenu} mobile={true} />
+    {/* 2. CUERPO DEL MENÚ (Área con Scroll) */}
+    {/* overflow-y-auto es la clave aquí para que los submenús no rompan la pantalla */}
+    <div className="flex-grow overflow-y-auto px-6 py-8 overscroll-contain">
+      <Navigation closeMenu={closeMenu} mobile={true} />
     </div>
 
-    {/* Footer del menú móvil con Auth */}
-    <div className="border-t border-white/10 pt-8 mt-auto">
+    {/* 3. FOOTER DEL MENÚ (Fijo abajo) */}
+    <div className="px-6 py-6 border-t border-white/10 bg-slate-900/80 backdrop-blur-md">
       {isLoggedIn ? (
-        // --- ESTADO LOGUEADO: Panel + Salir ---
+        // --- ESTADO LOGUEADO ---
         <div className="flex flex-col gap-3">
           <Link
             to="/dashboard"
             onClick={closeMenu}
-            className="w-full bg-brand text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-white hover:text-navy"
+            className="w-full bg-brand text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-brand/90 active:scale-95 shadow-lg shadow-brand/20"
           >
             <svg
               className="w-5 h-5"
@@ -70,7 +76,7 @@ const MobileMenu = ({
               onLogout();
               closeMenu();
             }}
-            className="w-full bg-red-500/10 text-red-400 py-4 rounded-xl font-bold flex items-center justify-center gap-3"
+            className="w-full bg-red-500/10 text-red-400 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-colors"
           >
             <svg
               className="w-5 h-5"
@@ -89,11 +95,11 @@ const MobileMenu = ({
           </button>
         </div>
       ) : (
-        // --- ESTADO NO LOGUEADO: Solo Ingresar ---
+        // --- ESTADO NO LOGUEADO ---
         <Link
-          to="/auth/login" // BUGFIX: Ruta corregida
+          to="/auth/login"
           onClick={closeMenu}
-          className="w-full bg-brand text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 transition-colors hover:bg-white hover:text-navy"
+          className="w-full bg-brand text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-brand/90 active:scale-95 shadow-lg shadow-brand/20"
         >
           <svg
             className="w-5 h-5"
