@@ -22,6 +22,13 @@ export const useForm = (initialState, validateRules) => {
     }
   };
 
+  // NUEVA FUNCIÓN: Permite limpiar el formulario manualmente cuando la vista lo decida
+  const resetForm = () => {
+    setValues(initialState);
+    setErrors({});
+    setIsSubmitted(false);
+  };
+
   // Maneja el evento submit del formulario
   const handleSubmit = (submitAction) => async (e) => {
     e.preventDefault();
@@ -39,7 +46,9 @@ export const useForm = (initialState, validateRules) => {
 
       setIsSubmitting(false);
       setIsSubmitted(true);
-      setValues(initialState); // Limpiamos el formulario
+
+      // ELIMINAMOS setValues(initialState) de aquí.
+      // El formulario ya no se suicida automáticamente.
 
       // Ocultamos el mensaje de éxito después de 5 segundos
       setTimeout(() => setIsSubmitted(false), 5000);
@@ -53,5 +62,6 @@ export const useForm = (initialState, validateRules) => {
     handleSubmit,
     isSubmitting,
     isSubmitted,
+    resetForm, // Exportamos la herramienta por si algún formulario la necesita
   };
 };

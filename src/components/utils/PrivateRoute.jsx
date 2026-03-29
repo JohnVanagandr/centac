@@ -29,7 +29,7 @@ const PrivateRoute = ({ allowedRoles }) => {
   // 3. Si no ha iniciado sesión, lo redirigimos al Login
   // El atributo 'replace' borra el historial para que el usuario no pueda usar el botón "Atrás" del navegador para volver a la ruta protegida
   if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/auth/login" replace />;
   }
 
   // 4. (Opcional pero muy útil) Validamos si el usuario tiene el rol necesario

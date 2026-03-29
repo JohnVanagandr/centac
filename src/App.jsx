@@ -26,7 +26,13 @@ import {
   Faq,
   Contacto,
 } from "@/pages/public";
-import { Login, Register, ForgotPassword, ResetPassword } from "@/pages/auth";
+import {
+  Login,
+  Register,
+  ForgotPassword,
+  ResetPassword,
+  VerifyEmail,
+} from "@/pages/auth";
 
 // 4. Páginas Privadas
 import DashboardHome from "@/pages/private/DashboardHome";
@@ -78,7 +84,8 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="reset-password/:token" element={<ResetPassword />} />
+            <Route path="reset-password" element={<ResetPassword />} />
+            <Route path="verify-email" element={<VerifyEmail />} />
           </Route>
 
           {/* ==========================================

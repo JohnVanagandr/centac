@@ -5,17 +5,21 @@ export const AuthContext = createContext();
 
 // 2. Creamos el Provider (el componente que envolverá a nuestra app)
 export const AuthProvider = ({ children }) => {
-  // Estado global para saber si el usuario está logueado y sus datos
+  // Estado global
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Para evitar parpadeos al recargar la página
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Al cargar la aplicación, verificamos si ya hay una sesión guardada en LocalStorage
+  // Al cargar la aplicación, verificamos si hay sesión activa
   useEffect(() => {
     const checkSession = () => {
-      const storedSession = localStorage.getItem("centac_session");
-      if (storedSession) {
-        setUser(JSON.parse(storedSession));
+      // Buscamos el token (para el backend) y el usuario (para la UI)
+      const token = localStorage.getItem("token");
+      const storedUser = localStorage.getItem("centac_user");
+
+      // Solo si tenemos ambos, consideramos que la sesión es válida
+      if (token && storedUser) {
+        setUser(JSON.parse(storedUser));
         setIsLoggedIn(true);
       }
       setIsLoading(false);
@@ -23,21 +27,30 @@ export const AuthProvider = ({ children }) => {
     checkSession();
   }, []);
 
-  // Función global para iniciar sesión
-  const login = (userData) => {
+  // Función global para iniciar sesión (ahora recibe token y userData)
+  const login = (userData, token) => {
     setUser(userData);
     setIsLoggedIn(true);
-    localStorage.setItem("centac_session", JSON.stringify(userData));
+
+    // Guardamos por separado para eficiencia
+    localStorage.setItem("token", token); // El interceptor tomará esto
+    localStorage.setItem("centac_user", JSON.stringify(userData)); // La UI tomará esto
   };
 
   // Función global para cerrar sesión
   const logout = () => {
     setUser(null);
     setIsLoggedIn(false);
-    localStorage.removeItem("centac_session");
+
+    // Limpiamos toda la casa
+    localStorage.removeItem("token");
+    localStorage.removeItem("centac_user");
+
+    // Redirigimos al login para evitar que el usuario se quede viendo vistas "rotas"
+    window.location.href = "/auth/login";
   };
 
-  // 3. Empaquetamos todo lo que queremos compartir con el resto de la app
+  // 3. Empaquetamos todo
   const value = {
     user,
     isLoggedIn,
