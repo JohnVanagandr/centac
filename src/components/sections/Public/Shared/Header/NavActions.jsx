@@ -1,15 +1,14 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+// ¡Importamos nuestro componente maestro!
+import Button from "@/components/ui/Navigation/Button";
 
 const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
-  // 1. Invocamos los hooks de React Router
   const location = useLocation();
   const navigate = useNavigate();
 
-  // 2. Lógica inteligente del botón
   const handleInscribeteClick = (e) => {
     e.preventDefault();
-
     if (location.pathname === "/") {
       const section = document.getElementById("contacto");
       if (section) {
@@ -22,34 +21,41 @@ const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
 
   return (
     <div className="flex items-center gap-4 lg:gap-6">
+      {/* 1. CTA PRINCIPAL: Usamos nuestro <Button> maestro */}
       {!isLoggedIn && (
-        <button
-          onClick={handleInscribeteClick}
-          className={`hidden cursor-pointer lg:flex items-center justify-center bg-brand hover:bg-brand/90 text-white rounded-full font-bold transition-all duration-300 shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:-translate-y-0.5 ${
-            isScrolled ? "px-5 py-2 text-[14px]" : "px-7 py-2.5 text-[15px]"
-          }`}
-        >
-          Inscríbete Hoy
-        </button>
+        <div className="hidden lg:block">
+          <Button
+            onClick={handleInscribeteClick}
+            intent="brand"
+            // Hacemos el botón un poco más compacto cuando hay scroll
+            size={isScrolled ? "sm" : "md"}
+          >
+            Inscríbete Hoy
+          </Button>
+        </div>
       )}
 
       {/* 2. ZONA DE ACCESO */}
-      <div className="hidden md:flex items-center border-l-2 border-slate-100 ml-2 pl-6">
+      <div className="hidden md:flex items-center border-l-2 border-slate-200 ml-2 pl-6">
         {isLoggedIn ? (
           <div className="flex items-center gap-4">
-            <span className="text-[14px] font-medium text-slate-500 hidden lg:block">
+            <span className="text-[14px] font-body text-slate-500 hidden lg:block">
               Hola,{" "}
-              <span className="font-bold text-navy">
+              <span className="font-display font-bold text-navy">
                 {user?.name.split(" ")[0]}
               </span>
             </span>
 
-            <Link
+            {/* PANEL: Usamos <Button> como Link en tono Primary */}
+            <Button
+              as={Link}
               to="/dashboard"
-              className="flex items-center gap-2 bg-navy text-white px-4 py-2 rounded-lg font-bold text-[13px] uppercase tracking-wider hover:bg-brand transition-colors duration-300 shadow-sm"
+              intent="primary"
+              size="sm"
+              className="gap-2 px-4"
             >
               <svg
-                className="w-4 h-4"
+                className="w-4 h-4 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -62,12 +68,14 @@ const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
                 />
               </svg>
               Panel
-            </Link>
+            </Button>
 
+            {/* BOTÓN SALIR: Semántica de peligro (rojo) y accesible */}
             <button
               onClick={onLogout}
               title="Cerrar Sesión"
-              className="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all group"
+              aria-label="Cerrar Sesión"
+              className="text-slate-400 hover:text-red-500 hover:bg-red-50 p-2 rounded-lg transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
             >
               <svg
                 className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform"
@@ -87,10 +95,11 @@ const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
         ) : (
           <Link
             to="/auth/login"
-            className="text-[15px] font-semibold text-navy hover:text-brand transition-colors flex items-center gap-2 group"
+            // 🔵 PRIMARY: La interacción del enlace "Ingresar" es azul, no naranja
+            className="text-[15px] font-display font-bold text-navy hover:text-primary transition-colors duration-300 flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 rounded-lg px-2 py-1"
           >
             <svg
-              className="w-5 h-5 text-slate-400 group-hover:text-brand transition-colors"
+              className="w-5 h-5 text-slate-400 group-hover:text-primary transition-colors duration-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -110,7 +119,9 @@ const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
       {/* 3. MENÚ HAMBURGUESA (Móviles) */}
       <button
         onClick={toggleMenu}
-        className="md:hidden text-navy p-2 outline-none hover:bg-slate-50 rounded-lg transition-colors"
+        aria-label="Abrir menú de navegación"
+        // 🔵 PRIMARY: El hover del menú hamburguesa se ilumina sutilmente en azul
+        className="md:hidden text-navy p-2 outline-none hover:bg-primary/10 hover:text-primary rounded-xl transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/50"
       >
         <svg
           className="w-7 h-7"

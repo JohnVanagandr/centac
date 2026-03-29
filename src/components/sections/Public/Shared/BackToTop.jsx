@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 const BackToTop = () => {
-  // 1. Estado para controlar si el botón se muestra o no
   const [isVisible, setIsVisible] = useState(false);
 
-  // 2. Lógica para detectar el scroll
   useEffect(() => {
     const toggleVisibility = () => {
-      // Si el usuario baja más de 300px, mostramos el botón
       if (window.scrollY > 300) {
         setIsVisible(true);
       } else {
@@ -15,14 +12,11 @@ const BackToTop = () => {
       }
     };
 
-    // Agregamos el listener al objeto global window
     window.addEventListener("scroll", toggleVisibility);
-
-    // REGLA DE ORO: Limpieza del evento cuando el componente se destruye
+    // REGLA DE ORO: Limpieza del evento cuando el componente se desmonta
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
-  // 3. Función para hacer el scroll suave hacia arriba
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -34,13 +28,14 @@ const BackToTop = () => {
     <button
       onClick={scrollToTop}
       aria-label="Volver al inicio"
-      className={`fixed bottom-8 right-8 z-50 bg-brand hover:bg-navy text-white w-14 h-14 rounded-full shadow-brand flex items-center justify-center text-xl transition-all duration-500 transform cursor-pointer group focus:outline-none focus:ring-4 focus:ring-brand/50 ${
+      // 🔵 PRIMARY: Usamos el azul eléctrico. Cambié rounded-full por rounded-2xl
+      // para mantener la consistencia cuadrada/redondeada del resto de la interfaz.
+      className={`fixed bottom-8 right-8 z-[90] bg-primary hover:bg-primary-dark text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl shadow-lg shadow-primary/30 flex items-center justify-center transition-all duration-500 transform cursor-pointer group focus:outline-none focus:ring-4 focus:ring-primary/50 ${
         isVisible
           ? "translate-y-0 opacity-100 pointer-events-auto"
           : "translate-y-20 opacity-0 pointer-events-none"
       }`}
     >
-      {/* SVG de flecha hacia arriba (Reemplazando FontAwesome) */}
       <svg
         className="w-6 h-6 group-hover:-translate-y-1 transition-transform duration-300"
         fill="none"
@@ -50,7 +45,7 @@ const BackToTop = () => {
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="3"
+          strokeWidth="2.5" // Un poco más fino para que luzca más moderno
           d="M5 10l7-7m0 0l7 7m-7-7v18"
         />
       </svg>

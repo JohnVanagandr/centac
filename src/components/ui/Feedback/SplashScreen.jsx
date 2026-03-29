@@ -1,33 +1,33 @@
-// src/components/ui/Feedback/SplashScreen.jsx
 import React from "react";
 
 const SplashScreen = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-navy text-white transition-opacity duration-500">
-      
-      {/* Contenedor del Logo con animación de latido */}
-      <div className="animate-pulse flex flex-col items-center">
-        {/* Aquí irá tu Logo Real. Por ahora usamos un texto estilizado */}
-        <div className="w-24 h-24 mb-6 bg-brand rounded-2xl flex items-center justify-center transform rotate-12 shadow-lg shadow-brand/20">
-          <span className="font-display font-black text-4xl -rotate-12">C</span>
-        </div>
-        
-        <h1 className="font-display font-black text-3xl tracking-widest">
-          CENTAC
-        </h1>
-        <p className="text-brand font-body text-sm tracking-widest mt-2 uppercase">
-          Plataforma Educativa
+      {/* FONDO NAVY: El lienzo perfecto para el contraste */}
+
+      {/* Contenedor del Logo con animación de latido suave */}
+      <div className="flex flex-col items-center animate-pulse-soft">
+        {/* LOGO REAL: Usamos la imagen oficial de CENTAC. 
+            Asegúrate de tener el archivo en tu carpeta /public */}
+        <img
+          src="/logo-blanco.png"
+          alt="CENTAC Logo"
+          className="w-48 md:w-56 mb-4 drop-shadow-[0_0_15px_rgba(0,117,255,0.2)]"
+        />
+
+        {/* 🟠 BRAND: Un subtítulo sutil en tu naranja para dar energía */}
+        <p className="text-brand font-body text-[11px] md:text-xs tracking-[0.3em] uppercase font-bold mt-2">
+          Aprender haciendo
         </p>
       </div>
 
-      {/* Spinner de carga sutil en la parte inferior */}
+      {/* PRIMARY: El azul eléctrico brilla en el indicador de progreso */}
       <div className="absolute bottom-12 flex flex-col items-center gap-3">
-        <div className="w-6 h-6 border-2 border-brand/30 border-t-brand rounded-full animate-spin"></div>
-        <span className="text-xs text-gray-400 font-body uppercase tracking-wider">
+        <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin shadow-[0_0_10px_rgba(0,117,255,0.4)]"></div>
+        <span className="text-xs text-slate-400 font-body uppercase tracking-wider font-bold">
           Preparando entorno...
         </span>
       </div>
-
     </div>
   );
 };

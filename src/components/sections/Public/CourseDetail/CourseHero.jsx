@@ -1,69 +1,66 @@
 import React from "react";
-import { Button } from "../../../ui/Navigation";
+import Button from "@/components/ui/Navigation/Button"; // Usamos el maestro
 
 const CourseHero = ({ data }) => {
   return (
-    // SECCIÓN PRINCIPAL: Usamos la imagen como fondo de toda la franja
     <section
       className="relative bg-navy text-white bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: `url(${data.heroBgImg || data.img})` }}
     >
-      {/* OVERLAY OSCURO AUTOMÁTICO: Garantiza legibilidad del texto */}
+      {/* OVERLAY OSCURO: Mantenemos tu bg-navy/85 original */}
       <div className="absolute inset-0 bg-navy/85 z-0"></div>
 
-      {/* CONTENEDOR DE CONTENIDO: Izquierda-alineado y limitado en ancho */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-28 md:py-36">
-        <div className="max-w-3xl">
-          {/* 1. Línea de Resolución (Texto pequeño y gris arriba) */}
+      {/* CONTENEDOR: Ajustamos el padding superior para no tapar con el menu */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 py-28 md:pt-40 md:pb-28">
+        <div className="max-w-4xl">
+          {/* 1. Resolución (Gris original) */}
           {data.resolution && (
-            <p className="text-gray-400 text-sm md:text-base mb-4 font-normal tracking-wide">
+            <p className="text-slate-400 text-sm md:text-base mb-4 font-normal tracking-wide">
               {data.resolution}
             </p>
           )}
 
-          {/* 2. Título Principal (Combinación Blanco y Naranja) */}
+          {/* 2. Título Principal (Tamaños controlados) */}
           <h1 className="font-display font-black uppercase leading-[1.1] tracking-tighter mb-5">
-            <span className="text-white block text-4xl md:text-5xl lg:text-6xl mb-2">
+            <span className="text-white block text-3xl md:text-4xl lg:text-5xl mb-2">
               TÉCNICO LABORAL
             </span>
-            <span className="text-brand block text-5xl md:text-6xl lg:text-7xl">
+            <span className="text-brand block text-4xl md:text-5xl lg:text-6xl">
               {data.title}
             </span>
           </h1>
 
-          {/* 3. Subtítulo (Texto blanco normal) */}
+          {/* 3. Subtítulo */}
           {data.subtitle && (
-            <p className="text-white text-xl md:text-2xl mt-6 font-normal tracking-wide max-w-2xl">
+            <p className="text-white text-lg md:text-xl mt-6 font-normal tracking-wide max-w-2xl opacity-90">
               {data.subtitle}
             </p>
           )}
 
-          {/* 4. Botones (Naranja y Azul) */}
-          <div className="flex flex-wrap gap-5 mt-14 mb-24">
+          {/* 4. Botones (Recuperando el estilo original) */}
+          <div className="flex flex-wrap gap-5 mt-10 mb-16">
             <Button
               as="a"
               href="#inscripcion"
-              intent="primary"
+              intent="brand" // Cambié a brand porque es tu color de acción principal
               size="lg"
               className="animate-pulse-soft"
             >
               Inscríbete Ahora
             </Button>
 
-            {/* Botón Secundario (Borde Blanco para contraste total) */}
             <Button variant="outline" intent="white" size="lg">
               Ver clase demostrativa
             </Button>
           </div>
 
-          {/* 5. Bloques de Información (Abajo a la izquierda con iconos naranjas) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-2xl mt-auto">
+          {/* 5. Bloques de Información (Estructura corregida para no amontonar) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-3xl">
             {/* Duración */}
             <div className="flex items-start gap-4">
               <span className="text-brand mt-1 flex-shrink-0">
-                {/* SVG Reloj - Estilo línea naranja */}
                 <svg
-                  className="w-9 h-9"
+                  className="w-8 h-8"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -76,21 +73,19 @@ const CourseHero = ({ data }) => {
                   />
                 </svg>
               </span>
-              <p className="text-gray-200 text-lg leading-snug">
-                <strong className="text-white font-extrabold text-xl">
+              <div>
+                <p className="text-white font-extrabold text-lg leading-none">
                   Duración:
-                </strong>
-                <br />
-                {data.duration}
-              </p>
+                </p>
+                <p className="text-slate-300 text-lg mt-1">{data.duration}</p>
+              </div>
             </div>
 
             {/* Modalidad */}
             <div className="flex items-start gap-4">
               <span className="text-brand mt-1 flex-shrink-0">
-                {/* SVG Engranajes - Estilo línea naranja */}
                 <svg
-                  className="w-9 h-9"
+                  className="w-8 h-8"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -109,21 +104,19 @@ const CourseHero = ({ data }) => {
                   />
                 </svg>
               </span>
-              <p className="text-gray-200 text-lg leading-snug">
-                <strong className="text-white font-extrabold text-xl">
+              <div>
+                <p className="text-white font-extrabold text-lg leading-none">
                   Modalidad:
-                </strong>
-                <br />
-                {data.modality}
-              </p>
+                </p>
+                <p className="text-slate-300 text-lg mt-1">{data.modality}</p>
+              </div>
             </div>
 
-            {/* Título que obtiene (Ocupa dos columnas en desktop si es largo) */}
+            {/* Certificación (Ocupa las 2 columnas para que el texto largo respire) */}
             <div className="flex items-start gap-4 md:col-span-2 mt-2">
               <span className="text-brand mt-1 flex-shrink-0">
-                {/* SVG Medalla/Diploma - Estilo línea naranja */}
                 <svg
-                  className="w-9 h-9"
+                  className="w-8 h-8"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -132,17 +125,18 @@ const CourseHero = ({ data }) => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth="2"
-                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-8.062 3.42 3.42 0 01-1.397-1.397 3.42 3.42 0 00-8.062-1.946 3.42 3.42 0 01-1.397 1.397 3.42 3.42 0 00-1.946 8.062 3.42 3.42 0 011.397 1.397 3.42 3.42 0 008.062 1.946 3.42 3.42 0 011.397-1.397z"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                   />
                 </svg>
               </span>
-              <p className="text-gray-200 text-lg leading-tight">
-                <strong className="text-white font-extrabold text-xl">
+              <div>
+                <p className="text-white font-extrabold text-lg leading-none">
                   Título que obtiene:
-                </strong>
-                <br />
-                {data.titleObtained}
-              </p>
+                </p>
+                <p className="text-slate-300 text-lg mt-1 leading-snug">
+                  {data.titleObtained}
+                </p>
+              </div>
             </div>
           </div>
         </div>

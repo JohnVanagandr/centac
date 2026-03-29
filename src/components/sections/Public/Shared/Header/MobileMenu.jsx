@@ -1,28 +1,32 @@
 import React from "react";
-import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
+import Navigation from "./Navigation";
+import Button from "@/components/ui/Navigation/Button"; // ¡Importamos nuestro superhéroe!
 
 const MobileMenu = ({
   isMenuOpen,
   closeMenu,
-  isHome, // Lo mantenemos por si lo usas en otro lado, aunque ya no es estrictamente necesario
+  isHome,
   isLoggedIn,
   onLogout,
 }) => (
   <div
-    // Cambiamos a un fondo ligeramente más sofisticado y aseguramos que ocupe el 100% de la altura real (h-screen)
-    className={`fixed inset-0 h-screen bg-slate-900 z-[60] flex flex-col md:hidden transition-transform duration-500 ease-out ${
+    // 🌌 NAVY-DEEPER: Usamos el fondo oscuro corporativo real en lugar de slate
+    // ♿ A11Y: aria-hidden evita que los lectores de pantalla lean el menú si está cerrado
+    aria-hidden={!isMenuOpen}
+    className={`fixed inset-0 h-screen bg-navy-deeper z-[60] flex flex-col md:hidden transition-transform duration-500 ease-in-out ${
       isMenuOpen ? "translate-x-0" : "translate-x-full"
     }`}
   >
     {/* 1. HEADER DEL MENÚ (Fijo arriba) */}
-    <div className="flex justify-between items-center px-6 py-6 border-b border-white/10 bg-slate-900 z-10">
+    <div className="flex justify-between items-center px-6 py-6 border-b border-white/5 bg-navy-deeper z-10">
       <span className="font-display font-black text-white text-xl tracking-wider uppercase">
         Navegación<span className="text-brand">.</span>
       </span>
       <button
         onClick={closeMenu}
-        className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all"
+        aria-label="Cerrar menú"
+        className="text-white/70 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
       >
         <svg
           className="w-6 h-6"
@@ -41,20 +45,23 @@ const MobileMenu = ({
     </div>
 
     {/* 2. CUERPO DEL MENÚ (Área con Scroll) */}
-    {/* overflow-y-auto es la clave aquí para que los submenús no rompan la pantalla */}
     <div className="flex-grow overflow-y-auto px-6 py-8 overscroll-contain">
       <Navigation closeMenu={closeMenu} mobile={true} />
     </div>
 
     {/* 3. FOOTER DEL MENÚ (Fijo abajo) */}
-    <div className="px-6 py-6 border-t border-white/10 bg-slate-900/80 backdrop-blur-md">
+    <div className="px-6 py-6 border-t border-white/5 bg-navy-deeper/90 backdrop-blur-md">
       {isLoggedIn ? (
         // --- ESTADO LOGUEADO ---
         <div className="flex flex-col gap-3">
-          <Link
+          {/* 🔵 PRIMARY: La interacción del panel es Azul Eléctrico */}
+          <Button
+            as={Link}
             to="/dashboard"
             onClick={closeMenu}
-            className="w-full bg-brand text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-brand/90 active:scale-95 shadow-lg shadow-brand/20"
+            intent="primary"
+            size="lg"
+            className="w-full justify-center text-lg gap-2"
           >
             <svg
               className="w-5 h-5"
@@ -70,13 +77,14 @@ const MobileMenu = ({
               />
             </svg>
             Ir a mi Panel
-          </Link>
+          </Button>
+
           <button
             onClick={() => {
               onLogout();
               closeMenu();
             }}
-            className="w-full bg-red-500/10 text-red-400 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-red-500/20 transition-colors"
+            className="w-full bg-red-500/10 text-red-400 py-3.5 rounded-xl font-bold font-body flex items-center justify-center gap-2 hover:bg-red-500/20 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50"
           >
             <svg
               className="w-5 h-5"
@@ -96,10 +104,14 @@ const MobileMenu = ({
         </div>
       ) : (
         // --- ESTADO NO LOGUEADO ---
-        <Link
+        // 🔵 PRIMARY: Mantenemos la consistencia con NavActions (Ingresar = Azul)
+        <Button
+          as={Link}
           to="/auth/login"
           onClick={closeMenu}
-          className="w-full bg-brand text-white py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all hover:bg-brand/90 active:scale-95 shadow-lg shadow-brand/20"
+          intent="primary"
+          size="lg"
+          className="w-full justify-center text-lg gap-2"
         >
           <svg
             className="w-5 h-5"
@@ -115,7 +127,7 @@ const MobileMenu = ({
             />
           </svg>
           Ingresar al Portal
-        </Link>
+        </Button>
       )}
     </div>
   </div>
