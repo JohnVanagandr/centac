@@ -4,28 +4,33 @@ const CourseTestimonials = ({ testimonials }) => {
   if (!testimonials || testimonials.length === 0) return null;
 
   return (
-    <div className="space-y-4">
-      <h4 className="font-display font-black text-navy text-xl uppercase mb-4 text-center">
+    <div className="space-y-5">
+      <h4 className="font-display font-black text-navy text-xl uppercase mb-6 text-center tracking-tight">
         Opiniones de <span className="text-brand">Alumnos</span>
       </h4>
 
       {testimonials.map((testimonio, index) => (
         <div
           key={index}
-          className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm relative"
+          // 🌌 SLATE & PRIMARY: Sombras corporativas y un borde sutil al interactuar
+          className="bg-white p-6 rounded-2xl border border-slate-100 shadow-md shadow-slate-200/40 relative overflow-hidden group hover:border-primary/20 hover:shadow-lg transition-all duration-300"
         >
           {/* Comillas decorativas de fondo */}
-          <div className="absolute top-2 right-4 text-6xl text-gray-100 font-serif leading-none opacity-50 select-none">
+          {/* 🔵 PRIMARY: La comilla se tiñe levemente de azul al pasar el ratón */}
+          <div className="absolute top-2 right-4 text-6xl text-slate-100 font-serif leading-none opacity-60 select-none group-hover:text-primary/10 transition-colors duration-500">
             "
           </div>
 
           <div className="relative z-10">
-            <div className="flex items-center gap-1 mb-2">
+            <div className="flex items-center gap-1 mb-3">
               {/* Renderizamos 5 estrellas */}
               {[...Array(5)].map((_, i) => (
                 <svg
                   key={i}
-                  className={`w-4 h-4 ${i < testimonio.rating ? "text-yellow-400" : "text-gray-200"}`}
+                  // 🟡 GOLD: Usamos el color corporativo para las estrellas activas
+                  className={`w-4 h-4 ${
+                    i < testimonio.rating ? "text-gold" : "text-slate-200"
+                  }`}
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -33,10 +38,13 @@ const CourseTestimonials = ({ testimonials }) => {
                 </svg>
               ))}
             </div>
-            <p className="text-gray-600 text-sm italic mb-3">
+            {/* 🌌 SLATE: Mejor legibilidad con font-body */}
+            <p className="text-slate-500 font-body text-sm italic mb-4 leading-relaxed">
               "{testimonio.text}"
             </p>
-            <p className="text-navy font-bold text-sm">- {testimonio.name}</p>
+            <p className="text-navy font-display font-bold text-sm uppercase tracking-wide">
+              - {testimonio.name}
+            </p>
           </div>
         </div>
       ))}
