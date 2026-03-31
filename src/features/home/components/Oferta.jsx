@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Reveal } from "@/components/utils";
 import { programasData } from "@/data/ofertaData";
 import CardOferta from "@/components/sections/Public/Shared/CardOferta";
-import Button from "@/components/ui/Navigation/Button"; // Aseguramos la ruta del maestro
+import Button from "@/components/ui/Navigation/Button";
 
 const Oferta = () => {
   // Lógica de negocio: Filtramos solo los programas TOP
@@ -12,7 +12,7 @@ const Oferta = () => {
   );
 
   return (
-    // 🌌 SLATE: Cambiamos bg-gray-50 por bg-slate-50
+    // SLATE: Cambiamos bg-gray-50 por bg-slate-50
     <section id="oferta" className="py-24 bg-slate-50 flex-grow relative">
       {/* Patrón de puntos con un tono slate muy sutil para la textura */}
       <div className="absolute inset-0 opacity-40 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] [background-size:20px_20px]"></div>

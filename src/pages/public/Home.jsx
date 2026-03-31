@@ -1,13 +1,7 @@
 import React from "react";
 
-import {
-  Slider,
-  Estrategia,
-  Nosotros,
-  Oferta,
-  Contacto
-} from "../../components/sections/Public/Home";
-import BannerFinanciacion from "../../components/sections/Public/Shared/BannerFinanciacion";
+import { Slider, Estrategia, Nosotros, Oferta, Contacto } from "@/features/home";
+import { Banner } from "@/components/common";
 
 
 const Home = () => {
@@ -18,7 +12,7 @@ const Home = () => {
       <Nosotros />
       <Oferta />
       <Contacto />
-      <BannerFinanciacion />
+      <Banner /> 
     </>
   );
 };

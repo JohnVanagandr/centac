@@ -1,7 +1,7 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
 import { aboutData } from "@/data/abouData";
-import IconMapper from "@/components/ui/Icons/IconMapper"; // 👈 Usamos nuestro componente maestro
+import IconMapper from "@/components/ui/Icons/IconMapper";
 
 const Nosotros = () => {
   return (

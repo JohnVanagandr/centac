@@ -1,9 +1,9 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
 import { pilaresData } from "@/data/estrategiaData";
-import IconMapper from "@/components/ui/Icons/IconMapper"; // 👈 Usamos el componente maestro
+import IconMapper from "@/components/ui/Icons/IconMapper";
 
-// 1. EL SUB-COMPONENTE (PilarCard)
+
 const PilarCard = ({
   iconName,
   titleTop,
@@ -15,7 +15,7 @@ const PilarCard = ({
     <article
       className={`px-8 text-center group transition-all duration-500 ${spacingClasses}`}
     >
-      {/* 🔵 PRIMARY: El icono brilla en azul eléctrico al interactuar */}
+      {/* PRIMARY: El icono brilla en azul eléctrico al interactuar */}
       <div className="text-slate-400 mb-8 transform group-hover:scale-110 group-hover:text-primary transition-all duration-500 flex justify-center">
         <div className="p-4 rounded-2xl bg-slate-50 group-hover:bg-primary/5 transition-colors">
           <IconMapper iconName={iconName} className="w-12 h-12" />

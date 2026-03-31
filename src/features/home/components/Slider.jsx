@@ -1,8 +1,8 @@
 import React from "react";
 import { sliderData } from "@/data/sliderData";
 import { useSlider } from "@/hooks/useSlider";
-import Button from "@/components/ui/Navigation/Button"; // Nuestro botón maestro
-import Badge from "@/components/ui/DataDisplay/Badge"; // Nuestro badge maestro
+import Button from "@/components/ui/Navigation/Button";
+import Badge from "@/components/ui/DataDisplay/Badge";
 
 const Slider = () => {
   const { currentIndex, nextSlide, prevSlide, goToSlide } = useSlider(
