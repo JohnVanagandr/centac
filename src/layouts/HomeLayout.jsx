@@ -3,16 +3,13 @@ import TopBar from "@/components/sections/Public/Shared/TopBar";
 import BackToTop from "../components/sections/Public/Shared/BackToTop";
 import { Header } from "../components/sections/Public/Shared/Header";
 import Footer from "../components/sections/Public/Shared/Footer";
-import { PageHeader } from "@/components/common";
 
-const PublicLayout = ({ children, title, subtitle }) => {
+const HomeLayout = ({children}) => {
   return (
     <div className="flex flex-col min-h-screen">
       <TopBar />
       
       <Header />
-
-      <PageHeader title={title} subtitle={subtitle} />
 
       <main className="flex-grow">
         {children}
@@ -24,4 +21,4 @@ const PublicLayout = ({ children, title, subtitle }) => {
   );
 };
 
-export default PublicLayout;
+export default HomeLayout;

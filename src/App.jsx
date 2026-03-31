@@ -9,8 +9,10 @@ import { AuthProvider } from "@/context/AuthContext";
 import { PrivateRoute } from "@/components/utils";
 
 // 2. Layouts y Componentes Comunes
+import HomeLayout from "@/layouts/HomeLayout";
 import PublicLayout from "@/layouts/PublicLayout";
 import PrivateLayout from "@/layouts/PrivateLayout";
+
 import AuthLayout from "@/layouts/AuthLayout";
 import ScrollToHash from "@/components/utils/ScrollToHash";
 
@@ -61,11 +63,15 @@ const App = () => {
         <ScrollToHash />
         <Routes>
           {/* ==========================================
-              GRUPO 1: ZONA PÚBLICA (Con Navbar y Footer)
+              GRUPO 1: ZONA HOME (Con Navbar y Footer) sin PageHeader
               ========================================== */}
-          <Route path="/" element={<PublicLayout />}>
+          <Route path="/">
             <Route index element={<Home />} />
-            <Route path="nosotros/estrategia" element={<Estrategia />} />
+          </Route>
+          {/* ==========================================
+              GRUPO 2: ZONA PÚBLICA (Con Navbar, Footer, PageHeader)
+              ========================================== */}          
+          <Route path="/">
             <Route path="nosotros/estrategia" element={<Estrategia />} />
             <Route path="nosotros/historia" element={<Historia />} />
             <Route path="servicios/tramites" element={<Tramites />} />
@@ -78,7 +84,7 @@ const App = () => {
           </Route>
 
           {/* =========================================
-              GRUPO 2: RUTAS LIBRES (Sin Navbar)
+              GRUPO 3Es: RUTAS LIBRES (Sin Navbar)
               ========================================= */}
           <Route path="/auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />

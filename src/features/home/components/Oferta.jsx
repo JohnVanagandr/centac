@@ -1,15 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/utils";
-import { programasData } from "@/data/ofertaData";
-import CardOferta from "@/components/sections/Public/Shared/CardOferta";
 import Button from "@/components/ui/Navigation/Button";
+import { OfertaDestacada } from "@/features/oferta";
 
 const Oferta = () => {
-  // Lógica de negocio: Filtramos solo los programas TOP
-  const programasDestacados = programasData.filter(
-    (prog) => prog.isTop === true,
-  );
 
   return (
     // SLATE: Cambiamos bg-gray-50 por bg-slate-50
@@ -32,14 +27,8 @@ const Oferta = () => {
           </p>
           <div className="w-20 h-1.5 bg-brand mx-auto mt-6 rounded-full opacity-80"></div>
         </div>
-
-        {/* Cuadrícula de Tarjetas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {programasDestacados.map((programa) => (
-            <CardOferta key={programa.id} programa={programa} />
-          ))}
-        </div>
-
+        {/* Componente que llama las ofertas destacadas y las muestra con una cuadricula */}
+        <OfertaDestacada />
         {/* Llamado a la Acción Inferior */}
         <div className="mt-16 text-center">
           <div className="flex justify-center mt-12 pb-4">
@@ -47,7 +36,6 @@ const Oferta = () => {
               as={Link}
               to="/ofertas"
               variant="outline"
-              // 🌌 NAVY: Usamos nuestro color estructural para botones secundarios
               intent="navy"
               size="lg"
               className="group"
