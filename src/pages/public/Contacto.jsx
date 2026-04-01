@@ -1,16 +1,16 @@
 import React from "react";
-import PageHeader from "@/components/ui/Layout/PageHeader";
-import EnDesarrollo from "@/components/ui/Layout/EnDesarrollo";
+import PublicLayout from "@/layouts/PublicLayout";
+import { ContactoContainer } from "@/features/contacto";
 
-const Contacto = () => (
-  <div className="min-h-screen bg-slate-50 flex flex-col">
-    <PageHeader
-      category="Información"
-      title="Contáctanos"
-      description="Estamos aquí para escucharte. Comunícate con nosotros a través de nuestros canales oficiales de atención."
-    />
-    <EnDesarrollo mensaje="Pronto encontrarás aquí nuestro formulario de contacto directo, directorio telefónico y mapa de ubicación." />
-  </div>
-);
+const Contacto = () => {
+  return (
+    <PublicLayout 
+      title="Contacto" 
+      subtitle="Escríbenos, llámanos o visítanos. Las puertas de nuestra institución siempre están abiertas para ti."
+    >
+      <ContactoContainer />
+    </PublicLayout>
+  );
+};
 
 export default Contacto;
