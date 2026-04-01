@@ -1,71 +1,85 @@
 import React from "react";
+import { InputField, TextAreaField } from "@/components/ui/Form"; 
+import { Button } from "@/components/ui/Navigation";
 
-const ContactoForm = () => {
+const ContactoForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubmitted }) => {
   return (
-    <form className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-6 relative">
+      
       <div className="mb-8">
         <h3 className="text-2xl font-bold text-navy">Envíanos un mensaje</h3>
         <p className="text-slate-500 text-sm mt-2">Diligencia el formulario y te responderemos en breve.</p>
       </div>
 
-      {/* Fila 1: Nombre */}
-      <div>
-        <label htmlFor="nombre" className="block text-sm font-bold text-navy mb-2">Nombre completo</label>
-        <input 
-          type="text" 
-          id="nombre"
-          name="nombre"
-          className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all shadow-sm"
-          placeholder="Ej. Juan Pérez"
+      {isSubmitted && (
+        <div className="bg-green-50 text-green-700 p-4 rounded-lg border border-green-200 mb-6 flex items-center gap-3">
+          <span className="material-symbols-rounded">check_circle</span>
+          <p className="font-medium">¡Mensaje enviado con éxito! Te contactaremos pronto.</p>
+        </div>
+      )}
+
+      {/* Átomos de Formulario */}
+      <InputField 
+        label="Nombre completo"
+        name="nombre"
+        value={values.nombre}
+        onChange={handleChange}
+        error={errors.nombre}
+        placeholder="Ej. Juan Pérez"
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <InputField 
+          label="Correo electrónico"
+          type="email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          error={errors.email}
+          placeholder="ejemplo@correo.com"
+        />
+        
+        <InputField 
+          label="Teléfono"
+          type="tel"
+          name="telefono"
+          value={values.telefono}
+          onChange={handleChange}
+          error={errors.telefono}
+          placeholder="Tu número de contacto"
         />
       </div>
 
-      {/* Fila 2: Correo y Teléfono (Grid de 2 columnas) */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="email" className="block text-sm font-bold text-navy mb-2">Correo electrónico</label>
-          <input 
-            type="email" 
-            id="email"
-            name="email"
-            className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all shadow-sm"
-            placeholder="ejemplo@correo.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="telefono" className="block text-sm font-bold text-navy mb-2">Teléfono</label>
-          <input 
-            type="tel" 
-            id="telefono"
-            name="telefono"
-            className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all shadow-sm"
-            placeholder="Tu número de contacto"
-          />
-        </div>
-      </div>
+      <TextAreaField 
+        label="Mensaje"
+        name="mensaje"
+        value={values.mensaje}
+        onChange={handleChange}
+        error={errors.mensaje}
+        rows="4"
+        placeholder="¿En qué te podemos ayudar?"
+      />
 
-      {/* Fila 3: Mensaje */}
-      <div>
-        <label htmlFor="mensaje" className="block text-sm font-bold text-navy mb-2">Mensaje</label>
-        <textarea 
-          id="mensaje"
-          name="mensaje"
-          rows="4"
-          className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-all shadow-sm resize-none"
-          placeholder="¿En qué te podemos ayudar?"
-        ></textarea>
-      </div>
-
-      {/* Botón de Enviar */}
+      {/* 🚀 Átomo de Navegación/Acción */}
       <div className="pt-2">
-        <button 
-          type="button" // Cambiaremos a "submit" cuando le inyectes la lógica
-          className="w-full bg-brand text-white font-bold py-4 rounded-lg hover:bg-navy transition-colors shadow-md hover:shadow-lg flex justify-center items-center gap-2"
+        <Button 
+          type="submit" 
+          disabled={isSubmitting}
+          className="w-full flex justify-center items-center gap-2 py-4" // Ajusta las clases extra que tu componente permita
         >
-          <span>Enviar Mensaje</span>
-          <span className="material-symbols-rounded text-sm">send</span>
-        </button>
+          {isSubmitting ? (
+            <>
+              <span className="material-symbols-rounded animate-spin">sync</span>
+              <span>Enviando...</span>
+            </>
+          ) : (
+            <>
+              <span>Enviar Mensaje</span>
+            </>
+          )}
+        </Button>
       </div>
+      
     </form>
   );
 };

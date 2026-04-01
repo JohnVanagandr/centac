@@ -4,7 +4,7 @@ const ContactoInfo = () => {
   return (
     <div className="space-y-8 pr-0 lg:pr-8">
       <div>
-        <h3 className="text-2xl font-bold text-navy mb-4">Nuestras Sedes</h3>
+        <h3 className="text-2xl font-bold text-navy mb-4">Nuestra Sede</h3>
         <p className="text-slate-600 leading-relaxed">
           Acércate a nuestras instalaciones o comunícate por nuestros canales oficiales. 
           En CENTAC estamos listos para guiarte en tu proceso de formación académica.
