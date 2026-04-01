@@ -5,8 +5,6 @@ import { programasData } from "../../../data/ofertaData";
 import OfertaGrid from "./OfertaGrid";
 
 const OfertaCatalogo = () => {
-  // Aquí en el futuro reemplazarás programasData por tu Hook:
-  // const { ofertas } = useOfertas();
   const ofertas = programasData;
 
   return (

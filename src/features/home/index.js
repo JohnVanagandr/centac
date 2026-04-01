@@ -1,5 +1,2 @@
-export { default as Slider } from './components/Slider';
-export { default as Estrategia } from './components/Estrategia';
-export { default as Nosotros } from './components/Nosotros';
-export { default as Oferta } from './components/Oferta';
-export { default as Contacto } from './components/Contacto';
+// 1. Exportamos TODO lo que el barril interno ya organizó
+export * from './components'; 
