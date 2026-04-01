@@ -24,7 +24,7 @@ import {
   OfertaDetalle,
   Historia,
   Tramites,
-  PqrPublico,
+  Pqr,
   Faq,
   Contacto,
 } from "@/pages/public";
@@ -78,7 +78,7 @@ const App = () => {
             <Route path="ofertas" element={<CatalogoOfertas />} />
             <Route path="oferta/:slug" element={<OfertaDetalle />} />
             <Route path="servicios/tramites" element={<Tramites />} />
-            <Route path="servicios/pqr" element={<PqrPublico />} />
+            <Route path="servicios/pqr" element={<Pqr />} />
             <Route path="servicios/faq" element={<Faq />} />
             <Route path="contacto" element={<Contacto />} />
           </Route>
