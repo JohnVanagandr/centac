@@ -1,6 +1,6 @@
 import React from "react";
 import { sliderData } from "@/data/sliderData";
-import { useSlider } from "@/hooks/useSlider";
+import { useSlider } from "@/features/home/hooks/useSlider";
 import Button from "@/components/ui/Navigation/Button";
 import Badge from "@/components/ui/DataDisplay/Badge";
 
