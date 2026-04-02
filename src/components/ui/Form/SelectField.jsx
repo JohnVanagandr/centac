@@ -41,12 +41,21 @@ const SelectField = ({
           {props.placeholder || "Selecciona una opción..."}
         </option>
 
-        {/* Mapeo de opciones asegurando que el texto sea Navy */}
-        {options.map((opt) => (
-          <option key={opt.id} value={opt.id} className="text-navy font-medium">
-            {opt.title || opt.name || opt.label}
-          </option>
-        ))}
+        {/* 🚀 Mapeo de opciones flexible (Acepta id o value) */}
+        {options.map((opt, index) => {
+          const optionValue = opt.id || opt.value; // Extraemos el valor correcto
+          console.log(optionValue);
+          
+          return (
+            <option 
+              key={optionValue || index} // Usamos el valor o el índice como plan B
+              value={optionValue} 
+              className="text-navy font-medium"
+            >
+              {opt.title || opt.name || opt.label}
+            </option>
+          );
+        })}
       </select>
 
       {/* Mensaje de error (Mismo estilo y animación que el InputField) */}

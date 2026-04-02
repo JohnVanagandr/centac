@@ -1,8 +1,8 @@
-export { default as CourseHero } from "./CourseHero";
-export { default as CourseAbout } from "./CourseAbout";
-export { default as CourseLearnings } from "./CourseLearnings";
-export { default as CourseEnrollment } from "./CourseEnrollment";
-export { default as CourseModules } from "./CourseModules";
-export { default as CourseInstructor } from "./CourseInstructor";
-export { default as CourseProfiles } from "./CourseProfiles";
-export { default as CourseTestimonials } from "./CourseTestimonials";
+export { default as CourseHero } from "../../../../features/oferta/components/CourseHero";
+export { default as CourseAbout } from "../../../../features/oferta/components/CourseAbout";
+export { default as CourseLearnings } from "../../../../features/oferta/components/CourseLearnings";
+export { default as CourseEnrollment } from "../../../../features/oferta/components/CourseEnrollment";
+export { default as CourseModules } from "../../../../features/oferta/components/CourseModules";
+export { default as CourseInstructor } from "../../../../features/oferta/components/CourseInstructor";
+export { default as CourseProfiles } from "../../../../features/oferta/components/CourseProfiles";
+export { default as CourseTestimonials } from "../../../../features/oferta/components/CourseTestimonials";

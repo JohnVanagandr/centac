@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import IconMapper from "../../../ui/Icons/IconMapper";
+import IconMapper from "../../../components/ui/Icons/IconMapper";
 
 const CourseLearnings = ({ learnings }) => {
   if (!learnings || learnings.length === 0) return null;

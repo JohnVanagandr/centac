@@ -1,5 +1,5 @@
 import React from "react";
-import IconMapper from "../../../ui/Icons/IconMapper"; // Importamos nuestro maestro de SVGs
+import IconMapper from "../../../components/ui/Icons/IconMapper"; // Importamos nuestro maestro de SVGs
 
 const CourseProfiles = ({ profiles }) => {
   if (!profiles) return null;

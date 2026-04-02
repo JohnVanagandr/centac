@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import { LeadRegistration } from "@/components/sections/Public/Shared/LeadRegistration";
+import { LeadRegistration } from "@/features/leads";
 
 const Contacto = () => {
   return (
@@ -37,20 +37,8 @@ const Contacto = () => {
           </div>
 
           {/* COLUMNA DERECHA: El Formulario Maestro */}
-          <div className="bg-white rounded-[2rem] shadow-2xl shadow-navy/40 p-8 md:p-12 relative overflow-hidden group">
-            {/* 🔵 PRIMARY: Un toque de azul en el borde superior del card */}
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-primary-light"></div>
-
-            <h3 className="font-display text-2xl lg:text-3xl font-black text-navy mb-2 uppercase tracking-tight">
-              Inicia tu proceso
-            </h3>
-            <p className="text-slate-500 text-sm mb-8 font-body">
-              Completa el formulario y recibe toda la información.
-            </p>
-
-            {/* Aquí es donde vive la lógica de tus Inputs, Selects y validaciones */}
-            <LeadRegistration />
-          </div>
+          <LeadRegistration />
+          
         </div>
       </Reveal>
     </section>

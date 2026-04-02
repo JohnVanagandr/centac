@@ -1,8 +1,8 @@
 import React from "react";
-import { LeadRegistration } from "@/components/sections/Public/Shared/LeadRegistration";
+import { LeadRegistration } from "@/features/leads";
 import { Reveal } from "@/components/utils";
 
-const CourseEnrollment = () => {
+const CourseEnrollment = ({ programaSlug }) => {
   return (
     <section
       id="inscripcion"
@@ -40,20 +40,8 @@ const CourseEnrollment = () => {
           <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-brand/30 rounded-[2.5rem] blur-xl opacity-50 group-hover:opacity-80 transition duration-1000"></div>
 
           {/* 🌌 SLATE & PRIMARY: Tarjeta en blanco puro con detalles corporativos */}
-          <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-2xl relative z-10 border border-slate-100 overflow-hidden">
-            {/* Línea superior de acento */}
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-primary-light"></div>
-
-            <h3 className="font-display text-2xl lg:text-3xl font-black text-navy mb-2 uppercase text-center md:text-left tracking-tight">
-              Inicia tu proceso
-            </h3>
-            <p className="text-slate-500 font-body text-sm mb-8 text-center md:text-left">
-              Completa tus datos y un asesor se comunicará contigo.
-            </p>
-
             {/* Inyectamos tu componente exacto */}
-            <LeadRegistration />
-          </div>
+            <LeadRegistration programaPreseleccionado={programaSlug} />
         </div>
       </Reveal>
     </section>

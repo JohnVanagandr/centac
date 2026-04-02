@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { Accordion } from "../../../ui/DataDisplay";
-import IconMapper from "../../../ui/Icons/IconMapper"; // Importamos nuestro maestro de SVGs
+import { Accordion } from "../../../components/ui/DataDisplay";
+import IconMapper from "../../../components/ui/Icons/IconMapper"; // Importamos nuestro maestro de SVGs
 
 const CourseModules = ({ modules }) => {
   const [activeModule, setActiveModule] = useState(0);
