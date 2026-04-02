@@ -1,6 +1,5 @@
 import React from "react";
 import { Slider, Estrategia, Nosotros, Oferta, Contacto } from "./"; 
-import { Banner } from "@/components/common";
 
 const HomeContainer = () => {
 
@@ -11,7 +10,6 @@ const HomeContainer = () => {
       <Nosotros />
       <Oferta />
       <Contacto />
-      <Banner />
     </>
   );
 };

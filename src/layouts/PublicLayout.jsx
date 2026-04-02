@@ -1,9 +1,10 @@
 import React from "react";
-import TopBar from "@/components/sections/Public/Shared/TopBar";
-import BackToTop from "../components/sections/Public/Shared/BackToTop";
-import { Header } from "../components/sections/Public/Shared/Header";
-import Footer from "../components/sections/Public/Shared/Footer";
+import TopBar from "@/components/layout/TopBar";
+import {BackToTop} from "../components/ui/Navigation";
+import { Header } from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import { PageHeader } from "@/components/common";
+import { Banner } from "@/components/common";
 
 const PublicLayout = ({ children, title, subtitle }) => {
   return (
@@ -17,7 +18,7 @@ const PublicLayout = ({ children, title, subtitle }) => {
       <main className="flex-grow">
         {children}
       </main>
-
+      <Banner />
       <Footer />
       <BackToTop />
     </div>

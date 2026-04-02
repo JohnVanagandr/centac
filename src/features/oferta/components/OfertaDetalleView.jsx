@@ -38,8 +38,6 @@ const OfertaDetalleView = ({ data }) => {
       {/* 🚀 Inyectamos tu diseño de inscripción al final (o donde prefieras) */}
       <CourseEnrollment programaSlug={data.slug} />
 
-      <Banner />
-
     </main>
   );
 };

@@ -1,7 +1,8 @@
 import React from "react";
-import { Header } from "../components/sections/Public/Shared/Header";
-import BackToTop from "../components/sections/Public/Shared/BackToTop";
-import Footer from "../components/sections/Public/Shared/Footer";
+import { Header } from "../components/layout/Header";
+import {BackToTop} from "../components/ui/Navigation";
+import Footer from "../components/layout/Footer";
+import { Banner } from "@/components/common";
 
 const DetailLayout = ({ children }) => {
 
@@ -13,7 +14,7 @@ const DetailLayout = ({ children }) => {
       <main className="flex-grow">
         {children}
       </main>
-      
+      <Banner />
       <Footer />
       
       {/* El botón flotante renderizado a nivel de Layout */}
