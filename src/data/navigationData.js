@@ -8,20 +8,8 @@ export const navLinks = [
   {
     id: "nav-nosotros",
     name: "Nosotros",
-    type: "dropdown",
-    // Al detectar 'subItems', el componente renderizará un menú desplegable
-    subItems: [
-      {
-        id: "sub-estrategia",
-        name: "Estrategia Institucional",
-        href: "/nosotros/estrategia",
-      },
-      {
-        id: "sub-historia",
-        name: "Nuestra Historia",
-        href: "/nosotros/historia",
-      }
-    ],
+    href: "/nosotros",
+    type: "route",
   },
   {
     id: "nav-ofertas",
@@ -36,8 +24,8 @@ export const navLinks = [
     subItems: [
       {
         id: "sub-tramites",
-        name: "Trámites en Línea",
-        href: "/servicios/tramites",
+        name: "Atencion",
+        href: "/servicios/atencion",
       },
       { id: "sub-pqr", name: "Radicar PQR", href: "/servicios/pqr" },
       { id: "sub-faq", name: "Preguntas Frecuentes", href: "/servicios/faq" },
