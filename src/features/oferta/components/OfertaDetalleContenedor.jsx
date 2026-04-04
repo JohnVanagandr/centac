@@ -1,10 +1,10 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useOferta } from "../hooks/useOferta";
+import { useOfertas } from "../hooks/useOfertas";
 import OfertaDetalleView from "./OfertaDetalleView";
 
 const OfertaDetalleContenedor = () => {
-  const { programa, isValid, slug } = useOferta();
+  const { programa, isValid, slug } = useOfertas();
 
   // Lógica de control de flujo
   if (!isValid) {

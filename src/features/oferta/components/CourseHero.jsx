@@ -1,11 +1,11 @@
 import React from "react";
 import Button from "@/components/ui/Navigation/Button"; 
-import { useOferta } from "../hooks/useOferta";
+import { useOfertas } from "../hooks/useOfertas";
 
 // Cambiamos a exportación nombrada por convención
 const CourseHero = ({ data }) => {
   // Extraemos nuestra función mágica de scroll
-  const { scrollToSection } = useOferta();
+  const { scrollToSection } = useOfertas();
 
   return (
     <section

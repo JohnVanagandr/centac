@@ -2,7 +2,7 @@
 export * from './components'; 
 
 // 2. Exportamos la lógica (hooks)
-export * from './hooks/useOferta';
+export * from './hooks/useOfertas';
 
 // 3. Exportamos los servicios
 // export * from '/services/ofertaService';
