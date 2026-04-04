@@ -28,8 +28,7 @@ export const navLinks = [
         href: "/servicios/atencion",
       },
       { id: "sub-pqr", name: "Radicar PQR", href: "/servicios/pqr" },
-      { id: "sub-faq", name: "Preguntas Frecuentes", href: "/servicios/faq" },
-      { id: "sub-contacto", name: "Contáctanos", href: "/contacto" }, // Moví contacto aquí como es estándar en portales
+      { id: "sub-contacto", name: "Contáctanos", href: "/contacto" },
     ],
   },
 ];

@@ -8,7 +8,6 @@ import {
   OfertaDetalle,
   Atencion,
   Pqr,
-  Faq,
   Contacto,
 } from "@/pages/public";
 
@@ -21,7 +20,6 @@ export const PublicRoutes = () => {
       <Route path="ofertas" element={<CatalogoOfertas />} />
       <Route path="oferta/:slug" element={<OfertaDetalle />} />
       <Route path="servicios/pqr" element={<Pqr />} />
-      <Route path="servicios/faq" element={<Faq />} />
       <Route path="contacto" element={<Contacto />} />
     </Routes>
   );
