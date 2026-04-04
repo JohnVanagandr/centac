@@ -38,7 +38,7 @@ const SolicitudDetalle = () => {
   };
 
   const handleSaveNota = () => {
-    console.log("Nueva nota registrada:", nota);
+
     setNota(""); // Limpiar el campo después de guardar
   };
 

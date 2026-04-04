@@ -50,7 +50,6 @@ export const usePqrs = () => {
   // Acción de envío a Laravel
   const submitPqrs = async (formValues) => {
     try {
-      console.log("Radicando PQRS en Laravel:", formValues);
       // Simulación de red
       await new Promise((resolve) => setTimeout(resolve, 2000));
       resetForm();

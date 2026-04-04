@@ -3,7 +3,6 @@ import { LeadForm } from "./"; // Importamos la vista del barril interno
 import { useLeadRegistration } from "../hooks/useLeadRegistration";
 
 const LeadRegistration = ({ programaPreseleccionado = "" }) => {
-  console.log(programaPreseleccionado);
   
   // 🚀 Extraemos la lógica real de nuestro hook
   const { 
