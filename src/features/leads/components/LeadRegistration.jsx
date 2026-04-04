@@ -1,10 +1,10 @@
-import React from "react";
-import { LeadForm } from "./"; // Importamos la vista del barril interno
+import React, { useMemo } from "react";
+import { LeadForm } from "./"; 
 import { useLeadRegistration } from "../hooks/useLeadRegistration";
+import { useOfertas } from "@/features/oferta/hooks/useOfertas";
 
 const LeadRegistration = ({ programaPreseleccionado = "" }) => {
   
-  // 🚀 Extraemos la lógica real de nuestro hook
   const { 
     values, 
     errors, 
@@ -14,14 +14,16 @@ const LeadRegistration = ({ programaPreseleccionado = "" }) => {
     isSubmitted 
   } = useLeadRegistration(programaPreseleccionado);
 
-  // 💡 Lista de programas. 
-  // En el futuro, esto podría venir de un Contexto global o de un endpoint de Laravel
-  const programasOptions = [
-    { id: "", label: "Selecciona un programa..." },
-    { id: "tecnico-sistemas", label: "Técnico en Sistemas" },
-    { id: "mecanica-motos", label: "Mecánica de Motos" },
-    { id: "soldadura", label: "Soldadura Industrial" }
-  ];
+  const { allOfertas, loading } = useOfertas();
+
+  const programasOptions = useMemo(() => {
+    if (loading || !allOfertas) return [];
+
+    return allOfertas.map(oferta => ({
+      id: oferta.id,
+      label: oferta.title
+    }));
+  }, [allOfertas, loading]);
 
   return (
     <LeadForm 
@@ -31,7 +33,8 @@ const LeadRegistration = ({ programaPreseleccionado = "" }) => {
       onSubmit={onSubmitForm}
       isSubmitting={isSubmitting}
       isSubmitted={isSubmitted}
-      programasOptions={programasOptions}
+      programasOptions={programasOptions} 
+      loadingOptions={loading}
     />
   );
 };

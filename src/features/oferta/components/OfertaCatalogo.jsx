@@ -1,7 +1,4 @@
 import React from "react";
-// 1. Aquí centralizamos la LÓGICA (saber las ofertas)
-import { ofertaData } from "@/data"; 
-// 2. Traemos la VISTA (el componente tonto que pinta las tarjetas)
 import OfertaGrid from "./OfertaGrid";
 // 1. Importamos nuestro hook estrella y el spinner de UI
 import { useOfertas } from "../hooks/useOfertas";
@@ -30,7 +27,7 @@ const OfertaCatalogo = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="max-w-7xl px-2 py-12 mx-auto w-full">
       {/* Cabecera interna del catálogo */}
