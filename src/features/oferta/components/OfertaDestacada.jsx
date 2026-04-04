@@ -1,10 +1,10 @@
 import React from "react";
 
 import OfertaGrid from "./OfertaGrid";
-import { programasData } from "@/data/ofertaData";
+import { ofertaData } from "@/data/ofertaData";
 
 const OfertaDestacada = () => {
-    const items = programasData.filter( (prog) => prog.isTop === true, );
+    const items = ofertaData.filter( (prog) => prog.isTop === true, );
     
     return (
         <>

@@ -1,11 +1,11 @@
 import React from "react";
 // 1. Aquí centralizamos la LÓGICA (saber las ofertas)
-import { programasData } from "../../../data/ofertaData"; 
+import { ofertaData } from "@/data"; 
 // 2. Traemos la VISTA (el componente tonto que pinta las tarjetas)
 import OfertaGrid from "./OfertaGrid";
 
 const OfertaCatalogo = () => {
-  const ofertas = programasData;
+  const ofertas = ofertaData;
 
   return (
     <div className="max-w-7xl px-2 py-12 mx-auto w-full">
