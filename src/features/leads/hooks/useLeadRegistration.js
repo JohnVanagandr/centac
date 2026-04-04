@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { useForm } from "@/hooks/useForm";
 
-// 🛡️ Reglas de Validación para Leads
+// Reglas de Validación para Leads
 const validateLead = (values) => {
   let errors = {};
 
@@ -44,8 +45,18 @@ export const useLeadRegistration = (programaPreseleccionado = "") => {
     handleSubmit, 
     isSubmitting, 
     isSubmitted, 
-    resetForm 
-  } = useForm(initialState, validateLead);
+    resetForm,
+    setValues
+  } = useForm(initialState, validateLead);  
+
+  useEffect(() => {
+    if (programaPreseleccionado) {
+      setValues(prev => ({
+        ...prev,
+        programaInteres: programaPreseleccionado
+      }));
+    }
+  }, [programaPreseleccionado, setValues]);
 
   // Acción de envío
   const submitLead = async (formValues) => {

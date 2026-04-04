@@ -62,6 +62,7 @@ export const useForm = (initialState, validateRules) => {
     handleSubmit,
     isSubmitting,
     isSubmitted,
-    resetForm, // Exportamos la herramienta por si algún formulario la necesita
+    resetForm,
+    setValues
   };
 };
