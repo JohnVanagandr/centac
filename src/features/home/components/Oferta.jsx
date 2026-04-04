@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Reveal } from "@/components/utils";
-import Button from "@/components/ui/Navigation/Button";
+import { Button } from "@/components/ui/Navigation";
 import { OfertaDestacada } from "@/features/oferta";
 
 export const Oferta = () => {
-
   return (
     // SLATE: Cambiamos bg-gray-50 por bg-slate-50
     <section id="oferta" className="py-24 bg-slate-50 flex-grow relative">
