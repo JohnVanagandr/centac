@@ -4,7 +4,7 @@ export const FooterIdentity = () => {
   return (
     <div>
       <img
-        src="/logo-blanco.png"
+        src={`${import.meta.env.BASE_URL}logo-blanco.png`}
         alt="CENTAC Logo"
         className="h-14 mb-5 opacity-90"
       />
