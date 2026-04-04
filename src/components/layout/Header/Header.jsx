@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavbar } from "@/components/layout/Header/hooks/useNavbar";
 import { AuthContext } from "@/context/AuthContext";
-import TopBar from "../TopBar"; 
+import { TopBar }  from "./TopBar"; 
 import Navigation from "./Navigation";
 import NavActions from "./NavActions";
 import MobileMenu from "./MobileMenu";

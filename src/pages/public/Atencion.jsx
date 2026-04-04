@@ -5,7 +5,8 @@ import PublicLayout from '@/layouts/PublicLayout';
 const AtencionPage = () => {
   return (
     <PublicLayout 
-      title="Atención y Servicios" 
+      category="Atención y Servicios" 
+      title="Atención" 
       subtitle="Nuestro objetivo es asegurar una comunicación oportuna y una atención respetuosa, clara y eficiente."
     >
       <AtencionContenedor />

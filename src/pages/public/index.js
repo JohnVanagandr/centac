@@ -5,3 +5,5 @@ export { default as OfertaDetalle } from "./OfertaDetalle";
 export { default as Atencion } from "./Atencion";
 export { default as Contacto } from "./Contacto";
 export { default as Pqr } from "./Pqrs";
+export { default as AvisoLegalPage } from "./AvisoLegalPage";
+export { default as PoliticaPrivacidadPage } from "./PoliticaPrivacidadPage";

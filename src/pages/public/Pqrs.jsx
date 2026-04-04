@@ -5,6 +5,7 @@ import { PqrsContainer } from "@/features/pqrs";
 const Pqrs = () => {
   return (
     <PublicLayout 
+      category="Atención y Servicios" 
       title="PQRS" 
       subtitle="Centro de radicación de Peticiones, Quejas, Reclamos, Sugerencias y Felicitaciones."
     >

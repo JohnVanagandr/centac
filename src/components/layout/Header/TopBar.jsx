@@ -1,6 +1,6 @@
 import React from "react";
 
-const TopBar = () => {
+export const TopBar = () => {
   return (
     <div className="bg-navy text-slate-300 py-2 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -124,5 +124,3 @@ const TopBar = () => {
     </div>
   );
 };
-
-export default TopBar;

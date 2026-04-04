@@ -9,6 +9,8 @@ import {
   Atencion,
   Pqr,
   Contacto,
+  AvisoLegalPage,
+  PoliticaPrivacidadPage
 } from "@/pages/public";
 
 export const PublicRoutes = () => {
@@ -21,6 +23,8 @@ export const PublicRoutes = () => {
       <Route path="oferta/:slug" element={<OfertaDetalle />} />
       <Route path="servicios/pqr" element={<Pqr />} />
       <Route path="contacto" element={<Contacto />} />
+      <Route path="aviso-legal" element={< AvisoLegalPage />} />
+      <Route path="politica-privacidad" element={< PoliticaPrivacidadPage />} />
     </Routes>
   );
 };

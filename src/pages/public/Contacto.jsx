@@ -5,6 +5,7 @@ import { ContactoContainer } from "@/features/contacto";
 const Contacto = () => {
   return (
     <PublicLayout 
+      category="Atención y Servicios" 
       title="Contacto" 
       subtitle="Escríbenos, llámanos o visítanos. Las puertas de nuestra institución siempre están abiertas para ti."
     >
