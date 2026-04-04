@@ -39,6 +39,22 @@ export const createRepository = (endpoint, localData) => {
       return new Promise((resolve) => setTimeout(() => resolve(item), 500));
     },
 
+    // Obtener un registro por slug
+    getBySlug: async (slug) => {
+      if (import.meta.env.VITE_USE_API === 'true') {
+        try {
+          // Buscamos en la API por el slug
+          const response = await apiClient.get(`${endpoint}/slug/${slug}`);
+          return response.data;
+        } catch (error) {
+          console.error(`Error API ${endpoint}/slug/${slug}`, error);
+          return localData.find(item => item.slug === slug);
+        }
+      }
+      // Simulación local
+      const item = localData.find(item => item.slug === slug);
+      return new Promise((resolve) => setTimeout(() => resolve(item), 400));
+    }
     // Aquí puedes agregar más métodos en el futuro: create, update, delete...
   };
 };

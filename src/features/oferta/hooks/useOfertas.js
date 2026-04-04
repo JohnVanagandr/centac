@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { ofertaRepository } from '@/repositories';
 
 export const useOfertas = () => {
@@ -19,9 +19,14 @@ export const useOfertas = () => {
     ofertas.filter(o => o.isTop), 
   [ofertas]);
 
+  const getOfertaBySlug = useCallback(async (slug) => {
+    return await ofertaRepository.getBySlug(slug);
+  }, []);
+
   return { 
     allOfertas: ofertas, 
     featuredOfertas, 
+    getOfertaBySlug,
     loading 
   };
 };
