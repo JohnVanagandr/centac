@@ -3,7 +3,7 @@ import { Reveal } from "@/components/utils";
 import { aboutData } from "@/data/abouData";
 import { IconMapper } from "@/components/ui/Icons";
 
-const Nosotros = () => {
+export const Nosotros = () => {
   return (
     <section id="nosotros" className="relative z-20 flex flex-col">
       {/* --- PARTE SUPERIOR: Trayectoria (Fondo Navy Deeper) --- */}
@@ -146,5 +146,3 @@ const Nosotros = () => {
     </section>
   );
 };
-
-export default Nosotros;

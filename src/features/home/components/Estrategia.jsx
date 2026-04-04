@@ -36,7 +36,7 @@ const PilarCard = ({
 };
 
 // 2. EL COMPONENTE PRINCIPAL
-const Estrategia = () => {
+export const Estrategia = () => {
   return (
     <section
       id="estrategia"
@@ -83,5 +83,3 @@ const Estrategia = () => {
     </section>
   );
 };
-
-export default Estrategia;

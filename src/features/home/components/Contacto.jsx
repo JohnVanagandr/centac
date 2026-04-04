@@ -2,7 +2,7 @@ import React from "react";
 import { Reveal } from "@/components/utils";
 import { LeadRegistration } from "@/features/leads";
 
-const Contacto = () => {
+export const Contacto = () => {
   return (
     <section id="contacto" className="py-24 bg-navy relative overflow-hidden">
       {/* 🖼️ FONDOS ESTRATÉGICOS: 
@@ -44,5 +44,3 @@ const Contacto = () => {
     </section>
   );
 };
-
-export default Contacto;

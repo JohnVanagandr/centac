@@ -4,7 +4,7 @@ import { Reveal } from "@/components/utils";
 import Button from "@/components/ui/Navigation/Button";
 import { OfertaDestacada } from "@/features/oferta";
 
-const Oferta = () => {
+export const Oferta = () => {
 
   return (
     // SLATE: Cambiamos bg-gray-50 por bg-slate-50
@@ -61,5 +61,3 @@ const Oferta = () => {
     </section>
   );
 };
-
-export default Oferta;

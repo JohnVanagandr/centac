@@ -1,20 +1,41 @@
 import React from "react";
-import { sliderData } from "@/data/sliderData";
-import { useSlider } from "@/features/home/hooks/useSlider";
-import Button from "@/components/ui/Navigation/Button";
-import Badge from "@/components/ui/DataDisplay/Badge";
+import { Spinner } from "@/components/ui/Feedback"; 
+import {Button} from "@/components/ui/Navigation";
+import {Badge} from "@/components/ui/DataDisplay";
 
-const Slider = () => {
+import { useSlider } from "../hooks/useSlider";
+import { useSliderData } from "@/hooks"; 
+
+export const Slider = () => {
+  // 1. Consumimos los datos desde la capa de abstracción
+  const { slides, loading } = useSliderData();
+
+  // 2. Pasamos el length dinámico de 'slides' en lugar del estático
   const { currentIndex, nextSlide, prevSlide, goToSlide } = useSlider(
-    sliderData.length,
+    slides?.length || 0,
   );
+
+  // 3. ESTADO DE CARGA: Si está consultando la data, mostramos el Spinner
+  if (loading) {
+    return (
+      <section className="relative h-[85vh] w-full flex items-center justify-center bg-navy-deeper">
+        <Spinner size="xl" intent="brand" />
+      </section>
+    );
+  }
+
+  // 4. ESTADO VACÍO: Si la API falló y no hay data de respaldo
+  if (!slides || slides.length === 0) {
+    return null; // O aquí podrías poner un componente Placeholder de error
+  }
 
   return (
     <section
       id="inicio"
       className="relative h-[85vh] w-full overflow-hidden bg-navy-deeper group/slider"
     >
-      {sliderData.map((slide, index) => (
+      {/* 5. Mapeamos la variable 'slides' (que viene del Hook), NO el archivo estático */}
+      {slides.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
@@ -34,7 +55,6 @@ const Slider = () => {
           </div>
 
           {/* CONTENIDO CENTRAL */}
-          {/* 1. Ajuste: Reducimos el pb-24 a pb-12 para que no asfixie el contenido hacia arriba */}
           <div className="relative h-full max-w-7xl mx-auto px-6 flex items-center pb-12 md:pb-0">
             <div
               className={`max-w-3xl transition-all duration-1000 delay-300 transform ${
@@ -43,7 +63,6 @@ const Slider = () => {
                   : "translate-y-12 opacity-0"
               }`}
             >
-              {/* Badge: Reducimos el margin bottom (mb-4 en lugar de mb-6) */}
               <div className="mb-4 inline-block">
                 <Badge
                   intent="gold"
@@ -54,18 +73,15 @@ const Slider = () => {
                 </Badge>
               </div>
 
-              {/* 2. TÍTULO: Bajamos a text-4xl en móvil (y sm:text-5xl) para que no se corte */}
               <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight tracking-tight">
                 {slide.title}
                 <span className="text-brand"> {slide.titleHighlight}</span>
               </h2>
 
-              {/* 3. DESCRIPCIÓN: Bajamos a text-base en móvil para ahorrar espacio vertical */}
               <p className="text-slate-300 font-body text-base md:text-xl mb-8 leading-relaxed max-w-xl font-medium">
                 {slide.description}
               </p>
 
-              {/* Botón */}
               <div className="flex items-center gap-6">
                 <Button
                   as="a"
@@ -95,15 +111,33 @@ const Slider = () => {
         </div>
       ))}
 
-      {/* Flechas Laterales (Sin cambios) */}
+      {/* Flechas Laterales */}
       <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 z-30 flex justify-between pointer-events-none opacity-0 md:group-hover/slider:opacity-100 transition-opacity duration-500">
-        {/* ... (Tus botones de flechas se mantienen igual) ... */}
+        <button
+          onClick={prevSlide}
+          aria-label="Diapositiva anterior"
+          className="p-3 md:p-4 rounded-full bg-white/5 text-white/70 hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer pointer-events-auto backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 hover:scale-110"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={nextSlide}
+          aria-label="Siguiente diapositiva"
+          className="p-3 md:p-4 rounded-full bg-white/5 text-white/70 hover:bg-primary hover:text-white transition-all duration-300 cursor-pointer pointer-events-auto backdrop-blur-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 hover:scale-110"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
       {/* INDICADORES (Dots) */}
-      {/* 4. Ajuste: Los pegamos un poco más abajo (bottom-4) en móvil para dar más espacio al botón */}
       <div className="absolute bottom-4 md:bottom-10 left-6 md:left-auto md:right-10 z-30 flex gap-2.5">
-        {sliderData.map((_, index) => (
+        {/* Aseguramos iterar sobre 'slides' */}
+        {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
@@ -119,5 +153,3 @@ const Slider = () => {
     </section>
   );
 };
-
-export default Slider;
