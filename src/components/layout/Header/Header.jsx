@@ -2,33 +2,25 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useNavbar } from "@/components/layout/Header/hooks/useNavbar";
 import { AuthContext } from "@/context/AuthContext";
-import { TopBar }  from "./TopBar"; 
-import Navigation from "./Navigation";
-import NavActions from "./NavActions";
-import MobileMenu from "./MobileMenu";
+import {TopBar, NavActions, MobileMenu, Navigation} from "./";
 
-const Header = () => {
+export const Header = () => {
   const { isMenuOpen, isScrolled, isHome, toggleMenu, closeMenu } = useNavbar();
   const { isLoggedIn, logout, user } = useContext(AuthContext);
 
   return (
     <>
-      {/* El contenedor general del Header ahora envuelve ambas barras */}
       <header className="fixed top-0 w-full z-50 flex flex-col transition-all duration-500 ease-in-out">
-        {/* BRAND: Línea corporativa superior intocable */}
         <div className="h-1 w-full bg-brand shrink-0 z-50"></div>
 
-        {/* TopBar: Se oculta suavemente al hacer scroll (h-0 y opacity-0) */}
         <div
           className={`w-full overflow-hidden transition-all duration-500 ease-in-out ${
             isScrolled ? "h-0 opacity-0" : "h-[33px] opacity-100"
-            // Nota: h-[33px] asume la altura de tu TopBar. Ajusta si es necesario.
           }`}
         >
           <TopBar />
         </div>
 
-        {/* Navegación Principal */}
         <div
           className={`w-full transition-all duration-500 ease-in-out ${
             isScrolled
@@ -37,7 +29,6 @@ const Header = () => {
           }`}
         >
           <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-            {/* LOGO OFICIAL CENTAC */}
             <Link
               to="/"
               onClick={closeMenu}
@@ -80,5 +71,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

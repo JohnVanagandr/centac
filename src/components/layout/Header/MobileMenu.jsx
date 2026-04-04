@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navigation from "./Navigation";
-import Button from "@/components/ui/Navigation/Button"; // ¡Importamos nuestro superhéroe!
+import { Navigation } from "./";
+import { Button } from "@/components/ui/Navigation";
 
-const MobileMenu = ({
+export const MobileMenu = ({
   isMenuOpen,
   closeMenu,
   isHome,
@@ -132,5 +132,3 @@ const MobileMenu = ({
     </div>
   </div>
 );
-
-export default MobileMenu;

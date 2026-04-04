@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Logo = ({ isScrolled }) => (
+export const Logo = ({ isScrolled }) => (
   <Link to="/" className="flex items-center gap-3 group">
     <div
       className={`bg-brand rounded-xl flex items-center justify-center text-white font-display font-black transition-all duration-500 ${
@@ -24,5 +24,3 @@ const Logo = ({ isScrolled }) => (
     </div>
   </Link>
 );
-
-export default Logo;
