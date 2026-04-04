@@ -4,8 +4,18 @@ import { useOfertas } from "../hooks/useOfertas";
 
 // Cambiamos a exportación nombrada por convención
 const CourseHero = ({ data }) => {
-  // Extraemos nuestra función mágica de scroll
-  const { scrollToSection } = useOfertas();
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start" 
+      });
+    } else {
+      console.warn(`La sección #${sectionId} no existe en esta página.`);
+    }
+  };  
 
   return (
     <section
@@ -46,9 +56,8 @@ const CourseHero = ({ data }) => {
           {/* 4. BOTONES: Aquí está la magia del Hook */}
           <div className="flex flex-wrap gap-5 mt-10 mb-16">
             <Button
-              as="button" // 👈 CAMBIO CLAVE: Ya no es un enlace 'a', es un 'button'
-              onClick={() => scrollToSection('inscripcion')} // 👈 LLamamos a la función
-              intent="brand" 
+              as="button"
+              onClick={() => scrollToSection('inscripcion')} 
               size="lg"
               className="animate-pulse-soft"
             >
