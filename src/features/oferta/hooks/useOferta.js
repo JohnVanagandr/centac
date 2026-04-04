@@ -1,6 +1,6 @@
 import { useMemo, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { programasData } from "@/data/ofertaData";
+import { ofertaData } from "@/data";
 
 export const useOferta = () => {
   const { slug } = useParams();
@@ -8,7 +8,7 @@ export const useOferta = () => {
 
   // 1. Lógica de búsqueda de datos (Memoizada para rendimiento)
   const programa = useMemo(() => {
-    return programasData.find((prog) => prog.slug === slug);
+    return ofertaData.find((prog) => prog.slug === slug);
   }, [slug]);
 
   // 2. Lógica de Scroll Suave (La que reemplaza a los enlaces #)
