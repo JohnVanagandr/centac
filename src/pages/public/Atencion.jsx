@@ -1,10 +1,16 @@
-import React from "react";
-import PageHeader from "@/components/ui/Layout/PageHeader"; 
+import React from 'react';
+import { AtencionContenedor } from '@/features/atencion';
+import PublicLayout from '@/layouts/PublicLayout';
 
-const Atencion = () => {
+const AtencionPage = () => {
   return (
-    <></>
+    <PublicLayout 
+      title="Atención y Servicios" 
+      subtitle="Nuestro objetivo es asegurar una comunicación oportuna y una atención respetuosa, clara y eficiente."
+    >
+      <AtencionContenedor />
+    </PublicLayout>
   );
 };
 
-export default Atencion;
+export default AtencionPage;
