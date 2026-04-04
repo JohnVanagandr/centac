@@ -10,7 +10,7 @@ const DetailLayout = ({ children }) => {
       <Header />
       
       {/* Contenedor principal donde vivirá la vista de detalle */}
-      <main className="flex-grow">
+      <main className="flex-grow pt-[117px]">
         {children}
       </main>
       <Banner />

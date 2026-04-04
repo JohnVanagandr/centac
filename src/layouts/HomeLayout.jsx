@@ -10,7 +10,7 @@ const HomeLayout = ({children}) => {
 
       <Header />
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-[117px]">
         {children}
       </main>
       <Banner />
