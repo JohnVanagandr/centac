@@ -57,6 +57,7 @@ const CourseHero = ({ data }) => {
           <div className="flex flex-wrap gap-5 mt-10 mb-16">
             <Button
               as="button"
+              intent="brand"
               onClick={() => scrollToSection('inscripcion')} 
               size="lg"
               className="animate-pulse-soft"
