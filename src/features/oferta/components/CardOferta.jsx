@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import IconMapper from "@/components/ui/Icons/IconMapper";
+import { IconMapper } from "@/components/ui/Icons";
 import Button from "@/components/ui/Navigation/Button";
 import Badge from "@/components/ui/DataDisplay/Badge";
 

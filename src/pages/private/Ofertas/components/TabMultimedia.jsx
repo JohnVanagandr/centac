@@ -1,6 +1,6 @@
 import React from "react";
 // IMPORTANTE: Asegúrate de que esta ruta apunte correctamente a tu IconMapper
-import IconMapper from "../../../../components/ui/Icons/IconMapper";
+import { IconMapper } from "@/components/ui/Icons";
 import { ICON_LIBRARY } from "../../../../components/ui/Icons/IconLibrary"; 
 
 const TabMultimedia = ({ formData, handleChange }) => {
