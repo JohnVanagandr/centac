@@ -1,6 +1,7 @@
 import React from "react";
 import {Header, Footer } from "@/components/layout";
 import { Banner } from "@/components/common";
+import {BackToTop} from "../components/ui/Navigation";
 
 const DetailLayout = ({ children }) => {
 

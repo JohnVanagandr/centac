@@ -45,7 +45,7 @@ const Header = () => {
               aria-label="Ir al inicio"
             >
               <img
-                src="/logo.png"
+                src={`${import.meta.env.BASE_URL}logo.png`}
                 alt="Logotipo CENTAC"
                 className={`transition-all duration-500 ease-in-out ${
                   isScrolled
