@@ -1,4 +1,4 @@
-import Placeholder from "@/components/ui/Feedback/Placeholder";
+import { Placeholder } from "@/components/ui/Feedback";
 
 const ProfilePage = () => {
   return (

@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextAreaField = ({
+export const TextAreaField = ({
   label,
   name,
   value,
@@ -50,5 +50,3 @@ const TextAreaField = ({
     </div>
   );
 };
-
-export default TextAreaField;

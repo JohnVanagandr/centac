@@ -1,6 +1,6 @@
 import React from "react";
 
-const Alert = ({ type = "success", title, children }) => {
+export const Alert = ({ type = "success", title, children }) => {
   // Aplicando el Sistema de Diseño CENTAC
   const styles = {
     // Éxito y Error se mantienen en colores semánticos universales
@@ -34,5 +34,3 @@ const Alert = ({ type = "success", title, children }) => {
     </div>
   );
 };
-
-export default Alert;

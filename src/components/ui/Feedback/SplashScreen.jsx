@@ -1,6 +1,6 @@
 import React from "react";
 
-const SplashScreen = () => {
+export const SplashScreen = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-navy text-white transition-opacity duration-500">
       {/* FONDO NAVY: El lienzo perfecto para el contraste */}
@@ -31,5 +31,3 @@ const SplashScreen = () => {
     </div>
   );
 };
-
-export default SplashScreen;

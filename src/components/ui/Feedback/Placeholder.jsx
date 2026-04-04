@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../Navigation/Button"; // Ajusta la ruta a tu estructura
 
-const Placeholder = ({ title, icon = "construction", progress = 65 }) => {
+export const Placeholder = ({ title, icon = "construction", progress = 65 }) => {
   return (
     <div className="flex flex-col items-center justify-center min-h-[65vh] text-center px-6">
       {/* 1. Icono con Pulso y Hover Semántico */}
@@ -59,5 +59,3 @@ const Placeholder = ({ title, icon = "construction", progress = 65 }) => {
     </div>
   );
 };
-
-export default Placeholder;

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Badge = ({
+export const Badge = ({
   children,
   intent = "neutral",
   variant = "solid",

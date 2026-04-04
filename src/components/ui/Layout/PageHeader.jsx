@@ -1,6 +1,6 @@
 import React from "react";
 
-const PageHeader = ({ title, description, category = "Nosotros" }) => {
+export const PageHeader = ({ title, description, category = "Nosotros" }) => {
   return (
     <div className="relative bg-navy pt-36 pb-16 lg:pt-48 lg:pb-24 overflow-hidden border-b-[6px] border-brand">
       {/* REFLEJO CORPORATIVO: 
@@ -34,5 +34,3 @@ const PageHeader = ({ title, description, category = "Nosotros" }) => {
     </div>
   );
 };
-
-export default PageHeader;

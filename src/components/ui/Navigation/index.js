@@ -1,2 +1,2 @@
-export { default as Button } from "./Button";
-export { default as BackToTop } from './BackToTop';
+export * from "./Button";
+export * from './BackToTop';

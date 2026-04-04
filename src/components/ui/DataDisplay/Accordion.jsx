@@ -1,7 +1,7 @@
 import React from "react";
 import { ChevronDown } from "lucide-react";
 
-const Accordion = ({ number, title, isOpen, onToggle, children }) => {
+export const Accordion = ({ number, title, isOpen, onToggle, children }) => {
   return (
     <div
       className={`rounded-xl transition-all duration-300 border ${
@@ -71,5 +71,3 @@ const Accordion = ({ number, title, isOpen, onToggle, children }) => {
     </div>
   );
 };
-
-export default Accordion;

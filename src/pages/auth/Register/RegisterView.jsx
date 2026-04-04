@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useRegister } from "./useRegister";
-import InputField from "@/components/ui/Form/InputField";
+import {InputField} from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
 
 const RegisterView = () => {

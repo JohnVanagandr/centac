@@ -1,4 +1,5 @@
-export { default as Alert } from "./Alert";
-export { default as Spinner } from "./Spinner";
-export { default as SplashScreen } from "./SplashScreen";
-export { default as LoadingScreen } from "./LoadingScreen";
+export * from "./Alert";
+export * from "./Spinner";
+export * from "./SplashScreen";
+export * from "./LoadingScreen";
+export * from "./Placeholder";

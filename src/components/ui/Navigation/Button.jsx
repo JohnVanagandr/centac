@@ -1,7 +1,7 @@
 import React from "react";
-import { Spinner } from "../Feedback"; // Asumo que tienes tu propio componente de carga
+import { Spinner } from "../Feedback";
 
-const Button = ({
+export const Button = ({
   as: Component = "button",
   children,
   variant = "solid",

@@ -1,6 +1,6 @@
 import React from "react";
 
-const StatItem = ({
+export const StatItem = ({
   icon,
   label,
   value,
