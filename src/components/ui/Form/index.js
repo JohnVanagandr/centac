@@ -1,3 +1,3 @@
-export { default as InputField } from "./InputField";
-export { default as SelectField } from "./SelectField";
-export { default as TextAreaField } from "./TextAreaField";
+export * from "./InputField";
+export * from "./SelectField";
+export * from "./TextAreaField";

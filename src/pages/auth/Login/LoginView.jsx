@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "./useLogin";
 import { Button } from "../../../components/ui/Navigation"; // Ajusta tus rutas
-import InputField from "../../../components/ui/Form/InputField"; // Ajusta tus rutas
+import {InputField} from "@/components/ui/Form";
 
 const LoginView = () => {
   const {

@@ -1,35 +1,62 @@
 import React from "react";
 
-const SplashScreen = () => {
+// Mapeo de tamaños para reutilización
+const sizeClasses = {
+  xs: "w-4 h-4",
+  sm: "w-6 h-6",
+  md: "w-10 h-10", // predeterminado
+  lg: "w-16 h-16",
+  xl: "w-24 h-24",
+};
+
+// Mapeo de grosores de borde según el tamaño
+const borderClasses = {
+  xs: "border-2",
+  sm: "border-2",
+  md: "border-4",
+  lg: "border-[6px]",
+  xl: "border-8",
+};
+
+// Mapeo de colores (intents)
+const colorClasses = {
+  brand: "text-brand", // naranja SENA
+  primary: "text-primary", // azul eléctrico
+  navy: "text-navy", // azul oscuro
+  white: "text-white",
+  gold: "text-gold",
+};
+
+/**
+ * Componente Spinner maestro para indicar estados de carga.
+ * @param {string} size - Tamaño del spinner: xs, sm, md, lg, xl.
+ * @param {string} intent - Color del spinner: brand, primary, navy, white, gold.
+ * @param {string} className - Clases adicionales opcionales.
+ */
+export const Spinner = ({ 
+  size = "md", 
+  intent = "primary", 
+  className = "" 
+}) => {
+  // Combinación de clases base con las dinámicas
+  const classes = [
+    "animate-spin", // Animación nativa de Tailwind
+    "rounded-full", // Forma circular
+    "border-solid", // Estilo de borde
+    "border-t-transparent", // CLAVE: Solo el borde superior es transparente para crear el efecto de giro
+    "border-current", // Usa el color de texto definido en colorClasses
+    sizeClasses[size],
+    borderClasses[size],
+    colorClasses[intent],
+    className,
+  ].join(" ");
+
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-navy text-white transition-opacity duration-500">
-      {/* 🌌 FONDO NAVY: El lienzo perfecto para el contraste */}
-
-      {/* Contenedor del Logo con animación de latido suave */}
-      <div className="flex flex-col items-center animate-pulse-soft">
-        {/* LOGO REAL: Usamos la imagen oficial de CENTAC. 
-            Asegúrate de tener el archivo en tu carpeta /public */}
-        <img
-          src="/logo-centac.png"
-          alt="CENTAC Logo"
-          className="w-48 md:w-56 mb-4 drop-shadow-[0_0_15px_rgba(0,117,255,0.2)]"
-        />
-
-        {/* 🟠 BRAND: Un subtítulo sutil en tu naranja para dar energía */}
-        <p className="text-brand font-body text-[11px] md:text-xs tracking-[0.3em] uppercase font-bold mt-2">
-          Plataforma Educativa
-        </p>
-      </div>
-
-      {/* 🔵 PRIMARY: El azul eléctrico brilla en el indicador de progreso */}
-      <div className="absolute bottom-12 flex flex-col items-center gap-3">
-        <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin shadow-[0_0_10px_rgba(0,117,255,0.4)]"></div>
-        <span className="text-xs text-slate-400 font-body uppercase tracking-wider font-bold">
-          Preparando entorno...
-        </span>
-      </div>
+    // Accesibilidad (A11y): role="status" indica que es un indicador de estado
+    <div role="status" className="flex items-center justify-center">
+      <div className={classes}></div>
+      {/* Texto oculto solo para lectores de pantalla */}
+      <span className="sr-only">Cargando...</span>
     </div>
   );
 };
-
-export default SplashScreen;

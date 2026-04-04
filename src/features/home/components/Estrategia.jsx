@@ -1,7 +1,7 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
 import { pilaresData } from "@/data/estrategiaData";
-import IconMapper from "@/components/ui/Icons/IconMapper";
+import { IconMapper } from "@/components/ui/Icons";
 
 
 const PilarCard = ({

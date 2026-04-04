@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useForgotPassword } from "./useForgotPassword";
-import InputField from "@/components/ui/Form/InputField";
+import {InputField} from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
 
 const ForgotPasswordView = () => {

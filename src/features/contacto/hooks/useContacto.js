@@ -35,7 +35,6 @@ export const useContacto = () => {
   // 2. Definimos la acción específica para ESTE formulario
   const submitContacto = async (formValues) => {
     try {
-      console.log("Datos listos para enviar a Laravel (Contacto):", formValues);
       // Simulación de API...
       await new Promise((resolve) => setTimeout(resolve, 2000));
       resetForm();

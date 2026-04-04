@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelectField = ({
+export const SelectField = ({
   label,
   name,
   value,
@@ -44,7 +44,6 @@ const SelectField = ({
         {/* 🚀 Mapeo de opciones flexible (Acepta id o value) */}
         {options.map((opt, index) => {
           const optionValue = opt.id || opt.value; // Extraemos el valor correcto
-          console.log(optionValue);
           
           return (
             <option 
@@ -67,5 +66,3 @@ const SelectField = ({
     </div>
   );
 };
-
-export default SelectField;

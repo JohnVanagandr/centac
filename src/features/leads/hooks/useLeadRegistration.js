@@ -50,7 +50,6 @@ export const useLeadRegistration = (programaPreseleccionado = "") => {
   // Acción de envío
   const submitLead = async (formValues) => {
     try {
-      console.log("🚀 Enviando Lead a Laravel:", formValues);
       
       // Aquí irá tu lógica real: await leadService.register(formValues);
       await new Promise((resolve) => setTimeout(resolve, 2000)); 

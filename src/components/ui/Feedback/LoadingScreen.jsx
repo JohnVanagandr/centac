@@ -1,6 +1,6 @@
 import React from "react";
 
-const LoadingScreen = ({ message = "Cargando..." }) => {
+export const LoadingScreen = ({ message = "Cargando..." }) => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="flex flex-col items-center gap-4">
@@ -14,4 +14,3 @@ const LoadingScreen = ({ message = "Cargando..." }) => {
     </div>
   );
 };
-export default LoadingScreen;

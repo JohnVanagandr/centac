@@ -8,7 +8,7 @@ import { useSplashScreen } from "./hooks/useSplashScreen";
 import { AuthProvider } from "@/context/AuthContext";
 
 // 2. Utilidades Globales de Navegación
-import ScrollToHash from "@/components/utils/ScrollToHash";
+import { ScrollToHash}  from "@/components/utils";
 
 // 3. Nuestro nuevo Router modular
 import { AppRouter } from "@/router";

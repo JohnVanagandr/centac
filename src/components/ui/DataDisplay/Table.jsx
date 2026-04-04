@@ -1,7 +1,7 @@
 import React from "react";
 
 // 1. Contenedor Principal (Añadimos bordes redondeados y fondo blanco)
-const Table = ({ children, className = "" }) => (
+export const Table = ({ children, className = "" }) => (
   <div
     className={`overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm ${className}`}
   >
@@ -56,5 +56,3 @@ Table.HeadCell = THeadCell;
 Table.Body = TBody;
 Table.Row = TRow;
 Table.Cell = TCell;
-
-export default Table;

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Reveal = ({ children, className = "", threshold = 0.15 }) => {
+export const Reveal = ({ children, className = "", threshold = 0.15 }) => {
   // 1. useRef: Es como el "getElementById" de React. Nos da una referencia directa a este DIV.
   const domRef = useRef(null);
 
@@ -43,5 +43,3 @@ const Reveal = ({ children, className = "", threshold = 0.15 }) => {
     </div>
   );
 };
-
-export default Reveal;

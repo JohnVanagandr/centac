@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 // ¡Importamos nuestro componente maestro!
 import Button from "@/components/ui/Navigation/Button";
 
-const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
+export const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -140,5 +140,3 @@ const NavActions = ({ isScrolled, toggleMenu, isLoggedIn, onLogout, user }) => {
     </div>
   );
 };
-
-export default NavActions;

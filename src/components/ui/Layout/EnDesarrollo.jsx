@@ -1,6 +1,6 @@
 import React from "react";
 
-const EnDesarrollo = ({
+export const EnDesarrollo = ({
   mensaje = "Estamos estructurando el contenido de esta sección para brindarte la mejor experiencia.",
 }) => {
   return (
@@ -32,5 +32,3 @@ const EnDesarrollo = ({
     </div>
   );
 };
-
-export default EnDesarrollo;
