@@ -2,7 +2,7 @@ import React from "react";
 import { Reveal } from "@/components/utils";
 import Button from "@/components/ui/Navigation/Button";
 
-const Banner = () => {
+export const Banner = () => {
   return (
     <section className="py-20 bg-slate-50 border-t border-slate-200">
       <Reveal className="max-w-4xl mx-auto px-6 text-center">
@@ -62,5 +62,3 @@ const Banner = () => {
     </section>
   );
 };
-
-export default Banner;
