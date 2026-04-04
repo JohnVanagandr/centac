@@ -10,7 +10,7 @@ const SplashScreen = () => {
         {/* LOGO REAL: Usamos la imagen oficial de CENTAC. 
             Asegúrate de tener el archivo en tu carpeta /public */}
         <img
-          src="/logo-blanco.png"
+          src={`${import.meta.env.BASE_URL}logo-blanco.png`}
           alt="CENTAC Logo"
           className="w-48 md:w-56 mb-4 drop-shadow-[0_0_15px_rgba(0,117,255,0.2)]"
         />
