@@ -5,7 +5,7 @@ import { SplashScreen } from "@/components/ui/Feedback";
 import { useSplashScreen } from "./hooks/useSplashScreen";
 
 // 1. Contexto Global
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider, FeedbackProvider } from "@/context";
 
 // 2. Utilidades Globales de Navegación
 import { ScrollToHash}  from "@/components/utils";
@@ -27,13 +27,15 @@ const App = () => {
   // Renderizado Principal de la App
   // ==========================================
   return (
-    <AuthProvider>
-      <HashRouter>
-        <ScrollToHash />
-        {/* Toda la magia y complejidad de las URLs vive aquí adentro */}
-        <AppRouter />
-      </HashRouter>
-    </AuthProvider>
+    <FeedbackProvider>
+      <AuthProvider>
+        <HashRouter>
+          <ScrollToHash />
+          {/* Toda la magia y complejidad de las URLs vive aquí adentro */}
+          <AppRouter />
+        </HashRouter>
+      </AuthProvider>
+    </FeedbackProvider>
   );
 };
 

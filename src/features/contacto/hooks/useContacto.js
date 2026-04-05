@@ -1,6 +1,5 @@
-import { useForm } from "@/hooks/useForm"; // Tu hook global maestro
+import { useForm, useFeedback } from "@/hooks";
 
-// 🛡️ Reglas de Validación Aisladas
 const validateContacto = (values) => {
   let errors = {};
   if (!values.nombre.trim()) errors.nombre = "El nombre es obligatorio.";
@@ -16,9 +15,10 @@ const validateContacto = (values) => {
   return errors;
 };
 
-// 🚀 El Hook Específico del Feature
 export const useContacto = () => {
-  // 1. Instanciamos tu hook global
+  
+  const { showFeedback } = useFeedback();
+
   const { 
     values, 
     errors, 
@@ -38,8 +38,17 @@ export const useContacto = () => {
       // Simulación de API...
       await new Promise((resolve) => setTimeout(resolve, 2000));
       resetForm();
+      showFeedback({
+        type: 'success',
+        title: '¡Mensaje Enviado!',
+        message: 'Gracias por escribirnos. Nuestro equipo revisará tu consulta y te contactaremos a la brevedad.'
+      });
     } catch (error) {
-      console.error("Error al enviar", error);
+      showFeedback({
+        type: 'error',
+        title: 'No pudimos enviar el mensaje',
+        message: 'Parece que hay un problema de conexión. Por favor, revisa tu internet o intenta de nuevo más tarde.'
+      });
     }
   };
 
