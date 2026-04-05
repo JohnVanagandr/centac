@@ -3,3 +3,4 @@ export * from "./Spinner";
 export * from "./SplashScreen";
 export * from "./LoadingScreen";
 export * from "./Placeholder";
+export * from "./FeedbackModal";
