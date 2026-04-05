@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useForm } from "@/hooks/useForm";
+import { useForm, useFeedback } from "@/hooks";
 
 // Reglas de Validación para Leads
 const validateLead = (values) => {
@@ -29,6 +29,8 @@ const validateLead = (values) => {
 
 // 🚀 El Hook del Feature (Recibe el programa por si viene de una vista de detalle)
 export const useLeadRegistration = (programaPreseleccionado = "") => {
+  const { showFeedback } = useFeedback();
+
   const initialState = {
     nombre: "",
     email: "",
@@ -66,8 +68,17 @@ export const useLeadRegistration = (programaPreseleccionado = "") => {
       await new Promise((resolve) => setTimeout(resolve, 2000)); 
       
       resetForm();
+      showFeedback({
+        type: 'success',
+        title: '¡Solicitud Recibida!',
+        message: 'Tu interés en este programa ha sido registrado. Un orientador técnico de nuestro centro de formación revisará tu perfil y te contactará vía WhatsApp o correo para explicarte los pasos de la matrícula.'
+      });
     } catch (error) {
-      console.error("Error al registrar el lead:", error);
+      showFeedback({
+        type: 'error',
+        title: 'Registro no procesado',
+        message: 'Tuvimos un problema técnico al guardar tu información. Por favor, no pierdas esta oportunidad; verifica tu conexión a internet e intenta enviarlo una vez más.'
+      });
     }
   };
 

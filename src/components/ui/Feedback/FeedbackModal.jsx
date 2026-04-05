@@ -1,7 +1,6 @@
 import React from 'react';
-// 🌟 1. Importamos las herramientas de animación
 import { motion, AnimatePresence } from 'framer-motion'; 
-import Button from '@/components/ui/Navigation/Button';
+import { Button } from '@/components/ui/Navigation';
 
 const Icons = {
   success: <svg className="w-12 h-12 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
@@ -17,7 +16,7 @@ export const FeedbackModal = ({ isOpen, type, title, message, onConfirm, onClose
   };
 
   return (
-    // 🌟 2. AnimatePresence permite animar la salida cuando isOpen es false
+    // AnimatePresence permite animar la salida cuando isOpen es false
     <AnimatePresence>
       {isOpen && (
         <motion.div 
@@ -66,16 +65,19 @@ export const FeedbackModal = ({ isOpen, type, title, message, onConfirm, onClose
                 fullWidth
                 onClick={handleConfirm}
               >
-                {type === 'confirm' ? 'Confirmar' : 'Entendido'}
+                {type === 'confirm' ? 'Confirmar' : 'Cerrar'}
               </Button>
 
               {type === 'confirm' && (
-                <button 
+                <Button 
+                  variant="outline"
+                  intent="danger"
+                  size="lg"
+                  fullWidth
                   onClick={onClose}
-                  className="text-slate-400 hover:text-navy font-bold text-sm transition-colors py-2"
                 >
                   Cancelar
-                </button>
+                </Button>
               )}
             </div>
           </motion.div>

@@ -65,6 +65,11 @@ export const Button = ({
     // GHOST (Botones sutiles, ideal para el Dashboard)
     ghost:
       "border border-slate-200 text-slate-500 hover:text-brand hover:bg-slate-50 hover:border-brand/20 shadow-none",
+    // Danger
+    danger: 
+    variant === "solid"
+      ? "bg-red-600 hover:bg-red-700 text-white shadow-lg shadow-red-600/30"
+      : "border-2 border-red-600 text-red-600 hover:bg-red-50",
   };
 
   // 4. PODERES DE TAMAÑO
