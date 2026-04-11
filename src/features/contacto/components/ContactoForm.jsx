@@ -21,10 +21,10 @@ const ContactoForm = ({ values, errors, handleChange, onSubmit, isSubmitting, is
       {/* Átomos de Formulario */}
       <InputField 
         label="Nombre completo"
-        name="nombre"
-        value={values.nombre}
+        name="full_name"
+        value={values.full_name}
         onChange={handleChange}
-        error={errors.nombre}
+        error={errors.full_name}
         placeholder="Ej. Juan Pérez"
       />
 
@@ -42,25 +42,25 @@ const ContactoForm = ({ values, errors, handleChange, onSubmit, isSubmitting, is
         <InputField 
           label="Teléfono"
           type="tel"
-          name="telefono"
-          value={values.telefono}
+          name="phone"
+          value={values.phone}
           onChange={handleChange}
-          error={errors.telefono}
+          error={errors.phone}
           placeholder="Tu número de contacto"
         />
       </div>
 
       <TextAreaField 
         label="Mensaje"
-        name="mensaje"
-        value={values.mensaje}
+        name="message"
+        value={values.message}
         onChange={handleChange}
-        error={errors.mensaje}
+        error={errors.message}
         rows="4"
         placeholder="¿En qué te podemos ayudar?"
       />
 
-      {/* 🚀 Átomo de Navegación/Acción */}
+      {/* Átomo de Navegación/Acción */}
       <div className="pt-2">
         <Button 
           type="submit" 
