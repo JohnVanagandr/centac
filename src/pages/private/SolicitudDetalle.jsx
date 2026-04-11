@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import confetti from "canvas-confetti";
-import { solicitudesData } from "../../data/solicitudesData";
+import { solicitudesData } from "../../mocks/solicitudesData";
 
 // Importación de módulos
 import DetalleHeader from "../../components/solicitudes/detalle/DetalleHeader";

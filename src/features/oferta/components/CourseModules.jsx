@@ -52,7 +52,7 @@ const CourseModules = ({ modules }) => {
                     className="text-slate-300 shrink-0 mt-0.5 group-hover/item:text-primary transition-colors duration-300"
                   />
                   <span className="text-sm md:text-base leading-snug">
-                    {item}
+                    {item.description ?? "Descripción del módulo no disponible"}
                   </span>
                 </li>
               ))}

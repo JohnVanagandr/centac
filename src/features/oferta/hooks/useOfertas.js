@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { ofertaRepository } from '@/repositories';
+import { ofertaService } from '@/services/ofertaService';
 
 export const useOfertas = () => {
   const [ofertas, setOfertas] = useState([]);
@@ -8,19 +8,24 @@ export const useOfertas = () => {
   useEffect(() => {
     const fetchOfertas = async () => {
       setLoading(true);
-      const data = await ofertaRepository.getAll();
+      
+      const data = await ofertaService.listarOfertas();
+      
+      // Como el servicio destapa la caja, 'data' ya es el arreglo limpio (o un array vacío si falla)
       setOfertas(data || []);
       setLoading(false);
     };
+    
     fetchOfertas();
   }, []);
 
+  // Filtramos las ofertas destacadas (memorizado para rendimiento)
   const featuredOfertas = useMemo(() => 
     ofertas.filter(o => o.isTop), 
   [ofertas]);
 
   const getOfertaBySlug = useCallback(async (slug) => {
-    return await ofertaRepository.getBySlug(slug);
+    return await ofertaService.obtenerPorSlug(slug);
   }, []);
 
   return { 

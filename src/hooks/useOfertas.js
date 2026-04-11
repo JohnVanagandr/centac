@@ -1,5 +1,5 @@
+import { ofertaRepository } from '@/data/repositories';
 import { useState, useEffect } from 'react';
-import { ofertaRepository } from '@/repositories';
 
 export const useOfertas = () => {
   const [ofertas, setOfertas] = useState([]);

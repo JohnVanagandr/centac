@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import { pilaresData } from "@/data/estrategiaData";
+import { pilaresData } from "@/mocks/estrategiaData";
 import { IconMapper } from "@/components/ui/Icons";
 
 

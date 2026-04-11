@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import { aboutData } from "@/data/abouData";
+import { aboutData } from "@/mocks/abouData";
 import { IconMapper } from "@/components/ui/Icons";
 
 export const Nosotros = () => {

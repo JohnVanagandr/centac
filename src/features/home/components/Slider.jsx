@@ -1,21 +1,26 @@
 import React from "react";
 import { Spinner } from "@/components/ui/Feedback"; 
-import {Button} from "@/components/ui/Navigation";
-import {Badge} from "@/components/ui/DataDisplay";
+import { Button } from "@/components/ui/Navigation";
+import { Badge } from "@/components/ui/DataDisplay";
 
+// 🌟 Única importación: nuestro Hook unificado que hace todo el trabajo
 import { useSlider } from "../hooks/useSlider";
-import { useSliderData } from "@/hooks"; 
 
 export const Slider = () => {
-  // 1. Consumimos los datos desde la capa de abstracción
-  const { slides, loading } = useSliderData();
+  // 1. Extraemos TODA la lógica (datos y estado visual) del mismo hook
+  // Le pasamos 6000ms (6 segundos) para la rotación automática
+  const { 
+    slides, 
+    loading, 
+    currentIndex, 
+    nextSlide, 
+    prevSlide, 
+    goToSlide 
+  } = useSlider(6000);
+  
+  
 
-  // 2. Pasamos el length dinámico de 'slides' en lugar del estático
-  const { currentIndex, nextSlide, prevSlide, goToSlide } = useSlider(
-    slides?.length || 0,
-  );
-
-  // 3. ESTADO DE CARGA: Si está consultando la data, mostramos el Spinner
+  // 2. ESTADO DE CARGA: Mostramos el Spinner mientras llegan los datos de la API
   if (loading) {
     return (
       <section className="relative h-[85vh] w-full flex items-center justify-center bg-navy-deeper">
@@ -24,17 +29,18 @@ export const Slider = () => {
     );
   }
 
-  // 4. ESTADO VACÍO: Si la API falló y no hay data de respaldo
+  // 3. ESTADO VACÍO: Protegemos la vista si la API no devuelve nada
   if (!slides || slides.length === 0) {
-    return null; // O aquí podrías poner un componente Placeholder de error
+    return null; // Opcional: Aquí puede agregar un diseño de "fallback" o error
   }
 
+  // 4. RENDERIZADO PRINCIPAL
   return (
     <section
       id="inicio"
       className="relative h-[85vh] w-full overflow-hidden bg-navy-deeper group/slider"
     >
-      {/* 5. Mapeamos la variable 'slides' (que viene del Hook), NO el archivo estático */}
+      {/* MAPEO DE SLIDES */}
       {slides.map((slide, index) => (
         <div
           key={slide.id}
@@ -42,7 +48,7 @@ export const Slider = () => {
             index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
           }`}
         >
-          {/* Fondo con Overlay */}
+          {/* Fondo con Overlay y efecto Ken Burns (Zoom in) */}
           <div className="absolute inset-0">
             <img
               src={slide.image}
@@ -111,7 +117,7 @@ export const Slider = () => {
         </div>
       ))}
 
-      {/* Flechas Laterales */}
+      {/* CONTROLES: Flechas Laterales */}
       <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 z-30 flex justify-between pointer-events-none opacity-0 md:group-hover/slider:opacity-100 transition-opacity duration-500">
         <button
           onClick={prevSlide}
@@ -134,9 +140,8 @@ export const Slider = () => {
         </button>
       </div>
 
-      {/* INDICADORES (Dots) */}
+      {/* CONTROLES: Indicadores (Dots) */}
       <div className="absolute bottom-4 md:bottom-10 left-6 md:left-auto md:right-10 z-30 flex gap-2.5">
-        {/* Aseguramos iterar sobre 'slides' */}
         {slides.map((_, index) => (
           <button
             key={index}

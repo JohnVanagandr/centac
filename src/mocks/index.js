@@ -4,6 +4,5 @@ export * from './estrategiaData';
 export * from './navigationData';
 export * from './ofertaData';
 export * from './sidebarData';
-export * from './sliderData';
 export * from './solicitudesData';
 export * from './usersData';

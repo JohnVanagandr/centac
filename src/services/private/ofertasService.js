@@ -1,17 +1,19 @@
 import api from '../api';
 
-const ENDPOINT = '/ofertas';
+const ENDPOINT = '/oferta-academica';
 
 export const ofertasService = {
   // Obtener todos los programas
   getAll: async () => {
-    const params = new URLSearchParams();
-    const relaciones = ['modulos', 'testimonios', 'highlights', 'aprendizajes', 'perfiles_ocupacionales'];
+    // const params = new URLSearchParams();
+    // const relaciones = ['modulos', 'testimonios', 'highlights', 'aprendizajes', 'perfiles_ocupacionales'];
     
-    relaciones.forEach(rel => params.append('_embed', rel));
+    // relaciones.forEach(rel => params.append('_embed', rel));
 
-    const response = await api.get(`${ENDPOINT}/?${params.toString()}`);
-    return response.data;
+    const response = await api.get(`${ENDPOINT}`);
+    console.log(response);
+    
+    return response.data.data;
   },
 
   // Obtener un programa específico por ID

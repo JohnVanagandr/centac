@@ -1,5 +1,4 @@
 import React,{useState, useEffect} from "react";
-import { Navigate } from "react-router-dom";
 import { useOfertas } from "../hooks/useOfertas";
 import { useParams } from "react-router-dom";
 import OfertaDetalleView from "./OfertaDetalleView";
