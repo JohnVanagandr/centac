@@ -2,25 +2,27 @@ import React from "react";
 import { InputField, TextAreaField, SelectField } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
 
-// Opciones para los Selects
-const opcionesPqrs = [
-  { value: "", label: "Seleccione un tipo..." },
-  { value: "peticion", label: "Petición" },
-  { value: "queja", label: "Queja" },
-  { value: "reclamo", label: "Reclamo" },
-  { value: "sugerencia", label: "Sugerencia" },
-  { value: "felicitacion", label: "Felicitación" }
-];
+const PqrsForm = ({
+  values, 
+  errors, 
+  handleChange, 
+  onSubmit, 
+  isSubmitting, 
+  isSubmitted,
+  listas = { tiposDocumento: [], tiposPqrs: [] },
+  loadingListas 
+}) => {
 
-const opcionesDocumento = [
-  { value: "", label: "Tipo..." },
-  { value: "cc", label: "Cédula de Ciudadanía" },
-  { value: "ti", label: "Tarjeta de Identidad" },
-  { value: "ce", label: "Cédula de Extranjería" },
-  { value: "pasaporte", label: "Pasaporte" }
-];
+  const opcionesDocumento = listas.tiposDocumento.map(tipo => ({
+      value: tipo.id,
+      label: tipo.name 
+    }));
 
-const PqrsForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubmitted }) => {
+    const opcionesPqrs = listas.tiposPqrs.map(tipo => ({
+      value: tipo.id,
+      label: tipo.name
+    }));
+    
   return (
     <form onSubmit={onSubmit} className="space-y-6">
       <div className="mb-6">
@@ -38,11 +40,12 @@ const PqrsForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubm
       {/* Fila 1: Tipo de Solicitud (Full width) */}
       <SelectField 
         label="Tipo de Solicitud *"
-        name="tipoSolicitud"
+        name="pqrs_type_id"
         options={opcionesPqrs}
-        value={values.tipoSolicitud}
+        value={values.pqrs_type_id}
         onChange={handleChange}
-        error={errors.tipoSolicitud}
+        error={errors.pqrs_type_id}
+        disabled={loadingListas}
       />
 
       {/* Fila 2: Documento (Grid 1/3 - 2/3) */}
@@ -50,20 +53,21 @@ const PqrsForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubm
         <div className="md:col-span-1">
           <SelectField 
             label="Tipo Doc. *"
-            name="tipoDocumento"
+            name="document_type_id"
             options={opcionesDocumento}
-            value={values.tipoDocumento}
+            value={values.document_type_id}
             onChange={handleChange}
-            error={errors.tipoDocumento}
+            error={errors.document_type_id}
+            disabled={loadingListas}
           />
         </div>
         <div className="md:col-span-2">
           <InputField 
             label="Número de Documento *"
-            name="numeroDocumento"
-            value={values.numeroDocumento}
+            name="document_number"
+            value={values.document_number}
             onChange={handleChange}
-            error={errors.numeroDocumento}
+            error={errors.document_number}
             placeholder="Ej. 1098765432"
           />
         </div>
@@ -73,19 +77,19 @@ const PqrsForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubm
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <InputField 
           label="Nombres y Apellidos *"
-          name="nombreCompleto"
-          value={values.nombreCompleto}
+          name="full_name"
+          value={values.full_name}
           onChange={handleChange}
-          error={errors.nombreCompleto}
+          error={errors.full_name}
           placeholder="Ej. Ana María Pérez"
         />
         <InputField 
           label="Teléfono de Contacto"
           type="tel"
-          name="telefono"
-          value={values.telefono}
+          name="phone"
+          value={values.phone}
           onChange={handleChange}
-          error={errors.telefono}
+          error={errors.phone}
           placeholder="Ej. 300 123 4567"
         />
       </div>
@@ -104,20 +108,20 @@ const PqrsForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubm
       {/* Fila 5: Asunto (Full width) */}
       <InputField 
         label="Asunto de la Solicitud *"
-        name="asunto"
-        value={values.asunto}
+        name="subject"
+        value={values.subject}
         onChange={handleChange}
-        error={errors.asunto}
+        error={errors.subject}
         placeholder="Resumen breve de su solicitud"
       />
 
       {/* Fila 6: Descripción */}
       <TextAreaField 
         label="Descripción Detallada *"
-        name="descripcion"
-        value={values.descripcion}
+        name="description"
+        value={values.description}
         onChange={handleChange}
-        error={errors.descripcion}
+        error={errors.description}
         rows="5"
         placeholder="Describa de manera clara y respetuosa los hechos..."
       />

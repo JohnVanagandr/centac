@@ -3,8 +3,8 @@ import { PqrsDefiniciones, PqrsForm } from "./"; // Del barril interno
 import { usePqrs } from "../hooks/usePqrs"; // Del hook de lógica
 
 const PqrsContainer = () => {
-  // 🚀 Extraemos la lógica del hook
-  const { values, errors, handleChange, onSubmitForm, isSubmitting, isSubmitted } = usePqrs();
+  // Extraemos la lógica del hook
+  const { values, errors, handleChange, onSubmitForm, isSubmitting, isSubmitted, listas, loadingListas } = usePqrs();
 
   return (
     <section className="py-16 bg-white">
@@ -29,12 +29,14 @@ const PqrsContainer = () => {
           {/* Columna Derecha: Formulario (8 columnas) */}
           <div className="lg:col-span-8 bg-slate-50 p-8 md:p-10 rounded-2xl border border-slate-100 shadow-sm relative">
             <PqrsForm 
-              values={values}
-              errors={errors}
-              handleChange={handleChange}
+              values={values} 
+              errors={errors} 
+              handleChange={handleChange} 
               onSubmit={onSubmitForm} 
-              isSubmitting={isSubmitting}
+              isSubmitting={isSubmitting} 
               isSubmitted={isSubmitted}
+              listas={listas}               
+              loadingListas={loadingListas} 
             />
           </div>
 
