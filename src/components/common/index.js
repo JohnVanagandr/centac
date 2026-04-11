@@ -1,2 +1,2 @@
-export { default as Banner } from './Banner';
-export { default as PageHeader } from './PageHeader';
+export * from './Banner/Banner';
+export * from './PageHeader/PageHeader';

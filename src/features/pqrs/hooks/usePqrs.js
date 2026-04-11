@@ -1,4 +1,4 @@
-import { useForm } from "@/hooks/useForm";
+import { useForm, useFeedback } from "@/hooks";
 
 // 🛡️ Reglas de Validación Estrictas para PQRS
 const validatePqrs = (values) => {
@@ -32,8 +32,11 @@ const validatePqrs = (values) => {
   return errors;
 };
 
-// 🚀 El Hook del Feature
+// El Hook del Feature
 export const usePqrs = () => {
+
+  const { showFeedback } = useFeedback();
+
   const initialState = {
     tipoSolicitud: "",
     tipoDocumento: "",
@@ -49,13 +52,25 @@ export const usePqrs = () => {
 
   // Acción de envío a Laravel
   const submitPqrs = async (formValues) => {
-    try {
-      // Simulación de red
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      resetForm();
-    } catch (error) {
-      console.error("Error al radicar PQRS", error);
-    }
+    
+        try {
+          // Simulamos el envío al servidor
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          
+          resetForm();
+          
+          showFeedback({
+            type: 'success',
+            title: 'Radicado Exitoso',
+            message: 'Tu caso ha sido ingresado al sistema. En breve recibirás un correo con el número de seguimiento.'
+          });
+        } catch (error) {
+          showFeedback({
+            type: 'error',
+            title: 'Error de plataforma',
+            message: 'Tuvimos un problema al guardar tu solicitud. No te preocupes, inténtalo nuevamente en unos minutos.'
+          });
+        }
   };
 
   const onSubmitForm = handleSubmit(submitPqrs);

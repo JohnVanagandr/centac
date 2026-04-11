@@ -1,5 +1,5 @@
 import React from "react";
-import { requestStats, recentRequests } from "../../data/dashboardData";
+import { requestStats, recentRequests } from "../../mocks/dashboardData";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Navigation";
 import { StatItem } from "@/components/ui/DataDisplay";

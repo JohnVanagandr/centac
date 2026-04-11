@@ -1,14 +1,16 @@
 import React from "react";
 
 import OfertaGrid from "./OfertaGrid";
-import { programasData } from "@/data/ofertaData";
+import { Spinner } from "@/components/ui/Feedback";
+import { useOfertas } from "../hooks/useOfertas";
 
 const OfertaDestacada = () => {
-    const items = programasData.filter( (prog) => prog.isTop === true, );
-    
+// Solo pedimos las que nos interesan para el Home
+  const { featuredOfertas, loading } = useOfertas();
+  if (loading) return <Spinner intent="brand" />;
     return (
         <>
-            <OfertaGrid items={items} />
+            <OfertaGrid items={featuredOfertas} />
         </>
     )
 };

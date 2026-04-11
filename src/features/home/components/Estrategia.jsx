@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import { pilaresData } from "@/data/estrategiaData";
+import { pilaresData } from "@/mocks/estrategiaData";
 import { IconMapper } from "@/components/ui/Icons";
 
 
@@ -36,7 +36,7 @@ const PilarCard = ({
 };
 
 // 2. EL COMPONENTE PRINCIPAL
-const Estrategia = () => {
+export const Estrategia = () => {
   return (
     <section
       id="estrategia"
@@ -83,5 +83,3 @@ const Estrategia = () => {
     </section>
   );
 };
-
-export default Estrategia;

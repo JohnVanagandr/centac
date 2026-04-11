@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { navLinks } from "@/data/navigationData";
+import { navLinks } from "@/mocks/navigationData";
 
 // 1. EL HIJO: Componente Auxiliar (Helper Component)
 // Nota: Se llama NavItem y NO tiene la palabra "export"

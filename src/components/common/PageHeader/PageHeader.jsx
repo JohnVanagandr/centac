@@ -1,7 +1,7 @@
 import React from "react";
 
 // 1. Estandarizamos a exportación nombrada
-const PageHeader = ({ title, description, category = "Nosotros" }) => {
+export const PageHeader = ({ title, description, category = "Nosotros" }) => {
   return (
     <div 
       // 2. LA DIETA: Cambiamos pt-36 pb-16 por un simple py-10 en móvil.
@@ -37,4 +37,3 @@ const PageHeader = ({ title, description, category = "Nosotros" }) => {
     </div>
   );
 };
-export default PageHeader;

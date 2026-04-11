@@ -2,9 +2,8 @@ import React from "react";
 import { 
   CourseHero, CourseAbout, CourseLearnings, 
   CourseModules, CourseInstructor, CourseProfiles, 
-  CourseTestimonials, CourseEnrollment // 🚀 Lo traemos del barril
+  CourseTestimonials, CourseEnrollment
 } from "./";
-import { Banner } from "@/components/common";
 
 const OfertaDetalleView = ({ data }) => {
   return (
@@ -35,7 +34,7 @@ const OfertaDetalleView = ({ data }) => {
         </div>
       </section>
 
-      {/* 🚀 Inyectamos tu diseño de inscripción al final (o donde prefieras) */}
+      {/* Inyectamos tu diseño de inscripción al final (o donde prefieras) */}
       <CourseEnrollment programaSlug={data.slug} />
 
     </main>

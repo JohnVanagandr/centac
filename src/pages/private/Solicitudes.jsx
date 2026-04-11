@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { solicitudesData } from "../../data/solicitudesData";
+import { solicitudesData } from "../../mocks/solicitudesData";
 import SolicitudesHeader from "../../components/solicitudes/SolicitudesHeader";
 import SolicitudesControls from "../../components/solicitudes/SolicitudesControls";
 import SolicitudesTable from "../../components/solicitudes/SolicitudesTable";

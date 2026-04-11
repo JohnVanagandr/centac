@@ -1,6 +1,6 @@
 import React from "react";
 import SidebarItem from "./SidebarItem";
-import { sidebarData } from "@/data/sidebarData";
+import { sidebarData } from "@/mocks";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menuGroups = sidebarData.reduce((groups, item) => {

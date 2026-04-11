@@ -1,4 +1,4 @@
-export const programasData = [
+export const ofertaData = [
   {
     id: 1, // Puedes ajustar este ID según el orden de tu arreglo
     slug: "electricidad",

@@ -1,7 +1,7 @@
 import React from "react";
 import { Slider, Estrategia, Nosotros, Oferta, Contacto } from "./"; 
 
-const HomeContainer = () => {
+export const HomeContainer = () => {
 
   return (
     <>
@@ -13,5 +13,3 @@ const HomeContainer = () => {
     </>
   );
 };
-
-export default HomeContainer;
