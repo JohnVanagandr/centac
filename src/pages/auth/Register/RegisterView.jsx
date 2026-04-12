@@ -4,11 +4,12 @@ import { useRegister } from "./useRegister";
 import {InputField} from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
 
-const RegisterView = () => {
+export const RegisterView = () => {
   const {
     values,
     errors,
     handleChange,
+    onSubmitForm,
     handleSubmit,
     isSubmitting,
     submitAction,
@@ -32,7 +33,7 @@ const RegisterView = () => {
       </div>
 
       {/* 2. Formulario */}
-      <form onSubmit={handleSubmit(submitAction)} className="space-y-4">
+      <form onSubmit={onSubmitForm} className="space-y-4">
         {/* Error del Servidor */}
         {serverError && (
           <div className="bg-red-50 p-4 rounded-2xl border border-red-100 animate-shake flex items-start gap-3">
@@ -101,7 +102,7 @@ const RegisterView = () => {
           </button>
         </div>
 
-        {/* 🔒 Confirmar Contraseña */}
+        {/* Confirmar Contraseña */}
         <div className="relative group">
           <InputField
             label={
@@ -109,11 +110,11 @@ const RegisterView = () => {
                 Confirmar Contraseña
               </span>
             }
-            name="confirmPassword"
+            name="password_confirmation" 
             type={showPassword ? "text" : "password"}
-            value={values.confirmPassword}
+            value={values.password_confirmation} 
             onChange={handleChange}
-            error={errors.confirmPassword}
+            error={errors.password_confirmation}
             placeholder="Repite tu contraseña"
           />
         </div>
@@ -152,5 +153,3 @@ const RegisterView = () => {
     </div>
   );
 };
-
-export default RegisterView;

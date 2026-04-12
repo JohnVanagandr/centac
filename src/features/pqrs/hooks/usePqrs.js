@@ -102,7 +102,7 @@ export const usePqrs = () => {
       showFeedback({
         type: 'success',
         title: '¡Radicado Exitoso!',
-        message: `Su solicitud ha sido recibida. Su número de radicado es: ${resultado.radicado}. ${resultado.mensajeBackend || ''}`
+        message: `Su número de radicado es: ${resultado.radicado}. ${resultado.mensajeBackend || ''}`
       });
 
     } catch (error) {

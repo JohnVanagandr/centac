@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "@/hooks/useForm"; // Ajusta la ruta a tu hook
-import api from "@/services/api"; // Ajusta la ruta a tu API real
+import { useForm, useFeedback } from "@/hooks"; 
+import { authService } from "@/services/authService";
 
 export const useRegister = () => {
   const navigate = useNavigate();
+  const { showFeedback } = useFeedback();
+  
+  // Estados puramente visuales (UI)
   const [serverError, setServerError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  // 1. DATA BINDING: Usamos los nombres exactos del backend
   const initialState = {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    password_confirmation: "",
   };
 
+  // El Inspector
   const validateRegister = (values) => {
     let errs = {};
     if (!values.name.trim()) errs.name = "Obligatorio";
@@ -26,66 +31,62 @@ export const useRegister = () => {
     if (!values.password) errs.password = "Obligatorio";
     else if (values.password.length < 6) errs.password = "Mínimo 6 caracteres";
 
-    if (values.password !== values.confirmPassword) {
-      errs.confirmPassword = "Las contraseñas no coinciden";
+    if (values.password !== values.password_confirmation) {
+      errs.password_confirmation = "Las contraseñas no coinciden";
     }
 
     return errs;
   };
 
-  const { values, errors, handleChange, handleSubmit, isSubmitting } = useForm(
+  const { values, errors, handleChange, handleSubmit, isSubmitting, resetForm } = useForm(
     initialState,
     validateRegister,
   );
 
-  // Lógica de bloqueo estricto (Sin el campo phone)
+  // Lógica de bloqueo visual para deshabilitar el botón
   const isFormValid =
     values.name.trim() !== "" &&
     values.email.trim() !== "" &&
     values.password.trim() !== "" &&
-    values.password === values.confirmPassword &&
+    values.password === values.password_confirmation &&
     Object.keys(errors).length === 0;
 
+  // 2. LA NUEVA ACCIÓN ATÓMICA
   const submitAction = async (formValues) => {
     if (!isFormValid) return;
-
-    setServerError("");
+    
+    setServerError(""); // Limpiamos errores anteriores
 
     try {
-      // 🔌 CONEXIÓN REAL AL BACKEND:
-      // Adaptamos los nombres de las variables a lo que Laravel suele esperar
-      await api.post("/auth/register", {
-        name: formValues.name,
-        email: formValues.email,
-        password: formValues.password,
-        password_confirmation: formValues.confirmPassword,
-      });
+      // DELEGACIÓN: Le pasamos los datos al Servicio y él hace el trabajo sucio
+      const resultado = await authService.registrar(formValues);
 
-      alert(
-        "Solicitud enviada correctamente. Espera la aprobación del administrador.",
-      );
+      resetForm();
+
+      // FEEDBACK CENTRALIZADO: Adiós al alert()
+      showFeedback({
+        type: 'success',
+        title: '¡Registro Exitoso!',
+        message: `${resultado.mensajeBackend || ''}`
+      });
+      
       navigate("/auth/login");
+
     } catch (err) {
-      if (err.response) {
-        setServerError(
-          err.response.data?.message ||
-            "Hubo un problema al registrar tu cuenta.",
-        );
-      } else {
-        setServerError(
-          "Error de conexión. Verifica tu internet e inténtalo de nuevo.",
-        );
-      }
+      // El servicio ya se encargó de extraer el mensaje limpio de la API
+      setServerError(err.message || "Hubo un problema al registrar tu cuenta.");
     }
   };
+
+  // 3. EMPAQUETADO FINAL
+  const onSubmitForm = handleSubmit(submitAction);
 
   return {
     values,
     errors,
     handleChange,
-    handleSubmit,
+    onSubmitForm, // Exportamos la versión empaquetada lista para el <form>
     isSubmitting,
-    submitAction,
     serverError,
     isFormValid,
     showPassword,
