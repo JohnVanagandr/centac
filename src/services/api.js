@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { forceRedirect } from '@/utils/navigation';
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
@@ -30,7 +30,7 @@ api.interceptors.response.use(
 
       // Expulsión inmediata al login
       // Usamos window.location porque aquí no tenemos acceso a los hooks de React Router
-      window.location.href = "/login";
+      forceRedirect("/auth/login");
     }
 
     return Promise.reject(error);

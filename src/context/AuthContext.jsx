@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { forceRedirect } from '@/utils/navigation';
 
 // 1. Creamos el contexto (la "nube" de datos)
 export const AuthContext = createContext();
@@ -47,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("centac_user");
 
     // Redirigimos al login para evitar que el usuario se quede viendo vistas "rotas"
-    window.location.href = "/auth/login";
+    forceRedirect("/auth/login");
   };
 
   // 3. Empaquetamos todo

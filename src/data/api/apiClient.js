@@ -1,65 +1,40 @@
 import axios from "axios";
+import { handleStatusError } from "./statusHandlers";
 
-// Creamos la instancia base con configuraciones por defecto
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api", // Fallback de seguridad
-  timeout: 10000, // Si el servidor no responde en 10 segundos, aborta la misión
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8000/api",
+  timeout: 10000,
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
   },
 });
 
-// 1. Interceptor de PETICIÓN (El guardia de salida)
 apiClient.interceptors.request.use(
   (config) => {
-    // Tomamos el token. Asegúrese de que la key ("token") sea la misma que usa en authService
     const token = localStorage.getItem("token"); 
-    
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
+    if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
   (error) => Promise.reject(error),
 );
 
-// 2.Interceptor de RESPUESTA (El guardia de entrada)
 apiClient.interceptors.response.use(
   (response) => response.data, 
   
   (error) => {
+    // 1. Error de Red (Servidor apagado o sin internet)
     if (!error.response) {
       console.error("Error de Red: No hay respuesta del servidor.");
-      return Promise.reject(new Error("No se pudo conectar con el servidor. Verifica tu conexión a internet."));
+      return Promise.reject(new Error("No se pudo conectar con el servidor. Verifica tu conexión."));
     }
 
     const { status, data } = error.response;
 
-    // 🌟 EL ESCUDO CORRECTO
-    if (status === 401) {
-      // Verificamos a qué endpoint se hizo la petición
-      // 'error.config.url' contiene la ruta, por ejemplo: "/auth/login"
-      const isLoginRequest = error.config?.url?.includes('/login');
-
-      // SOLO expulsamos si el error 401 NO vino de un intento de login
-      if (!isLoginRequest) {
-        console.warn("Sesión expirada o no autorizada. Redirigiendo al login...");
-        localStorage.removeItem("token");
-        localStorage.removeItem("centac_user"); // O "user", según como lo guardó
-        
-        // Ajuste a su ruta visual real de login
-        window.location.href = "/auth/login"; 
-      }
-    }
-
-    if (status === 403) {
-      console.warn("Acceso denegado: Permisos insuficientes.");
-    }
-
-    const errorMessage = data?.message || data?.error || "Ocurrió un error en el servidor";
+    // 🌟 2. DELEGACIÓN TOTAL AL DESPACHADOR
+    const errorMessage = handleStatusError(status, data, error.config);
     
-    // Empacamos la mochila para el Servicio
+    // 3. Empacamos el error personalizado con todos los datos que el Servicio necesita
     const customError = new Error(errorMessage);
     customError.status = status;
     customError.backendData = data;
