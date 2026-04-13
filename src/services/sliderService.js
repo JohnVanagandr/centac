@@ -6,26 +6,21 @@ export const sliderService = {
     try {
       const respuesta = await sliderRepository.getAll();
       
-      // 🔍 LUPA 1: Veamos qué entregó Axios exactamente
+      // 🔍 LUPA 1: Veamos qué entregó Axios
       console.log("📦 Caja recibida del Backend:", respuesta);
 
-      // Si su backend tiene el formato { status: "success", data: [...] }
+      // Verificamos el estándar de su API
       if (respuesta && respuesta.status === 'success') {
-        
-        // 🔍 LUPA 2: Veamos qué le vamos a mandar a React
-        console.log("✅ Datos extraídos de la caja:", respuesta.data);
         return respuesta.data; 
-        
       } else {
-        // Si no tiene "status: success", puede que Axios ya lo haya limpiado
-        // y la "respuesta" sea directamente el arreglo.
-        console.warn("⚠️ La respuesta no tiene 'status: success'. Devolviendo la caja entera.");
-        return respuesta;
+        // Si no es success, devolvemos la respuesta completa o un arreglo
+        return Array.isArray(respuesta) ? respuesta : (respuesta?.data || []);
       }
 
     } catch (error) {
       console.error("Error en sliderService:", error.message);
-      return []; 
+      // 🌟 CAMBIO CLAVE: Lanzamos el error para que TanStack Query sepa que falló
+      throw error; 
     }
   }
 };

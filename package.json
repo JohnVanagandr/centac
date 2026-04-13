@@ -24,6 +24,8 @@
   "homepage": "https://github.com/JohnVanagandr/centac#readme",
   "description": "",
   "dependencies": {
+    "@tanstack/react-query": "^5.99.0",
+    "@tanstack/react-query-devtools": "^5.99.0",
     "axios": "^1.13.6",
     "canvas-confetti": "^1.9.4",
     "framer-motion": "^12.38.0",
