@@ -2,23 +2,16 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "@/hooks/useForm";
 import { AuthContext } from "@/context/AuthContext";
-import api from "@/services/api"; 
+import { authService } from "@/services/authService"; 
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  // Estados visuales generales
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState("");
-
-  // Estados específicos para la recuperación de cuenta (Error 403)
   const [unverifiedEmail, setUnverifiedEmail] = useState(null);
-  const [resendStatus, setResendStatus] = useState({
-    loading: false,
-    success: false,
-    error: "",
-  });
+  const [resendStatus, setResendStatus] = useState({ loading: false, success: false, error: "" });
 
   const initialState = { email: "", password: "" };
 
@@ -31,84 +24,56 @@ export const useLogin = () => {
 
   const { values, errors, handleChange, handleSubmit, isSubmitting } = useForm(
     initialState,
-    validateLogin,
+    validateLogin
   );
 
   const submitAction = async (formValues) => {
-    // 1. Limpiamos estados de errores previos antes de cada intento
     setServerError("");
     setUnverifiedEmail(null);
     setResendStatus({ loading: false, success: false, error: "" });
 
     try {
-      const response = await api.post("/auth/login", formValues);
-      const { token, user } = response.data.data;
+      // 🌟 1. Delegamos al Servicio
+      const { user, token } = await authService.iniciarSesion(formValues);
 
-      login(user, token);
-      navigate("/dashboard");
+      // 🌟 2. Actualizamos el Estado Global
+      login(user, token); 
+
+      // 🌟 3. Redirigimos
+      navigate("/dashboard"); 
+
     } catch (err) {
-      if (err.response) {
-        const { status, data } = err.response;
-
-        // CAPTURA DEL ERROR 403 (Cuenta sin verificar)
-        if (status === 403 || data?.errors?.requires_verification) {
-          setServerError(
-            data?.message || "Tu cuenta de correo no ha sido verificada.",
-          );
-
-          // Extraemos el correo que viene del backend o el que el usuario digitó
-          const emailToVerify = data?.errors?.email || formValues.email;
-          setUnverifiedEmail(emailToVerify);
-        } else if (status === 401) {
-          setServerError(
-            "Credenciales incorrectas. Verifica tu correo y contraseña.",
-          );
-        } else {
-          setServerError(
-            data?.message || "Error del servidor. Inténtalo más tarde.",
-          );
-        }
-      } else {
-        setServerError("Error de red. Verifica tu conexión a internet.");
+      // 🌟 4. Manejo de Errores Limpio
+      setServerError(err.message || "Error de red. Verifica tu conexión.");
+      
+      // Si el servicio etiquetó el error como cuenta sin verificar, activamos el estado
+      if (err.tipo === "NO_VERIFICADO") {
+        setUnverifiedEmail(err.email);
       }
     }
   };
 
-  // FUNCIÓN DE REENVÍO DE CORREO
   const handleResendVerification = async () => {
     if (!unverifiedEmail) return;
 
     setResendStatus({ loading: true, success: false, error: "" });
 
     try {
-      // Endpoint para reenviar el correo (Asegúrate de que esta sea tu ruta real en el backend)
-      await api.post("/auth/resend-verification", { email: unverifiedEmail });
-
+      // 🌟 Delegamos al Servicio
+      await authService.solicitarReenvioVerificacion(unverifiedEmail);
       setResendStatus({ loading: false, success: true, error: "" });
     } catch (error) {
       setResendStatus({
         loading: false,
         success: false,
-        error:
-          error.response?.data?.message ||
-          "Hubo un problema al reenviar el correo.",
+        error: error.message
       });
     }
   };
 
-  // Exportamos TODO lo que la vista necesita
   return {
-    values,
-    errors,
-    handleChange,
-    handleSubmit,
-    isSubmitting,
-    submitAction,
-    serverError,
-    showPassword,
-    setShowPassword,
-    unverifiedEmail,
-    handleResendVerification,
-    resendStatus,
+    values, errors, handleChange, handleSubmit, isSubmitting,
+    submitAction, serverError, showPassword, setShowPassword,
+    unverifiedEmail, handleResendVerification, resendStatus,
   };
 };

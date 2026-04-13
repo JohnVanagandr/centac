@@ -55,4 +55,36 @@ export const authService = {
     }
   },
 
+  async iniciarSesion(credenciales) {
+    try {      
+      const respuesta = await authRepository.login(credenciales);
+      console.log(respuesta);
+      
+      // Si 'create' devuelve response.data, aquí sería: respuesta.data
+      const { token, user } = respuesta.data || respuesta; 
+      
+      return { user, token };
+    } catch (error) {
+      const status = error.response?.status;
+      const data = error.response?.data;
+
+      // 🌟 REGLA DE NEGOCIO: Cuenta sin verificar
+      if (status === 403 || data?.errors?.requires_verification) {
+        // Creamos un error personalizado al que le podemos agregar propiedades
+        const errorPersonalizado = new Error(data?.message || "Tu cuenta no ha sido verificada.");
+        errorPersonalizado.tipo = "NO_VERIFICADO";
+        errorPersonalizado.email = data?.errors?.email || credenciales.email;
+        throw errorPersonalizado;
+      }
+      
+      // 🌟 REGLA DE NEGOCIO: Credenciales inválidas
+      if (status === 401) {
+        throw new Error("Credenciales incorrectas. Verifica tu correo y contraseña.");
+      }
+
+      // Cualquier otro error
+      throw new Error(data?.message || "Error del servidor. Inténtalo más tarde.");
+    }
+  }
+
 };
