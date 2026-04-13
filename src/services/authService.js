@@ -30,10 +30,29 @@ export const authService = {
       const response = await authRepository.verificarCorreo(verifyUrl);
       return response;
     } catch (error) {
-      // Extraemos el mensaje real del servidor (Laravel suele mandarlo en 'message')
       const backendMessage = error.response?.data?.message || "Error de validación.";
-      console.error("❌ Error en Servicio:", backendMessage);
       throw new Error(backendMessage);
     }
-  }
+  },
+
+  async recuperarContrasena(datosRecuperacion) {
+    try {
+      const response = await authRepository.recuperarContrasena(datosRecuperacion);
+      return response;
+    } catch (error) {
+      const backendMessage = error.response?.data?.message || "Error al recuperar contraseña.";
+      throw new Error(backendMessage);
+    }
+  },
+  
+  async resetearContrasena(datosReset) {
+    try {
+      const response = await authRepository.resetearContrasena(datosReset);
+      return response;
+    } catch (error) {
+      const backendMessage = error.response?.data?.message || "Error al restablecer contraseña.";
+      throw new Error(backendMessage);
+    }
+  },
+
 };

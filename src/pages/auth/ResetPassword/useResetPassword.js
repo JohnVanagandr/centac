@@ -1,6 +1,6 @@
+import { authService } from "@/services/authService";
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import api from "@/services/api";
 
 export const useResetPassword = () => {
   const navigate = useNavigate();
@@ -56,8 +56,7 @@ export const useResetPassword = () => {
     setIsSubmitting(true);
 
     try {
-      // 🔌 CONEXIÓN REAL AL BACKEND:
-      await api.post("/auth/reset-password", {
+      await authService.resetearContrasena({
         token,
         email,
         password,

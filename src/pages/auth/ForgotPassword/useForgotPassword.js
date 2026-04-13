@@ -1,5 +1,5 @@
+import { authService } from "@/services/authService";
 import { useState } from "react";
-import api from "@/services/api";
 
 export const useForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export const useForgotPassword = () => {
 
     try {
       // CONEXIÓN REAL AL BACKEND: Cambia la ruta según tu API
-      await api.post("/auth/forgot-password", { email });
+      await authService.recuperarContrasena({ email });
 
       setIsSubmitted(true);
     } catch (err) {
