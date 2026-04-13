@@ -1,41 +1,41 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import api from "@/services/api";
+import { authService } from "@/services/authService";
+
+// 🌟 LA LLAVE MAESTRA: Fuera del hook para que no se reinicie con el render
+let globalRequestTracker = new Set();
 
 export const useVerifyEmail = () => {
   const [searchParams] = useSearchParams();
-  // Extraemos la URL firmada que Laravel puso en la barra de direcciones
   const verifyUrl = searchParams.get("verify_url");
 
-  // Estados: "loading" (cargando), "success" (éxito), "error" (falló)
   const [status, setStatus] = useState("loading");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Ref para evitar que el useEffect se dispare dos veces en modo desarrollo (React Strict Mode)
-  const hasFetched = useRef(false);
-
   useEffect(() => {
-    // Si no hay URL en los parámetros, marcamos error de inmediato
+    // 1. Validación de entrada
     if (!verifyUrl) {
       setStatus("error");
-      setErrorMessage("Enlace de verificación ausente o inválido.");
+      setErrorMessage("Enlace de verificación ausente.");
       return;
     }
 
-    if (hasFetched.current) return;
-    hasFetched.current = true;
+    // 2. EL BLOQUEO NUCLEAR: 
+    // Si esta URL específica ya está siendo procesada, abortamos.
+    if (globalRequestTracker.has(verifyUrl)) return;
+    
+    // Registramos la URL para bloquear futuras peticiones
+    globalRequestTracker.add(verifyUrl);
 
     const verifyAccount = async () => {
       try {
-        // Hacemos un GET directamente a la URL firmada que mandó Laravel
-        await api.get(verifyUrl);
+        await authService.verificarCuenta(verifyUrl);
         setStatus("success");
       } catch (error) {
         setStatus("error");
-        setErrorMessage(
-          error.response?.data?.message ||
-            "El enlace ha expirado o ya fue utilizado.",
-        );
+        setErrorMessage(error.message);
+        // Si falla, permitimos que el usuario reintente limpiando la marca
+        globalRequestTracker.delete(verifyUrl);
       }
     };
 

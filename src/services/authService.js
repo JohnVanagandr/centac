@@ -23,5 +23,17 @@ export const authService = {
       // Lanzamos el error hacia arriba para que el Hook pinte la alerta
       throw error; 
     }
+  },
+
+  async verificarCuenta(verifyUrl) {
+    try {
+      const response = await authRepository.verificarCorreo(verifyUrl);
+      return response;
+    } catch (error) {
+      // Extraemos el mensaje real del servidor (Laravel suele mandarlo en 'message')
+      const backendMessage = error.response?.data?.message || "Error de validación.";
+      console.error("❌ Error en Servicio:", backendMessage);
+      throw new Error(backendMessage);
+    }
   }
 };
