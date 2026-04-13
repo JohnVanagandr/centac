@@ -1,13 +1,17 @@
 import React from "react";
 import OfertaGrid from "./OfertaGrid";
 // 1. Importamos nuestro hook estrella y el spinner de UI
-import { useOfertas } from "../hooks/useOfertas";
+import { useOfertas } from '@/features/oferta/hooks/useOfertas';
 import { Spinner } from "@/components/ui/Feedback";
 
 
 const OfertaCatalogo = () => {
   // 2. Extraemos 'allOfertas' (la lista completa) y el estado de carga
-  const { allOfertas, loading } = useOfertas();
+  const { 
+  data: allOfertas = [], 
+  isLoading: loading, 
+  isError 
+} = useOfertas();
 
   // 3. Estado de Carga: Experiencia de usuario consistente
   if (loading) {

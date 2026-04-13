@@ -4,18 +4,17 @@ export const ofertaService = {
   
   async listarOfertas() {
     try {
-      // Pedimos a la API Real
       const respuesta = await ofertaRepository.getAll();
       
-      // Abrimos el envoltorio
       if (respuesta && respuesta.status === 'success') {
         return respuesta.data; 
       } else {
         throw new Error(respuesta.message || "Error al listar ofertas");
       }
     } catch (error) {
-      console.error("Error en ofertaService:", error.message);
-      return []; 
+      console.error("Error en ofertaService (Listar):", error.message);
+      // 🌟 Lanzamos el error para que useQuery lo capture
+      throw error; 
     }
   },
 
@@ -29,8 +28,8 @@ export const ofertaService = {
         throw new Error(respuesta.message || "Oferta no encontrada");
       }
     } catch (error) {
-      console.error(`Error al buscar slug ${slug}:`, error.message);
-      return null;
+      console.error(`Error en ofertaService (Slug: ${slug}):`, error.message);
+      throw error;
     }
   }
 };

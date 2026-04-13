@@ -21,7 +21,7 @@ import { AppRouter } from "@/router";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      retry: 1, // Solo reintenta 1 vez si la petición falla
+      retry: 3, // Solo reintenta 3 veces si la petición falla
       refetchOnWindowFocus: false, // Evita que se dispare la petición al cambiar de pestaña
       staleTime: 1000 * 60 * 5, // Los datos se consideran "frescos" por 5 minutos
     },
@@ -42,7 +42,7 @@ const App = () => {
   // Renderizado Principal de la App
   // ==========================================
   return (
-    // 🌟 2. Envolvemos TODO con el QueryClientProvider
+    // 2. Envolvemos TODO con el QueryClientProvider
     <QueryClientProvider client={queryClient}>
       <FeedbackProvider>
         <AuthProvider>
@@ -53,6 +53,7 @@ const App = () => {
           </BrowserRouter>
         </AuthProvider>
       </FeedbackProvider>
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
   );
 };

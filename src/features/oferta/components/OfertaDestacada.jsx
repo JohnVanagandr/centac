@@ -2,11 +2,11 @@ import React from "react";
 
 import OfertaGrid from "./OfertaGrid";
 import { Spinner } from "@/components/ui/Feedback";
-import { useOfertas } from "../hooks/useOfertas";
+import { useFeaturedOfertas } from '@/features/oferta/hooks/useOfertas';
 
 const OfertaDestacada = () => {
 // Solo pedimos las que nos interesan para el Home
-  const { featuredOfertas, loading } = useOfertas();
+  const { featuredOfertas, loading } = useFeaturedOfertas();
   if (loading) return <Spinner intent="brand" />;
     return (
         <>
