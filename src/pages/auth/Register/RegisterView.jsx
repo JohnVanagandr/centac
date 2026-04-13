@@ -17,6 +17,7 @@ export const RegisterView = () => {
     isFormValid,
     showPassword,
     setShowPassword,
+    backendErrors
   } = useRegister();
 
   return (
@@ -57,7 +58,7 @@ export const RegisterView = () => {
           type="text"
           value={values.name}
           onChange={handleChange}
-          error={errors.name}
+          error={errors.name || backendErrors.name}
           placeholder="Ej: Juan Pérez"
         />
 
@@ -72,7 +73,7 @@ export const RegisterView = () => {
           type="email"
           value={values.email}
           onChange={handleChange}
-          error={errors.email}
+          error={errors.email || backendErrors.email}
           placeholder="usuario@sena.edu.co"
         />
 
@@ -88,7 +89,7 @@ export const RegisterView = () => {
             type={showPassword ? "text" : "password"}
             value={values.password}
             onChange={handleChange}
-            error={errors.password}
+            error={errors.password || backendErrors.password}
             placeholder="Mínimo 6 caracteres"
           />
           <button

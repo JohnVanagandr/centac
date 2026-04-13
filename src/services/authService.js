@@ -6,7 +6,6 @@ export const authService = {
     try {
       const respuesta = await authRepository.registrarUsuario(datosUsuario);
       
-      // Evaluamos el envoltorio (Ajuste según lo que devuelva su backend)
       if (respuesta && respuesta.status === 'success') {
         return { 
           exito: true, 
@@ -14,14 +13,25 @@ export const authService = {
           data: respuesta.data 
         };
       } else {
-        // Forzamos el error si el backend manda un status fallido (ej: email duplicado)
-        throw new Error(respuesta.message || "Error al registrar el usuario.");
+        // Forzamos el error si el backend manda un status falso positivo
+        throw { status: 400, backendData: respuesta, message: respuesta.message };
       }
 
     } catch (error) {
-      console.error("Error en authService (Registro):", error.message);
-      // Lanzamos el error hacia arriba para que el Hook pinte la alerta
-      throw error; 
+      // 🌟 Abrimos la mochila que mandó el Interceptor
+      const status = error.status || error.response?.status;
+      const backendData = error.backendData || error.response?.data;
+
+      // 🌟 REGLA DE NEGOCIO: Errores de validación múltiples (HTTP 422)
+      if (status === 422 && backendData?.errors) {
+        const err = new Error("Errores de validación en el servidor.");
+        err.type = "VALIDATION";
+        err.validationErrors = backendData.errors; // Pasamos el objeto completo { email: [...], password: [...] }
+        throw err;
+      }
+
+      // Si es otro error (ej. 500), usamos el mensaje que ya viene limpio
+      throw new Error(error.message || "Error al registrar el usuario.");
     }
   },
 

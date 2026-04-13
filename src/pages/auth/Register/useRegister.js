@@ -9,6 +9,8 @@ export const useRegister = () => {
   
   // Estados puramente visuales (UI)
   const [serverError, setServerError] = useState("");
+  // 🌟 NUEVO: Estado para mapear los errores específicos del servidor a cada input
+  const [backendErrors, setBackendErrors] = useState({}); 
   const [showPassword, setShowPassword] = useState(false);
 
   // 1. DATA BINDING: Usamos los nombres exactos del backend
@@ -19,7 +21,7 @@ export const useRegister = () => {
     password_confirmation: "",
   };
 
-  // El Inspector
+  // El Inspector (Validación rápida del Frontend)
   const validateRegister = (values) => {
     let errs = {};
     if (!values.name.trim()) errs.name = "Obligatorio";
@@ -51,19 +53,20 @@ export const useRegister = () => {
     values.password === values.password_confirmation &&
     Object.keys(errors).length === 0;
 
-  // 2. LA NUEVA ACCIÓN ATÓMICA
+  // 2. LA ACCIÓN ATÓMICA REFACTORIZADA
   const submitAction = async (formValues) => {
     if (!isFormValid) return;
     
-    setServerError(""); // Limpiamos errores anteriores
+    // Limpiamos la mesa antes de enviar
+    setServerError(""); 
+    setBackendErrors({}); 
 
     try {
-      // DELEGACIÓN: Le pasamos los datos al Servicio y él hace el trabajo sucio
+      // DELEGACIÓN: Le pasamos los datos al Servicio
       const resultado = await authService.registrar(formValues);
 
       resetForm();
 
-      // FEEDBACK CENTRALIZADO: Adiós al alert()
       showFeedback({
         type: 'success',
         title: '¡Registro Exitoso!',
@@ -73,8 +76,17 @@ export const useRegister = () => {
       navigate("/auth/login");
 
     } catch (err) {
-      // El servicio ya se encargó de extraer el mensaje limpio de la API
-      setServerError(err.message || "Hubo un problema al registrar tu cuenta.");
+      if (err.type === "VALIDATION") {
+      const formattedErrors = {};
+      for (const field in err.validationErrors) {
+        formattedErrors[field] = err.validationErrors[field][0]; 
+      }
+      setBackendErrors(formattedErrors);
+      setServerError("Datos duplicados o inválidos detectados.");
+    } else {
+        // Errores generales (Servidor caído, 500, etc.)
+        setServerError(err.message || "Hubo un problema al registrar tu cuenta.");
+      }
     }
   };
 
@@ -84,8 +96,9 @@ export const useRegister = () => {
   return {
     values,
     errors,
+    backendErrors, // 🌟 Exportamos los errores del backend para usarlos en el HTML
     handleChange,
-    onSubmitForm, // Exportamos la versión empaquetada lista para el <form>
+    onSubmitForm, 
     isSubmitting,
     serverError,
     isFormValid,
