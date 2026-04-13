@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "@/hooks/useForm";
 import { AuthContext } from "@/context/AuthContext";
 import { authService } from "@/services/authService"; 
+import { ReceiptEuro } from "lucide-react";
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ export const useLogin = () => {
     try {
       // 🌟 1. Delegamos al Servicio
       const { user, token } = await authService.iniciarSesion(formValues);
-
+      
+      
       // 🌟 2. Actualizamos el Estado Global
       login(user, token); 
 

@@ -26,12 +26,9 @@ apiClient.interceptors.request.use(
 
 // 2.Interceptor de RESPUESTA (El guardia de entrada)
 apiClient.interceptors.response.use(
-  // Destructuramos la respuesta para devolver SOLO los datos
-  // Así los repositorios quedan más limpios.
   (response) => response.data, 
   
   (error) => {
-    // Manejo de "Network Error" (El backend está apagado o no hay internet)
     if (!error.response) {
       console.error("Error de Red: No hay respuesta del servidor.");
       return Promise.reject(new Error("No se pudo conectar con el servidor. Verifica tu conexión a internet."));
@@ -39,26 +36,36 @@ apiClient.interceptors.response.use(
 
     const { status, data } = error.response;
 
-    // Si el servidor responde con 401 (No autorizado / Token vencido)
+    // 🌟 EL ESCUDO CORRECTO
     if (status === 401) {
-      console.warn("Sesión expirada o no autorizada. Redirigiendo al login...");
-      localStorage.removeItem("token");
-      localStorage.removeItem("user"); 
-      window.location.href = "/login";
+      // Verificamos a qué endpoint se hizo la petición
+      // 'error.config.url' contiene la ruta, por ejemplo: "/auth/login"
+      const isLoginRequest = error.config?.url?.includes('/login');
+
+      // SOLO expulsamos si el error 401 NO vino de un intento de login
+      if (!isLoginRequest) {
+        console.warn("Sesión expirada o no autorizada. Redirigiendo al login...");
+        localStorage.removeItem("token");
+        localStorage.removeItem("centac_user"); // O "user", según como lo guardó
+        
+        // Ajuste a su ruta visual real de login
+        window.location.href = "/auth/login"; 
+      }
     }
 
-    // Si el servidor responde con 403 (Prohibido / Sin permisos)
     if (status === 403) {
       console.warn("Acceso denegado: Permisos insuficientes.");
-      // Aquí podría redirigir a una vista de "No Autorizado" si lo desea
     }
 
-    // Estandarizar el mensaje de error para que los Servicios lo lean fácil
-    const errorMessage = data?.message || data?.error || "Ocurrió un error inesperado en el servidor";
+    const errorMessage = data?.message || data?.error || "Ocurrió un error en el servidor";
     
-    return Promise.reject(new Error(errorMessage));
+    // Empacamos la mochila para el Servicio
+    const customError = new Error(errorMessage);
+    customError.status = status;
+    customError.backendData = data;
+    
+    return Promise.reject(customError);
   },
 );
 
-// Lo exportamos con nombre para mantener la coherencia del barrido
 export { apiClient };

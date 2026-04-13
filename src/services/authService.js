@@ -56,34 +56,50 @@ export const authService = {
   },
 
   async iniciarSesion(credenciales) {
-    try {      
+    try {
+      // Como el interceptor ya hace "response.data", aquí recibimos la data limpia
       const respuesta = await authRepository.login(credenciales);
-      console.log(respuesta);
+
+      // 🌟 TRAMPA EVITADA: Si el backend respondió 200 pero el JSON dice "error"
+      // o si la acción atómica se tragó el error HTTP y lo devolvió como éxito:
+      if (respuesta && respuesta.status === "error") {
+        // Forzamos el error simulando la estructura para que el catch lo procese
+        throw { 
+          status: 401, 
+          backendData: respuesta, 
+          message: respuesta.message 
+        };
+      }
       
-      // Si 'create' devuelve response.data, aquí sería: respuesta.data
-      const { token, user } = respuesta.data || respuesta; 
+      // 🌟 Aseguramos que data exista para evitar extraer 'undefined'
+      const { token, user } = respuesta.data || {};
+      
+      // Segundo escudo: Si no hay token, no hay paraíso
+      if (!token) {
+        throw new Error("No se recibió el token de autenticación del servidor.");
+      }
       
       return { user, token };
     } catch (error) {
-      const status = error.response?.status;
-      const data = error.response?.data;
+      // 🌟 Extraemos la mochila de datos que preparó el interceptor
+      // O los datos que nosotros mismos lanzamos desde arriba
+      const status = error.status || error.response?.status;
+      const backendData = error.backendData || error.response?.data;
+      const message = error.message || backendData?.message;
 
-      // 🌟 REGLA DE NEGOCIO: Cuenta sin verificar
-      if (status === 403 || data?.errors?.requires_verification) {
-        // Creamos un error personalizado al que le podemos agregar propiedades
-        const errorPersonalizado = new Error(data?.message || "Tu cuenta no ha sido verificada.");
-        errorPersonalizado.tipo = "NO_VERIFICADO";
-        errorPersonalizado.email = data?.errors?.email || credenciales.email;
-        throw errorPersonalizado;
+      if (status === 403 || backendData?.errors?.requires_verification) {
+        const err = new Error(message || "Cuenta no verificada.");
+        err.type = "UNVERIFIED"; 
+        err.email = backendData?.errors?.email || credenciales.email;
+        throw err;
       }
       
-      // 🌟 REGLA DE NEGOCIO: Credenciales inválidas
       if (status === 401) {
-        throw new Error("Credenciales incorrectas. Verifica tu correo y contraseña.");
+        // Mensaje limpio para credenciales incorrectas
+        throw new Error(message || "Credenciales incorrectas. Verifica tu correo y contraseña.");
       }
 
-      // Cualquier otro error
-      throw new Error(data?.message || "Error del servidor. Inténtalo más tarde.");
+      throw new Error(message || "Error del servidor. Inténtalo más tarde.");
     }
   }
 
