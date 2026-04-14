@@ -1,23 +1,19 @@
 import { contactoRepository } from '@/data/repositories';
 
 export const contactoService = {
-  
-  // 🌟 Mágicamente desapareció 'showFeedback' de los parámetros
-  async enviarFormulario(datosContacto) { 
+  async procesarContacto(datos) {
     try {
-      const respuesta = await contactoRepository.enviarMensaje(datosContacto);
+      const respuesta = await contactoRepository.enviarMensaje(datos);
       
+      // Verificamos el estándar de su API
       if (respuesta && respuesta.status === 'success') {
-        // Retornamos el mensaje original del backend por si la vista quiere usarlo
-        return { exito: true, mensajeBackend: respuesta.message }; 
+        return respuesta.data; 
       } else {
-        // Si el backend mandó status de error, forzamos la caída al catch
-        throw new Error(respuesta.message || "Error desconocido del servidor");
+        throw new Error(respuesta.message || "No se pudo procesar su solicitud");
       }
-
     } catch (error) {
-      console.error("Error técnico en contactoService:", error.message);
-      // Lanzamos el error hacia arriba para que el Hook se encargue
+      console.error("Error en contactoService:", error.message);
+      // Lanzamos el error para que la Mutación se entere
       throw error; 
     }
   }

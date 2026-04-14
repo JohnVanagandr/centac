@@ -1,58 +1,51 @@
-import { useForm, useFeedback } from "@/hooks";
+import { useForm } from "react-hook-form"; // 🌟 Recomendado para Zod
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from '@tanstack/react-query';
 import { contactoService } from "@/services/contactoService";
-
-// Las validaciones se quedan en el Hook porque son exclusivas de la Vista (Feature)
-const validateContacto = (values) => {
-  let errors = {};
-  if (!values.full_name.trim()) errors.full_name = "El nombre es obligatorio.";
-  if (!values.email) {
-    errors.email = "El correo electrónico es obligatorio.";
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email = "Ingresa un correo válido.";
-  }
-  if (!values.message.trim()) errors.message = "Por favor, escribe un mensaje.";
-  if (values.phone && !/^[0-9+\s]+$/.test(values.phone)) {
-    errors.phone = "El teléfono solo debe contener números.";
-  }
-  return errors;
-};
+import { useFeedback } from "@/hooks";
+import { contactoSchema } from "@/schemas/contactoSchema";
 
 export const useContacto = () => {
   const { showFeedback } = useFeedback();
 
-  const { values, errors, handleChange, handleSubmit, isSubmitting, isSubmitted, resetForm } = useForm(
-    { full_name: "", email: "", phone: "", message: "" }, 
-    validateContacto
-  );
+  // 1. Configuración de React Hook Form con Zod
+  const { 
+    register, 
+    handleSubmit, 
+    reset,
+    formState: { errors } 
+  } = useForm({
+    resolver: zodResolver(contactoSchema),
+    defaultValues: { full_name: "", email: "", phone: "", message: "" }
+  });
 
-  // El Hook controla el UI, el Servicio controla el Backend
-  const submitContacto = async (formValues) => {
-    try {
-      // 1. Mandamos al obrero a hacer el trabajo sucio
-      const resultado = await contactoService.enviarFormulario(formValues);
-      
-      // 2. Si no explotó, es porque fue un éxito. Vaciamos el formulario.
-      resetForm();
-      
-      // 3. Nosotros decidimos el mensaje y el diseño
+  // 2. Mutación de TanStack Query (La misma que ya teníamos)
+  const { mutate, isPending } = useMutation({
+    mutationFn: (datos) => contactoService.procesarContacto(datos),
+    onSuccess: (resultado) => {
+      reset(); // Limpiamos el formulario
       showFeedback({
         type: 'success',
         title: '¡Mensaje Enviado!',
-        message: resultado.mensajeBackend || 'Nuestro equipo revisará tu consulta y te contactaremos a la brevedad.'
+        message: resultado.mensajeBackend || 'Pronto nos contactaremos contigo.'
       });
-
-    } catch (error) {
-      // Si el servicio arrojó un throw, caemos aquí
+    },
+    onError: (error) => {
       showFeedback({
         type: 'error',
-        title: 'No pudimos enviar el mensaje',
-        // Podemos usar el mensaje del backend o poner uno genérico si se cayó el internet
-        message: error.message || 'Parece que hay un problema de conexión. Intenta de nuevo más tarde.'
+        title: 'Error de envío',
+        message: error.message
       });
     }
+  });
+
+  // 3. El disparador final
+  const onSubmitForm = handleSubmit((data) => mutate(data));
+
+  return { 
+    register,     
+    errors,       
+    onSubmitForm, 
+    isSubmitting: isPending 
   };
-
-  const onSubmitForm = handleSubmit(submitContacto);
-
-  return { values, errors, handleChange, onSubmitForm, isSubmitting, isSubmitted };
 };

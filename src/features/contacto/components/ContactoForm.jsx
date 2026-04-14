@@ -1,30 +1,39 @@
 import React from "react";
 import { InputField, TextAreaField } from "@/components/ui/Form"; 
 import { Button } from "@/components/ui/Navigation";
+import { useContacto } from "@/features/contacto/hooks/useContacto"; // 🌟 Importamos su nuevo hook
 
-const ContactoForm = ({ values, errors, handleChange, onSubmit, isSubmitting, isSubmitted }) => {
+const ContactoForm = () => {
+  // 1. Extraemos las herramientas del hook (Ya no vienen por props externas)
+  const { 
+    register, 
+    errors, 
+    onSubmitForm, 
+    isSubmitting,
+    isSuccess // 🌟 TanStack Query nos dice si el envío fue exitoso
+  } = useContacto();
+
   return (
-    <form onSubmit={onSubmit} className="space-y-6 relative">
+    <form onSubmit={onSubmitForm} className="space-y-6 relative">
       
       <div className="mb-8">
         <h3 className="text-2xl font-bold text-navy">Envíanos un mensaje</h3>
         <p className="text-slate-500 text-sm mt-2">Diligencia el formulario y te responderemos en breve.</p>
       </div>
 
-      {isSubmitted && (
-        <div className="bg-green-50 text-green-700 p-4 rounded-lg border border-green-200 mb-6 flex items-center gap-3">
+      {/* 2. Éxito: Usamos el estado de TanStack Query directamente */}
+      {isSuccess && (
+        <div className="bg-green-50 text-green-700 p-4 rounded-lg border border-green-200 mb-6 flex items-center gap-3 animate-in fade-in zoom-in duration-300">
           <span className="material-symbols-rounded">check_circle</span>
           <p className="font-medium">¡Mensaje enviado con éxito! Te contactaremos pronto.</p>
         </div>
       )}
 
-      {/* Átomos de Formulario */}
+      {/* 3. Inputs: Sustituimos value/onChange por {...register("name")} */}
       <InputField 
         label="Nombre completo"
-        name="full_name"
-        value={values.full_name}
-        onChange={handleChange}
-        error={errors.full_name}
+        {...register("full_name")} 
+        error={errors.full_name?.message} 
         placeholder="Ej. Juan Pérez"
       />
 
@@ -32,40 +41,33 @@ const ContactoForm = ({ values, errors, handleChange, onSubmit, isSubmitting, is
         <InputField 
           label="Correo electrónico"
           type="email"
-          name="email"
-          value={values.email}
-          onChange={handleChange}
-          error={errors.email}
+          {...register("email")}
+          error={errors.email?.message}
           placeholder="ejemplo@correo.com"
         />
         
         <InputField 
           label="Teléfono"
           type="tel"
-          name="phone"
-          value={values.phone}
-          onChange={handleChange}
-          error={errors.phone}
+          {...register("phone")}
+          error={errors.phone?.message}
           placeholder="Tu número de contacto"
         />
       </div>
 
       <TextAreaField 
         label="Mensaje"
-        name="message"
-        value={values.message}
-        onChange={handleChange}
-        error={errors.message}
+        {...register("message")}
+        error={errors.message?.message}
         rows="4"
         placeholder="¿En qué te podemos ayudar?"
       />
 
-      {/* Átomo de Navegación/Acción */}
       <div className="pt-2">
         <Button 
           type="submit" 
-          disabled={isSubmitting}
-          className="w-full flex justify-center items-center gap-2 py-4" // Ajusta las clases extra que tu componente permita
+          disabled={isSubmitting} 
+          className="w-full flex justify-center items-center gap-2 py-4"
         >
           {isSubmitting ? (
             <>
