@@ -5,7 +5,11 @@ import { useOfertas } from "@/features/oferta/hooks/useOfertas";
 
 const LeadRegistration = ({ programaPreseleccionado = "" }) => {  
 
-  const { allOfertas, loading } = useOfertas();
+  const { 
+      data: allOfertas, 
+      isLoading: loading, 
+      isError 
+    } = useOfertas();    
 
   const preselectedId = useMemo(() => {
     // Si no hay slug, o la data no ha cargado, no hay nada que traducir
