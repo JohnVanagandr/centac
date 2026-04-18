@@ -2,26 +2,23 @@ import { pqrsRepository } from '@/data/repositories/pqrsRepository';
 
 export const pqrsService = {
   
-  /**
-   * Obtiene todas las listas necesarias para pintar el formulario
+/**
+   * Obtiene exclusivamente los tipos de solicitud para el dominio PQRS
    */
-  async obtenerListasFormulario() {
+  async obtenerTiposPqrs() {
     try {
-      // CONCURRENCIA: Pedimos ambas listas al mismo tiempo usando Promise.all
-      const [resDocs, resTipos] = await Promise.all([
-        pqrsRepository.getTiposDocumento(),
-        pqrsRepository.getTiposPqrs()
-      ]);
+      const respuesta = await pqrsRepository.getTiposPqrs();
 
-      // Evaluamos los envoltorios
-      const tiposDocumento = resDocs?.status === 'success' ? resDocs.data : [];
-      const tiposPqrs = resTipos?.status === 'success' ? resTipos.data : [];
-
-      return { tiposDocumento, tiposPqrs };
-
+      // Evaluamos el envoltorio de su API
+      if (respuesta && respuesta.status === 'success') {
+        return respuesta.data;
+      } else {
+        throw new Error(respuesta.message || "Error al cargar los tipos de solicitud.");
+      }
+      
     } catch (error) {
-      console.error("Error cargando listas PQRS:", error.message);
-      // Lanzamos el error para que el Hook decida si muestra un modal o deshabilita el form
+      console.error("Error en obtenerTiposPqrs:", error.message);
+      // Lanzamos el error limpio para que el Hook (isError) se entere
       throw new Error("No pudimos cargar las opciones del formulario.");
     }
   },

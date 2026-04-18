@@ -1,128 +1,67 @@
-import { useState, useEffect } from 'react';
-import { useForm, useFeedback } from "@/hooks";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { pqrsSchema } from "@/schemas/pqrsSchema";
 import { pqrsService } from "@/services/pqrsService";
-
-// Adapte las validaciones según los campos exactos de su formulario PQRS
-const validatePqrs = (values) => {
-  let errors = {};
-
-  // Listas desplegables
-  if (!values.document_type_id) {
-    errors.document_type_id = "Seleccione un tipo de documento.";
-  }
-  if (!values.pqrs_type_id) {
-    errors.pqrs_type_id = "Seleccione el tipo de solicitud (PQRS).";
-  }
-
-  // Textos cortos
-  if (!values.document_number.trim()) {
-    errors.document_number = "El número de documento es obligatorio.";
-  }
-  
-  if (!values.full_name.trim()) {
-    errors.full_name = "El nombre completo es obligatorio.";
-  }
-
-  if (!values.subject.trim()) {
-    errors.subject = "El asunto es obligatorio.";
-  }
-
-  // Validaciones con formato específico (Regex)
-  if (!values.phone.trim()) {
-    errors.phone = "El teléfono es obligatorio.";
-  } else if (!/^[0-9+\s]{7,15}$/.test(values.phone)) {
-    errors.phone = "El teléfono solo debe contener números (mínimo 7 dígitos).";
-  }
-
-  if (!values.email.trim()) {
-    errors.email = "El correo electrónico es obligatorio.";
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email = "Ingrese un correo electrónico válido.";
-  }
-
-  // Textos largos
-  if (!values.description.trim()) {
-    errors.description = "La descripción es obligatoria para procesar su solicitud.";
-  } else if (values.description.length < 10) {
-    errors.description = "La descripción debe tener al menos 10 caracteres.";
-  }
-
-  return errors;
-};
+import { catalogoService } from "@/services/catalogoService";
+import { useFeedback } from "@/hooks";
 
 export const usePqrs = () => {
   const { showFeedback } = useFeedback();
-  const [listas, setListas] = useState({ tiposDocumento: [], tiposPqrs: [] });
-  const [loadingListas, setLoadingListas] = useState(true);
 
-  // Inicialización del formulario
-  const { values, errors, handleChange, handleSubmit, isSubmitting, resetForm } = useForm(
-    { 
-      document_type_id: "", 
-      document_number: "", 
-      full_name: "", 
-      phone: "", 
-      email: "", 
-      pqrs_type_id: "", 
-      subject: "", 
-      description: "" 
-    }, 
-    validatePqrs
-    );
+  // 1. QUERIES DE LECTURA: Cargamos las listas desplegables (En paralelo)  
+  const { 
+    data: tiposDocumento = [], 
+    isLoading: cargandoDocs 
+  } = useQuery({
+    queryKey: ['tiposDocumento'],
+    queryFn: () => catalogoService.obtenerTiposDocumento(), 
+    staleTime: 1000 * 60 * 60,
+  });
 
-  // 1. Cargar datos iniciales al montar el componente
-  useEffect(() => {
-    const cargarListas = async () => {
-      setLoadingListas(true);
-      try {
-        const data = await pqrsService.obtenerListasFormulario();        
-        console.log("📦 Datos que llegaron del Servicio:", data);
-        setListas(data);
-      } catch (error) {
-        showFeedback({
-          type: 'error',
-          title: 'Error de conexión',
-          message: error.message
-        });
-      } finally {
-        setLoadingListas(false);
-      }
-    };
+  const { 
+    data: tiposPqrs = [], 
+    isLoading: cargandoTiposPqrs 
+  } = useQuery({
+    queryKey: ['tiposPqrs'],
+    queryFn: () => pqrsService.obtenerTiposPqrs(),
+    staleTime: 1000 * 60 * 60,
+  });  
 
-    cargarListas();
-  }, []);
-
-  // 2. Procesar el envío
-  const submitPqrs = async (formValues) => {
-    try {
-      const resultado = await pqrsService.radicarPqrs(formValues);
-      
-      resetForm();
-      
-      showFeedback({
-        type: 'success',
-        title: '¡Radicado Exitoso!',
-        message: `Su número de radicado es: ${resultado.radicado}. ${resultado.mensajeBackend || ''}`
-      });
-
-    } catch (error) {
-      showFeedback({
-        type: 'error',
-        title: 'No pudimos procesar la PQRS',
-        message: error.message || 'Por favor, revise sus datos e intente nuevamente.'
-      });
+  // 2. CONFIGURACIÓN DEL FORMULARIO (Zod)
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    resolver: zodResolver(pqrsSchema),
+    defaultValues: { 
+      document_type_id: "", document_number: "", full_name: "", 
+      phone: "", email: "", pqrs_type_id: "", subject: "", description: "" 
     }
-  };
+  });
 
-  const onSubmitForm = handleSubmit(submitPqrs);  
+  // 3. MUTACIÓN DE ESCRITURA: Enviar datos
+  const { mutate, isPending } = useMutation({
+    mutationFn: (formValues) => pqrsService.radicarPqrs(formValues),
+    onSuccess: (resultado) => {
+      reset();
+      showFeedback({ 
+        type: 'success', 
+        title: '¡Radicado Exitoso!', 
+        message: `${resultado.mensajeBackend || ''}. Tu número de seguimiento es: ${resultado.radicado}`.trim()
+      });
+    },
+    onError: (error) => {
+      showFeedback({ type: 'error', title: 'Error', message: error.message });
+    }
+  });
+
+  const onSubmitForm = handleSubmit((data) => mutate(data));
 
   return { 
-    values, 
+    register, 
     errors, 
-    handleChange, 
     onSubmitForm, 
-    isSubmitting, 
-    listas,
-    loadingListas
+    isSubmitting: isPending,
+    tiposDocumento,
+    tiposPqrs,
+    isLoadingSelects: cargandoDocs || cargandoTiposPqrs 
   };
 };
