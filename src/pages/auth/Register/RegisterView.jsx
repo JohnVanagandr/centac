@@ -1,101 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRegister } from "./useRegister";
-import {InputField} from "@/components/ui/Form";
+import { InputField } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
 
 export const RegisterView = () => {
+  // 1. Extraemos el motor del Hook refactorizado
   const {
-    values,
+    register,
     errors,
-    handleChange,
     onSubmitForm,
-    handleSubmit,
     isSubmitting,
-    submitAction,
-    serverError,
-    isFormValid,
-    showPassword,
-    setShowPassword,
-    backendErrors
+    isSuccess
   } = useRegister();
 
+  // 2. Estado puramente visual (Separación de responsabilidades)
+  const [showPassword, setShowPassword] = useState(false);
+
+  // 3. ESTADO DE ÉXITO: El flujo "Double Opt-in"
+  if (isSuccess) {
+    return (
+      <div className="w-full animate-in fade-in zoom-in-95 duration-700 text-center py-8">
+        <span className="material-symbols-rounded text-7xl text-brand mb-4">mark_email_unread</span>
+        <h2 className="font-display text-3xl font-black text-navy tracking-tight mb-4">
+          ¡Revisa tu <span className="text-brand">Correo</span>!
+        </h2>
+        <p className="font-body text-sm text-slate-500 font-medium leading-relaxed mb-8">
+          Hemos creado tu perfil base. Para asignarte el rol de <strong>Aspirante</strong> y finalizar el registro, haz clic en el enlace que enviamos a tu correo institucional.
+        </p>
+        <Link
+          to="/auth/login"
+          className="bg-slate-100 text-navy px-6 py-3 rounded-xl font-bold hover:bg-slate-200 transition-colors"
+        >
+          Volver al Inicio de Sesión
+        </Link>
+      </div>
+    );
+  }
+
+  // 🌟 4. ESTADO INICIAL: Formulario
   return (
     <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
-      {/* 1. Cabecera */}
       <div className="text-left mb-8">
         <h2 className="font-display text-4xl font-black text-navy tracking-tight mb-2">
           Únete al <span className="text-brand">Equipo</span>
         </h2>
         <p className="font-body text-sm text-slate-500 font-medium leading-relaxed">
-          Crea tu perfil. Tu cuenta será activada por un administrador tras
-          validar tus datos.
+          Crea tu perfil. Recuerda usar tu correo institucional para recibir el enlace de activación.
         </p>
       </div>
 
-      {/* 2. Formulario */}
       <form onSubmit={onSubmitForm} className="space-y-4">
-        {/* Error del Servidor */}
-        {serverError && (
-          <div className="bg-red-50 p-4 rounded-2xl border border-red-100 animate-shake flex items-start gap-3">
-            <span className="material-symbols-rounded text-red-600 text-lg shrink-0">
-              warning
-            </span>
-            <span className="text-red-600 text-[11px] font-bold mt-0.5 leading-snug">
-              {serverError}
-            </span>
-          </div>
-        )}
-
+        
         {/* 👤 Campo Nombre */}
         <InputField
-          label={
-            <span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">
-              Nombre Completo
-            </span>
-          }
-          name="name"
+          label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Nombre Completo</span>}
           type="text"
-          value={values.name}
-          onChange={handleChange}
-          error={errors.name || backendErrors.name}
           placeholder="Ej: Juan Pérez"
+          {...register("name")} // 🌟 Conexión a RHF
+          error={errors.name?.message}
         />
 
-        {/* 📧 Campo Correo (Ahora ocupa el 100% del ancho) */}
+        {/* 📧 Campo Correo */}
         <InputField
-          label={
-            <span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">
-              Correo Institucional
-            </span>
-          }
-          name="email"
+          label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Correo Institucional</span>}
           type="email"
-          value={values.email}
-          onChange={handleChange}
-          error={errors.email || backendErrors.email}
           placeholder="usuario@sena.edu.co"
+          {...register("email")}
+          error={errors.email?.message}
         />
 
         {/* 🔒 Campo Contraseña */}
         <div className="relative group pt-1">
           <InputField
-            label={
-              <span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">
-                Contraseña
-              </span>
-            }
-            name="password"
+            label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Contraseña</span>}
             type={showPassword ? "text" : "password"}
-            value={values.password}
-            onChange={handleChange}
-            error={errors.password || backendErrors.password}
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Mínimo 8 caracteres"
+            {...register("password")}
+            error={errors.password?.message}
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="cursor-pointer absolute right-4 top-[40px] text-slate-300 hover:text-primary transition-colors duration-300"
+            className="cursor-pointer absolute right-4 top-[40px] text-slate-300 hover:text-brand transition-colors duration-300"
           >
             <span className="material-symbols-rounded text-xl">
               {showPassword ? "visibility_off" : "visibility"}
@@ -106,17 +93,11 @@ export const RegisterView = () => {
         {/* Confirmar Contraseña */}
         <div className="relative group">
           <InputField
-            label={
-              <span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">
-                Confirmar Contraseña
-              </span>
-            }
-            name="password_confirmation" 
+            label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Confirmar Contraseña</span>}
             type={showPassword ? "text" : "password"}
-            value={values.password_confirmation} 
-            onChange={handleChange}
-            error={errors.password_confirmation}
             placeholder="Repite tu contraseña"
+            {...register("password_confirmation")}
+            error={errors.password_confirmation?.message}
           />
         </div>
 
@@ -124,7 +105,7 @@ export const RegisterView = () => {
         <div className="pt-4">
           <Button
             type="submit"
-            disabled={!isFormValid || isSubmitting}
+            disabled={isSubmitting} // 🌟 Deshabilitado automáticamente por TanStack Query
             className="w-full py-5 text-xs cursor-pointer disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
@@ -139,13 +120,13 @@ export const RegisterView = () => {
         </div>
       </form>
 
-      {/* 3. Footer */}
+      {/* Footer */}
       <div className="mt-8 text-center border-t border-slate-50 pt-6">
         <p className="font-body text-sm text-slate-500 font-medium">
           ¿Ya tienes tu cuenta activada?{" "}
           <Link
             to="/auth/login"
-            className="cursor-pointer text-primary font-bold hover:underline transition-colors"
+            className="cursor-pointer text-brand font-bold hover:underline transition-colors"
           >
             Inicia Sesión
           </Link>
