@@ -18,9 +18,10 @@ const LeadRegistration = ({ programaPreseleccionado = "" }) => {
     // Buscamos la oferta que coincida con el slug
     const ofertaEncontrada = allOfertas.find(oferta => oferta.slug === programaPreseleccionado);
     
+    
     // Si la encontramos, devolvemos su ID. Si no, vacío.
     return ofertaEncontrada ? ofertaEncontrada.id : "";
-  }, [programaPreseleccionado, allOfertas]);  
+  }, [programaPreseleccionado, allOfertas]);   
 
     const { 
     values, 
@@ -50,6 +51,7 @@ const LeadRegistration = ({ programaPreseleccionado = "" }) => {
       isSubmitted={isSubmitted}
       programasOptions={programasOptions} 
       loadingOptions={loading}
+      programaPreseleccionado={preselectedId}
     />
   );
 };
