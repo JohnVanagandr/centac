@@ -1,9 +1,12 @@
-name: Deploy Frontend Centac (Develop / Staging)
+name: Deploy Frontend Centac (Develop)
 
 on:
   push:
     branches:
       - develop
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-and-deploy:
@@ -16,20 +19,24 @@ jobs:
       - name: 2. Configurar Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 23
+          node-version: 23 
+          cache: 'npm'     # Esto acelera futuros despliegues
 
-      - name: 3. Instalar dependencias y Construir (Build)
+      - name: 3. Instalar y Construir
         run: |
-          npm install
+          npm ci           # 'npm ci' es más estricto y rápido para CI que 'npm install'
           npm run build
 
-      - name: 4. Desplegar archivos al VPS de Validación
+      - name: 4. Validar existencia de carpeta dist
+        run: ls -la dist/  # Esto nos dirá en los logs si la carpeta realmente se creó
+
+      - name: 5. Desplegar archivos al VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
-          source: "dist/*" # Cambiar a "build/*" si usan Create React App
+          source: "dist/*"
           target: "/var/www/centac.co"
           strip_components: 1
