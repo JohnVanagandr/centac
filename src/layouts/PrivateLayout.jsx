@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "@/components/sections/private/shared/header/Header";
-import Sidebar from "@/components/sections/private/shared/sidebar/Sidebar";
+import Header from "@/components/sections/private/shared/Header/Header";
+import Sidebar from "@/components/sections/private/shared/Sidebar/Sidebar";
 
 const PrivateLayout = () => {
   // Estado para controlar el Sidebar en móviles
