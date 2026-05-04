@@ -20,15 +20,17 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 23 
-          cache: 'npm'     # Esto acelera futuros despliegues
+          cache: 'npm'     
 
-      - name: 3. Instalar y Construir
+      - name: 3. Instalar dependencias y Construir (Build)
         run: |
-          npm ci           # 'npm ci' es más estricto y rápido para CI que 'npm install'
+          npm ci
           npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: 4. Validar existencia de carpeta dist
-        run: ls -la dist/  # Esto nos dirá en los logs si la carpeta realmente se creó
+        run: ls -la dist/ 
 
       - name: 5. Desplegar archivos al VPS
         uses: appleboy/scp-action@v0.1.7
