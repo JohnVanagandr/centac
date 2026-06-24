@@ -3,7 +3,8 @@ import { catalogoRepository } from '@/data/repositories';
 export const catalogoService = {
   async obtenerTiposDocumento() {
     try {
-      const respuesta = await catalogoRepository.getTiposDocumento();
+      // Ajuste: Ahora llamamos al método estandarizado que provee la fábrica
+      const respuesta = await catalogoRepository.getAllTiposDocumento();
       return respuesta?.data || []; 
     } catch (error) {
       console.error("Error cargando catálogos (Documentos):", error);

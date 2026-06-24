@@ -1,15 +1,11 @@
-import { 
-  getAll as fetchAllData, 
-  create as sendData 
-} from '../actions';
+import { createRepository } from '../actions';
 
-// Ajuste estas rutas según lo que exponga su API real
-const ENDPOINTS = {
-  PQRS: '/front/pqrs/solicitudes',
-  TIPOS_PQRS: '/front/pqrs/tipos'
-};
+// Instanciamos la fábrica para cada endpoint específico
+const solicitudRepo = createRepository('/front/pqrs/solicitudes');
+const tiposRepo = createRepository('/front/pqrs/tipos');
 
 export const pqrsRepository = {
-  getTiposPqrs: () => fetchAllData(ENDPOINTS.TIPOS_PQRS),
-  enviarPqrs: (payload) => sendData(ENDPOINTS.PQRS, payload)
+  // Ahora usamos los métodos estándar de la fábrica mapeados a sus nombres de negocio
+  getAllTipos: () => tiposRepo.getAll(),
+  create: (payload) => solicitudRepo.create(payload)
 };

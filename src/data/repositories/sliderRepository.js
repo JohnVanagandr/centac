@@ -1,17 +1,5 @@
-import { 
-  getAll as fetchAllData, 
-  getById as fetchDataById 
-} from '../actions';
+import { createRepository } from '../actions';
 
-const ENDPOINT = '/front/sliders';
-
-// Exportamos un objeto simple con las acciones configuradas para "sliders"
-export const sliderRepository = {
-  
-  // 1. Usamos la acción genérica pre-cargando el endpoint
-  getAll: () => fetchAllData(ENDPOINT),
-  
-  // 2. Usamos otra acción genérica
-  getById: (id) => fetchDataById(ENDPOINT, id),
-
-};
+// La fábrica genera automáticamente getAll() y getById() 
+// cumpliendo con el estándar de nombres.
+export const sliderRepository = createRepository('/front/sliders');

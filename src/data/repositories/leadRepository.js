@@ -1,12 +1,7 @@
-import { create as sendData } from '../actions';
+import { createRepository } from '../actions';
 
-const ENDPOINTS = {
-  REGISTRAR: '/front/prospects' 
-};
+const baseRepo = createRepository('/front/prospects');
 
 export const leadRepository = {
-  /**
-   * Envía los datos del nuevo prospecto (Lead) al servidor
-   */
-  registrarLead: (payload) => sendData(ENDPOINTS.REGISTRAR, payload)
+  create: (payload) => baseRepo.create(payload)
 };

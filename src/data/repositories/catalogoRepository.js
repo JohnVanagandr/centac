@@ -1,9 +1,7 @@
-import { getAll as fetchAllData } from '../actions';
+import { createRepository } from '../actions';
 
-const ENDPOINTS = {
-    TIPOS_DOC: '/front/tipos-documentos',
-};
+const baseRepo = createRepository('/front/tipos-documentos');
 
 export const catalogoRepository = {
-  getTiposDocumento: () => fetchAllData(ENDPOINTS.TIPOS_DOC),
+  getAllTiposDocumento: () => baseRepo.getAll()
 };

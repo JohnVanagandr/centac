@@ -1,10 +1,7 @@
-import { create as enviarDatos } from '../actions';
+import { createRepository } from '../actions';
 
-const ENDPOINT = '/front/contactos';
+const baseRepo = createRepository('/front/contactos');
 
 export const contactoRepository = {
-  
-  // Recibimos el payload (formulario) y lo enviamos al endpoint
-  enviarMensaje: (payload) => enviarDatos(ENDPOINT, payload)
-  
+  create: (payload) => baseRepo.create(payload)
 };

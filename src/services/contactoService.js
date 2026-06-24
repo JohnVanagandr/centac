@@ -1,20 +1,22 @@
 import { contactoRepository } from '@/data/repositories';
 
 export const contactoService = {
-  async procesarContacto(datos) {
+  /**
+   * Mapeamos el nombre de negocio 'procesarContacto' al método estándar 'create'
+   */
+  procesarContacto: async (payload) => {
     try {
-      const respuesta = await contactoRepository.enviarMensaje(datos);
-      
-      // Verificamos el estándar de su API
-      if (respuesta && respuesta.status === 'success') {
-        return respuesta.data; 
-      } else {
-        throw new Error(respuesta.message || "No se pudo procesar su solicitud");
-      }
+      // Delegamos al método estandarizado del repositorio
+      const respuesta = await contactoRepository.create(payload);
+      return respuesta;
     } catch (error) {
-      console.error("Error en contactoService:", error.message);
-      // Lanzamos el error para que la Mutación se entere
-      throw error; 
+      console.error("Error en contactoService (procesarContacto):", error);
+      throw error;
     }
+  },
+
+  // Si aún tiene componentes llamando a 'enviarMensaje', manténgalo como alias:
+  enviarMensaje: async (payload) => {
+    return await contactoRepository.create(payload);
   }
 };
