@@ -11,7 +11,8 @@ export const DetalleSidebarActions = ({ estado, setEstado, onUpdate }) => (
           Estado
         </label>
         <div className="grid grid-cols-1 gap-2">
-          {["Pendiente", "Contactado", "Matriculado", "No Interesado"].map((e) => (
+          {/* 🌟 CORRECCIÓN: "No interesado" con 'i' minúscula para que coincida con el Enum de Laravel */}
+          {["Pendiente", "Contactado", "Matriculado", "No interesado"].map((e) => (
             <button
               key={e}
               onClick={() => setEstado(e)}

@@ -1,16 +1,26 @@
-import { createRepository } from '../actions'; // <-- Importación correcta
+import { createRepository } from '../actions';
 
-// Creamos mini-fábricas según su patrón
+// Fábricas
 const publicLeadRepo = createRepository('/front/prospects');
 const adminLeadRepo = createRepository('/admin/prospects');
 
 export const leadRepository = {
-  // 1. Preservamos lo que ya funcionaba para su servicio público
+  // Públicos
   registrarLead: (payload) => publicLeadRepo.create(payload),
   create: (payload) => publicLeadRepo.create(payload),
   
-  // 2. Agregamos las funciones del Dashboard administrativo
+  // Administrativos
   getById: (id) => adminLeadRepo.getById(id),
   update: (id, data) => adminLeadRepo.update(id, data),
-  addComment: (id, data) => adminLeadRepo.addComment(id, data)
+  addComment: (id, data) => adminLeadRepo.addComment(id, data),
+
+  // Dentro de leadRepository...
+  getAllProspectos: (page = 1, status = "") => {
+    // 1. Construimos la ruta completa aquí
+    const baseUrl = '/admin/prospects';
+    const query = `?page=${page}${status ? `&status=${status}` : ''}`;
+    
+    // 2. Enviamos la ruta completa a getDynamic
+    return adminLeadRepo.getDynamic(`${baseUrl}${query}`);
+  }
 };

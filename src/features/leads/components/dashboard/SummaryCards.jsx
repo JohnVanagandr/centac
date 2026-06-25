@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SummaryCards = ({ summary }) => {
+export const SummaryCards = ({ summary }) => {  
   const cards = [
     { label: "Sin Atender", value: summary.unattended ?? 0, icon: "priority_high", color: "bg-amber-50 text-amber-600" },
     { label: "En Proceso", value: summary.in_process ?? 0, icon: "sync", color: "bg-blue-50 text-blue-600" },
@@ -36,9 +36,6 @@ export const SummaryCards = ({ summary }) => {
             </div>
           ))}
         </div>
-        <button className="h-[60px] px-6 bg-slate-900 text-white rounded-2xl font-bold text-xs uppercase tracking-widest flex items-center gap-3 shadow-lg shadow-slate-900/20 hover:bg-brand transition-all group">
-          <span className="material-symbols-rounded text-xl group-hover:translate-y-0.5 transition-transform">download</span>
-        </button>
       </div>
     </div>
   );

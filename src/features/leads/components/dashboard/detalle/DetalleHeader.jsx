@@ -33,7 +33,7 @@ export const DetalleHeader = ({ id, estado, onBack }) => (
         ${estado === "Pendiente" ? "bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" : ""}
         ${estado === "Contactado" ? "bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]" : ""}
         ${estado === "Matriculado" ? "bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" : ""}
-        ${estado === "No Interesado" ? "bg-slate-300" : ""}
+        ${estado === "No interesado" ? "bg-slate-300" : ""} 
       `}
       ></div>
     </div>

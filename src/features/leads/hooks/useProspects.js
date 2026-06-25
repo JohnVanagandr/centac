@@ -1,16 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { prospectsService } from '@/services/private/prospectsService';
+import { useQuery } from "@tanstack/react-query";
+import { leadService } from "@/services/leadService";
 
-/**
- * Hook para obtener la lista paginada de prospectos/solicitudes
- * @param {number} page - Página actual
- * @param {string} status - Filtro de estado (vacío = todos)
- */
-export const useProspects = (page = 1, status = '') => {
+export const useProspects = (page, statusFilter) => {
+
   return useQuery({
-    queryKey: ['admin', 'prospects', page, status],
-    queryFn: () => prospectsService.getAll(page, status),
-    staleTime: 1000 * 60 * 5, // 5 minutos de cache
-    keepPreviousData: true, // Evita parpadeos al cambiar de página
+    // 🌟 REGLA DE ORO: Si 'page' no está aquí adentro, la tabla JAMÁS cambiará de página.
+    queryKey: ["prospects", page, statusFilter], 
+    
+    queryFn: () => leadService.getAllProspectos(page, statusFilter),
+    
+    // Evita que la tabla parpadee o se ponga en blanco mientras carga la nueva página
+    keepPreviousData: true 
   });
 };

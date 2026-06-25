@@ -11,12 +11,25 @@ export const SolicitudesContenedor = () => {
 
   const { data: apiResponse, isLoading, error } = useProspects(page, statusFilter);
 
-  const prospects = Array.isArray(apiResponse?.data) ? apiResponse.data : [];
-  const pagination = apiResponse?.pagination || {
-    total: 0, per_page: 10, current_page: 1, last_page: 1, has_more: false,
+  const backendResponse = apiResponse?.data || {};
+
+  console.log(backendResponse);
+  
+
+  const prospects = Array.isArray(backendResponse.data) ? backendResponse.data : [];
+  
+  const pagination = backendResponse.pagination || {
+    total: 0, 
+    per_page: 10, 
+    current_page: 1, 
+    last_page: 1, 
+    has_more: false,
   };
-  const summary = apiResponse?.summary || {
-    unattended: 0, in_process: 0, enrolled: 0,
+
+  const summary = backendResponse.summary || {
+    unattended: 0, 
+    in_process: 0, 
+    enrolled: 0,
   };
 
   const handleStatusChange = (newStatus) => {
