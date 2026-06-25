@@ -1,7 +1,10 @@
+// 1. Solo importas la fábrica
 import { createRepository } from '../actions';
 
-const baseRepo = createRepository('/front/contactos');
+// 2. Instancias el repositorio con su endpoint
+const repo = createRepository('/contactos'); 
 
+// 3. Exportas directamente lo que la fábrica te devuelve
 export const contactoRepository = {
-  create: (payload) => baseRepo.create(payload)
+  ...repo // Esto ya trae getAll, getById, create, update, etc.
 };

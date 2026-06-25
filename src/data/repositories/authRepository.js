@@ -1,4 +1,4 @@
-import { createRepository } from '../actions';
+import { createRepository } from '../actions'; // <-- Importación correcta
 
 // Creamos mini-fábricas para cada endpoint específico
 const registerRepo = createRepository('/auth/register');

@@ -1,7 +1,7 @@
 import React from "react";
 import { InputField, SelectField, TextAreaField } from "@/components/ui/Form";
 import { Button } from "@/components/ui/Navigation";
-import { useLeadRegistration } from "../hooks/useLeadRegistration";
+import { useLeadRegistration } from "../../hooks/useLeadRegistration";
 
 const LeadForm = ({ 
   programasOptions = [], 

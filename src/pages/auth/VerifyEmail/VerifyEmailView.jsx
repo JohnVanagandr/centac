@@ -8,7 +8,7 @@ const VerifyEmailView = () => {
 
   return (
     <div className="w-full text-center animate-in zoom-in-95 duration-700">
-      {/* ⏳ ESTADO 1: Cargando (Verificando URL) */}
+      {/* ESTADO 1: Cargando (Verificando URL) */}
       {status === "loading" && (
         <div className="flex flex-col items-center justify-center py-10">
           <div className="w-16 h-16 border-4 border-slate-100 border-t-brand rounded-full animate-spin mb-6"></div>
@@ -21,7 +21,7 @@ const VerifyEmailView = () => {
         </div>
       )}
 
-      {/* ✅ ESTADO 2: Éxito (Cuenta Verificada) */}
+      {/* ESTADO 2: Éxito (Cuenta Verificada) */}
       {status === "success" && (
         <div>
           <div className="w-24 h-24 bg-emerald-50 rounded-[2rem] flex items-center justify-center mx-auto mb-8 border border-emerald-100 shadow-lg shadow-emerald-500/10">
@@ -44,7 +44,7 @@ const VerifyEmailView = () => {
         </div>
       )}
 
-      {/* 🚨 ESTADO 3: Error (Enlace expirado o inválido) */}
+      {/* ESTADO 3: Error (Enlace expirado o inválido) */}
       {status === "error" && (
         <div>
           <div className="w-24 h-24 bg-red-50 rounded-[2rem] flex items-center justify-center mx-auto mb-8 border border-red-100 shadow-lg shadow-red-500/10">

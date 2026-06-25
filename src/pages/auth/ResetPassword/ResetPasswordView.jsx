@@ -69,7 +69,7 @@ const ResetPasswordView = () => {
 
       {/* 2. Formulario */}
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* 🚨 Mensaje de error general (Token inválido, expirado, etc.) */}
+        {/* Mensaje de error general (Token inválido, expirado, etc.) */}
         {error && (
           <div className="bg-red-50 p-4 rounded-2xl border border-red-100 animate-shake flex items-start gap-3">
             <span className="material-symbols-rounded text-red-600 text-lg shrink-0">
@@ -81,7 +81,7 @@ const ResetPasswordView = () => {
           </div>
         )}
 
-        {/* 🔒 Nueva Contraseña */}
+        {/* Nueva Contraseña */}
         <div className="relative group">
           <InputField
             label={
@@ -107,7 +107,7 @@ const ResetPasswordView = () => {
           </button>
         </div>
 
-        {/* 🔒 Confirmar Contraseña */}
+        {/* Confirmar Contraseña */}
         <div className="relative group">
           <InputField
             label={
@@ -128,7 +128,7 @@ const ResetPasswordView = () => {
           />
         </div>
 
-        {/* 🟠 Botón Submit */}
+        {/* Botón Submit */}
         <div className="pt-2">
           <Button
             type="submit"

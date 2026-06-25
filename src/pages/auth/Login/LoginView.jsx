@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useLogin } from "./useLogin";
-import { Button } from "../../../components/ui/Navigation"; // Ajusta tus rutas
+import { Button } from "@/components/ui/Navigation";
 import {InputField} from "@/components/ui/Form";
 
 const LoginView = () => {
@@ -38,7 +38,7 @@ const LoginView = () => {
 
       {/* 2. Formulario */}
       <form onSubmit={handleSubmit(submitAction)} className="space-y-5">
-        {/* 🚨 ZONA DE ERROR Y RECUPERACIÓN (Solo se muestra si hay error) */}
+        {/* ZONA DE ERROR Y RECUPERACIÓN (Solo se muestra si hay error) */}
         {serverError && (
           <div className="bg-red-50 p-4 rounded-2xl border border-red-100 animate-shake flex flex-col gap-3">
             {/* Mensaje de error principal */}
@@ -49,7 +49,7 @@ const LoginView = () => {
               <span className="mt-0.5 leading-snug">{serverError}</span>
             </div>
 
-            {/* 🎯 BOTÓN DE REENVÍO (Solo se muestra si capturamos un correo no verificado) */}
+            {/* BOTÓN DE REENVÍO (Solo se muestra si capturamos un correo no verificado) */}
             {unverifiedEmail && (
               <div className="ml-8 border-t border-red-100/50 pt-2">
                 {!resendStatus.success ? (
@@ -90,7 +90,7 @@ const LoginView = () => {
           </div>
         )}
 
-        {/* 📧 Campo Correo */}
+        {/* Campo Correo */}
         <InputField
           label={
             <span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">
@@ -105,7 +105,7 @@ const LoginView = () => {
           placeholder="usuario@sena.edu.co"
         />
 
-        {/* 🔒 Campo Contraseña */}
+        {/* Campo Contraseña */}
         <div className="relative group">
           <InputField
             label={
@@ -128,7 +128,7 @@ const LoginView = () => {
             error={errors.password}
             placeholder="••••••••"
           />
-          {/* 🖱️ Ojito de la contraseña con cursor pointer */}
+          {/* Ojito de la contraseña con cursor pointer */}
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
@@ -140,7 +140,7 @@ const LoginView = () => {
           </button>
         </div>
 
-        {/* 🟠 Botón Submit */}
+        {/* Botón Submit */}
         <div className="pt-2">
           <Button
             type="submit"
@@ -159,7 +159,7 @@ const LoginView = () => {
         </div>
       </form>
 
-      {/* 3. Footer del Login */}
+      {/* Footer del Login */}
       <div className="mt-10 text-center border-t border-slate-100 pt-8">
         <p className="font-body text-sm text-slate-500 font-medium">
           ¿No tienes acceso?{" "}

@@ -38,7 +38,7 @@ export const RegisterView = () => {
     );
   }
 
-  // 🌟 4. ESTADO INICIAL: Formulario
+  // 4. ESTADO INICIAL: Formulario
   return (
     <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="text-left mb-8">
@@ -57,11 +57,11 @@ export const RegisterView = () => {
           label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Nombre Completo</span>}
           type="text"
           placeholder="Ej: Juan Pérez"
-          {...register("name")} // 🌟 Conexión a RHF
+          {...register("name")}
           error={errors.name?.message}
         />
 
-        {/* 📧 Campo Correo */}
+        {/* Campo Correo */}
         <InputField
           label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Correo Institucional</span>}
           type="email"
@@ -70,7 +70,7 @@ export const RegisterView = () => {
           error={errors.email?.message}
         />
 
-        {/* 🔒 Campo Contraseña */}
+        {/* Campo Contraseña */}
         <div className="relative group pt-1">
           <InputField
             label={<span className="font-display text-[10px] font-black uppercase tracking-[2px] text-slate-400">Contraseña</span>}
@@ -101,11 +101,11 @@ export const RegisterView = () => {
           />
         </div>
 
-        {/* 🟠 Botón Submit */}
+        {/* Botón Submit */}
         <div className="pt-4">
           <Button
             type="submit"
-            disabled={isSubmitting} // 🌟 Deshabilitado automáticamente por TanStack Query
+            disabled={isSubmitting} // Deshabilitado automáticamente por TanStack Query
             className="w-full py-5 text-xs cursor-pointer disabled:cursor-not-allowed"
           >
             {isSubmitting ? (

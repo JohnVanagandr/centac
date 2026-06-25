@@ -1,17 +1,28 @@
 import { leadRepository } from '@/data/repositories/leadRepository';
 
 export const leadService = {
-  /**
-   * Mapeamos el nombre de negocio 'registrarLead' 
-   * al método estándar 'create' del repositorio
-   */
-  registrarLead: async (payload) => {
+  obtenerLeadPorId: async (id) => {
     try {
-      // Ajuste: Ahora llamamos a .create()
-      const respuesta = await leadRepository.create(payload);
-      return respuesta;
+      const respuesta = await leadRepository.getById(id);
+      // Extraemos los datos dependiendo de la estructura de su API
+      return respuesta?.data?.data || respuesta?.data;
     } catch (error) {
-      console.error("Error en leadService:", error);
+      throw error;
+    }
+  },
+
+  actualizarLead: async (id, status) => {
+    try {
+      return await leadRepository.update(id, { status });
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  agregarComentario: async (id, comment) => {
+    try {
+      return await leadRepository.addComment(id, { comment });
+    } catch (error) {
       throw error;
     }
   }

@@ -87,7 +87,7 @@ const ForgotPasswordView = () => {
           </div>
         )}
 
-        {/* 📧 Campo Correo con tu InputField */}
+        {/* Campo Correo con tu InputField */}
         <div className="relative group">
           <InputField
             label={
@@ -104,7 +104,7 @@ const ForgotPasswordView = () => {
           />
         </div>
 
-        {/* 🟠 Botón Submit usando tu Button */}
+        {/* Botón Submit usando tu Button */}
         <div className="pt-2">
           <Button
             type="submit"

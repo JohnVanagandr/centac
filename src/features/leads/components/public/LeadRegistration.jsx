@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { LeadForm } from "./"; 
-import { useLeadRegistration } from "../hooks/useLeadRegistration";
+import { LeadForm } from "../"; 
+import { useLeadRegistration } from "../../hooks/useLeadRegistration";
 import { useOfertas } from "@/features/oferta/hooks/useOfertas";
 
 const LeadRegistration = ({ programaPreseleccionado = "" }) => {  
