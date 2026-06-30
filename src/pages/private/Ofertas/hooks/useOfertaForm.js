@@ -1,62 +1,64 @@
 import { useState, useEffect } from "react";
-import { ofertasService } from "../../../../services/private/ofertasService";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { ofertasAdminService } from "@/services/private/ofertasAdminService";
 
-export const useOfertaForm = (id, onSuccess) => {
+// Estado inicial limpio para cuando es una "Nueva Oferta"
+const defaultFormData = {
+  title: "",
+  subtitle: "",
+  slug: "",
+  modality: "",
+  duration: "",
+  isTop: false,
+  iconName: "school",
+  description: "",
+  // Añada aquí más campos que necesite para Malla Curricular, Perfiles, etc.
+  malla: [],
+  perfiles: {}
+};
+
+export const useOfertaForm = (id, onSuccessCallback) => {
+  const queryClient = useQueryClient();
   const isEditing = Boolean(id);
+  
+  const [formData, setFormData] = useState(defaultFormData);
+  const [localError, setLocalError] = useState(null);
 
-  // Estados de la interfaz
-  const [isLoading, setIsLoading] = useState(isEditing);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
-
-  // Estado central de los datos (Con valores por defecto seguros para los opcionales)
-  const [formData, setFormData] = useState({
-    title: "", 
-    subtitle: "", 
-    slug: "", 
-    resolution: "", 
-    duration: "",
-    modality: "Presencial", 
-    titleObtained: "", 
-    isTop: false, 
-    iconName: "school",
-    img: "", 
-    desc: "", 
-    aboutHighlights: [], 
-    learnings: [], 
-    modules: [],
-    profiles: { egresado: "", profesional: [] },
-    instructor: { name: "", role: "" }
+  // 1. OBTENER DATOS (Si estamos en modo edición)
+  const { data: fetchResponse, isLoading: isFetching, error: fetchError } = useQuery({
+    queryKey: ["oferta", id],
+    queryFn: () => ofertasAdminService.getById(id),
+    enabled: isEditing, // Solo se ejecuta si hay un ID en la URL
+    staleTime: 0, // Siempre busca la versión más reciente al editar
   });
 
-  // 1. CARGAR DATOS (Si estamos editando)
+  // 2. SINCRONIZAR DATOS CON EL FORMULARIO
   useEffect(() => {
-    if (isEditing) {
-      const fetchPrograma = async () => {
-        setIsLoading(true);
-        try {
-          const data = await ofertasService.getById(id);          
-          // Al cargar, nos aseguramos de que los objetos anidados existan 
-          // por si la base de datos trae un registro antiguo incompleto
-          setFormData({
-            ...data,
-            profiles: data.profiles || { egresado: "", profesional: [] },
-            instructor: data.instructor || { name: "", role: "" },
-            modules: data.modules || [],
-            aboutHighlights: data.aboutHighlights || []
-          });
-        } catch (err) {
-          setError("No se pudo cargar el programa. Verifica la conexión.");
-          console.error(err);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchPrograma();
+    if (fetchResponse) {
+      setFormData(fetchResponse);
     }
-  }, [id, isEditing]);
+  }, [fetchResponse]);
 
-  // 2. MANEJADORES DE ESTADO BÁSICOS
+  // 3. MUTACIÓN PARA GUARDAR (Crear o Actualizar)
+  const mutation = useMutation({
+    mutationFn: (dataToSave) => {
+      return isEditing 
+        ? ofertasAdminService.update(id, dataToSave) 
+        : ofertasAdminService.create(dataToSave);
+    },
+    onSuccess: () => {
+      // Invalidamos la caché de la lista para que la nueva oferta aparezca al volver
+      queryClient.invalidateQueries(["admin-ofertas"]);
+      
+      // Ejecutamos el redireccionamiento que viene desde el componente
+      if (onSuccessCallback) onSuccessCallback();
+    },
+    onError: (err) => {
+      setLocalError(err.message || "Ocurrió un error al intentar guardar el programa.");
+    }
+  });
+
+  // 4. MANEJADORES DE EVENTOS DEL FORMULARIO
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -65,80 +67,48 @@ export const useOfertaForm = (id, onSuccess) => {
     }));
   };
 
+  // Genera el slug automáticamente al escribir el título
   const handleTitleChange = (e) => {
-    const newTitle = e.target.value;
+    const title = e.target.value;
+    const slug = title
+      .toLowerCase()
+      .trim()
+      .replace(/[\u0300-\u036f]/g, "") // Quitar tildes
+      .replace(/[^a-z0-9\s-]/g, "")    // Quitar caracteres especiales
+      .replace(/[\s-]+/g, "-");        // Reemplazar espacios por guiones
+
     setFormData((prev) => ({
       ...prev,
-      title: newTitle,
-      // Autogenerar slug solo en modo creación
-      slug: !isEditing ? newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : prev.slug
+      title,
+      slug,
     }));
   };
 
-  // 3. VALIDACIÓN DE REGLAS DE NEGOCIO (Hard Rules)
-  const validateForm = () => {
-    // Mapeo de campos obligatorios para dar mensajes amigables
-    const requiredFields = [
-      { key: 'title', label: 'Nombre del Programa' },
-      { key: 'slug', label: 'Enlace URL (Slug)' },
-      { key: 'resolution', label: 'Resolución Legal' },
-      { key: 'duration', label: 'Duración' },
-      { key: 'modality', label: 'Modalidad' },
-      { key: 'titleObtained', label: 'Título que se Otorga' }
-    ];
-
-    // Verificamos los campos de texto
-    for (let field of requiredFields) {
-      if (!formData[field.key] || String(formData[field.key]).trim() === "") {
-        return `El campo "${field.label}" es obligatorio para registrar el programa.`;
-      }
+  // Función principal de guardado
+  const saveOferta = () => {
+    setLocalError(null);
+    
+    // Validación mínima obligatoria antes de enviar al backend
+    if (!formData.title || !formData.modality) {
+      setLocalError("El título y la modalidad son campos obligatorios.");
+      return;
     }
 
-    // Verificamos la malla curricular
-    if (!formData.modules || formData.modules.length === 0) {
-      return "Debes agregar al menos un módulo en la Malla Curricular.";
-    }
-
-    // Si todo está bien, retornamos null
-    return null; 
+    // Ejecuta la mutación
+    mutation.mutate(formData);
   };
 
-  // 4. ACCIÓN DE GUARDAR (API Call)
-  const saveOferta = async () => {
-    setError(null);
-
-    // Ejecutamos validación
-    const validationError = validateForm();
-    if (validationError) {
-      setError(validationError);
-      return; // Detenemos el guardado si falla la validación
-    }
-
-    setIsSubmitting(true);
-    try {
-      if (isEditing) {
-        // En json-server (y la mayoría de APIs REST), usamos PUT para reemplazar todo el objeto o PATCH para actualizar campos específicos.
-        await ofertasService.update(id, formData);
-      } else {
-        await ofertasService.create(formData);
-      }
-      onSuccess(); // Llamamos al callback (redireccionar al listado)
-    } catch (err) {
-      setError("Error al guardar el programa. Verifica que tu servidor local esté corriendo.");
-      console.error(err);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
+  // 5. RETORNO DE LA API DEL HOOK
   return {
     formData,
     setFormData,
-    isLoading,
-    isSubmitting,
-    error,
+    // isLoading es true si estamos buscando los datos iniciales
+    isLoading: isEditing && isFetching, 
+    // isSubmitting es true si estamos enviando los datos al backend (TanStack Query v5 usa isPending)
+    isSubmitting: mutation.isPending || mutation.isLoading, 
+    error: localError || (fetchError ? "Error al cargar la información del programa." : null),
     handleChange,
     handleTitleChange,
-    saveOferta
+    saveOferta,
   };
 };

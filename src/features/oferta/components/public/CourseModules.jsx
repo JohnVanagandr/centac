@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { Accordion } from "../../../components/ui/DataDisplay";
+import { Accordion } from "@/components/ui/DataDisplay";
 import { IconMapper } from "@/components/ui/Icons";
 
 const CourseModules = ({ modules }) => {

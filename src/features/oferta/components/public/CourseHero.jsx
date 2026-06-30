@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@/components/ui/Navigation/Button"; 
-import { useOfertas } from "../hooks/useOfertas";
+import { useOfertas } from "../../hooks/useOfertas";
 
 // Cambiamos a exportación nombrada por convención
 const CourseHero = ({ data }) => {
