@@ -19,22 +19,11 @@ export const ofertasService = {
   // Obtener un programa específico por ID
   getById: async (id) => {
     try {
-      const params = new URLSearchParams();
-      // Lista de todas las relaciones que queremos "incrustar"
-      const relaciones = [
-        'modulos', 
-        'testimonios', 
-        'highlights', 
-        'aprendizajes', 
-        'perfiles_ocupacionales'
-      ];
-      // Agregamos cada relación repitiendo la llave _embed
-      relaciones.forEach(rel => params.append('_embed', rel));
-      const response = await api.get(`${ENDPOINT}/${id}?${params.toString()}`);
-      return response.data;
+      const response = await api.get(`${ENDPOINT}/${id}`);
+      return response.data.data || response.data;
     } catch (error) {
-      console.error(`Error al obtener la oferta con ID ${id}:`, error);
-      throw error; // Re-lanzamos para que el Hook o Componente lo maneje
+      console.error(`Error al obtener el prospecto con ID ${id}:`, error);
+      throw error;
     }
   },
 
