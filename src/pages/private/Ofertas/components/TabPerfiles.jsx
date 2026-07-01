@@ -89,7 +89,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
             Instructor del Programa
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Asigna al docente o experto a cargo de impartir la formación.
+            Asigna al docente o experto a cargo de impartir la formación a los aprendices.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
               <input
                 type="text"
                 name="name"
-                value={instructor.name}
+                value={instructor.name || ""}
                 onChange={handleInstructorChange}
                 placeholder="Ej: Ing. Edwin P. Russi"
                 className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none text-sm focus:border-brand/30 transition-all text-slate-800 font-bold shadow-sm"
@@ -125,7 +125,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
               <input
                 type="text"
                 name="role"
-                value={instructor.role}
+                value={instructor.role || ""}
                 onChange={handleInstructorChange}
                 placeholder="Ej: Especialista en Automatismo y Control"
                 className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-xl outline-none text-sm focus:border-brand/30 transition-all text-slate-600 shadow-sm"
@@ -141,7 +141,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
         <div className="border-b border-slate-100 pb-4 mb-6">
           <h2 className="text-lg font-black text-slate-800 flex items-center gap-2">
             <span className="material-symbols-rounded text-brand">psychology</span>
-            Proyección del Estudiante
+            Proyección del Aprendiz
           </h2>
           <p className="text-xs text-slate-500 mt-1">
             Define las competencias que adquiere el alumno y en qué cargos podrá trabajar.
@@ -161,14 +161,14 @@ const TabPerfiles = ({ formData, setFormData }) => {
               </label>
             </div>
             <textarea
-              value={profiles.egresado}
+              value={profiles.egresado || ""}
               onChange={handleEgresadoChange}
               onInput={handleAutoResize}
-              placeholder="El egresado estará en capacidad de..."
-              className="w-full min-h-[120px] px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 resize-none overflow-hidden leading-relaxed shadow-inner shadow-slate-100/50"
+              placeholder="El aprendiz estará en capacidad de..."
+              className="w-full min-h-[140px] px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 resize-none overflow-hidden leading-relaxed shadow-inner shadow-slate-100/50"
             ></textarea>
             <p className="text-[10px] text-slate-400 ml-1 mt-2">
-              Describe resumidamente el conjunto de habilidades que dominará el estudiante al concluir el programa.
+              Describe resumidamente el conjunto de habilidades que dominará el estudiante al concluir el programa de formación.
             </p>
           </div>
 
@@ -212,7 +212,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
                     {/* Input en línea (Single line) */}
                     <input
                       type="text"
-                      value={role}
+                      value={role || ""}
                       onChange={(e) => handleUpdateRole(index, e.target.value)}
                       placeholder="Ej: Auxiliar de mantenimiento eléctrico"
                       className="flex-1 bg-transparent border-none outline-none text-sm text-slate-600 py-1"

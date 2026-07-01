@@ -11,7 +11,8 @@ const TabMalla = ({ formData, setFormData }) => {
     const newModule = {
       number: modules.length + 1,
       title: "",
-      items: [""], // Inicia con un ítem vacío por defecto
+      // Ahora iniciamos con un objeto, coincidiendo con el backend
+      items: [{ description: "" }], 
     };
     setFormData((prev) => ({
       ...prev,
@@ -20,7 +21,6 @@ const TabMalla = ({ formData, setFormData }) => {
   };
 
   const handleRemoveModule = (modIndex) => {
-    // Eliminamos el módulo y renumeramos los restantes automáticamente
     const newModules = modules
       .filter((_, index) => index !== modIndex)
       .map((mod, index) => ({ ...mod, number: index + 1 }));
@@ -40,8 +40,8 @@ const TabMalla = ({ formData, setFormData }) => {
 
   const handleAddItem = (modIndex) => {
     const newModules = [...modules];
-    // Clonamos el array de items para no mutar el original directamente
-    newModules[modIndex].items = [...newModules[modIndex].items, ""];
+    // Agregamos un objeto vacío
+    newModules[modIndex].items = [...newModules[modIndex].items, { description: "" }];
     setFormData((prev) => ({ ...prev, modules: newModules }));
   };
 
@@ -55,7 +55,14 @@ const TabMalla = ({ formData, setFormData }) => {
 
   const handleUpdateItem = (modIndex, itemIndex, newValue) => {
     const newModules = [...modules];
-    newModules[modIndex].items[itemIndex] = newValue;
+    const currentItem = newModules[modIndex].items[itemIndex];
+    
+    // Actualizamos la propiedad 'description' del objeto
+    newModules[modIndex].items[itemIndex] = {
+      ...currentItem,
+      description: newValue
+    };
+    
     setFormData((prev) => ({ ...prev, modules: newModules }));
   };
 
@@ -105,80 +112,85 @@ const TabMalla = ({ formData, setFormData }) => {
           modules.map((module, modIndex) => (
             <div 
               key={modIndex} 
-              className="bg-slate-50 border border-slate-100 rounded-2xl p-5 md:p-6 transition-all relative group"
+              className="bg-white border border-slate-200 rounded-2xl shadow-sm transition-all relative overflow-hidden group"
             >
-              {/* Botón para eliminar el módulo entero (esquina superior derecha) */}
-              <button
-                type="button"
-                onClick={() => handleRemoveModule(modIndex)}
-                className="absolute top-4 right-4 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors opacity-0 group-hover:opacity-100"
-                title="Eliminar Módulo Completo"
-              >
-                <span className="material-symbols-rounded text-[18px]">delete</span>
-              </button>
+              {/* Barra lateral de color (indicador visual de módulo) */}
+              <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-slate-200 group-hover:bg-brand transition-colors"></div>
 
-              {/* Título del Módulo */}
-              <div className="flex items-start gap-4 mb-6 pr-10">
-                <div className="w-10 h-10 bg-slate-200 text-slate-600 font-black rounded-xl flex items-center justify-center shrink-0">
-                  {module.number}
-                </div>
-                <div className="flex-1 space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
-                    Título del Módulo
-                  </label>
-                  <input
-                    type="text"
-                    value={module.title}
-                    onChange={(e) => handleUpdateModuleTitle(modIndex, e.target.value)}
-                    placeholder="Ej: Fundamentos básicos de soldadura"
-                    className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl outline-none text-sm focus:border-brand/50 transition-all font-bold text-slate-800"
-                  />
-                </div>
-              </div>
-
-              {/* Lista de Ítems (Temas dentro del módulo) */}
-              <div className="pl-14 space-y-3">
-                <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1 block mb-2">
-                  Temas del módulo ({module.items.length})
-                </label>
-                
-                {module.items.map((item, itemIndex) => (
-                  <div key={itemIndex} className="flex items-center gap-2 group/item">
-                    {/* Viñeta visual */}
-                    <div className="w-1.5 h-1.5 rounded-full bg-brand/50 shrink-0"></div>
-                    
-                    {/* Input del Tema */}
-                    <input
-                      type="text"
-                      value={item}
-                      onChange={(e) => handleUpdateItem(modIndex, itemIndex, e.target.value)}
-                      placeholder="Ej: Conceptos básicos y terminología..."
-                      className="flex-1 bg-transparent border-b border-transparent hover:border-slate-200 focus:border-brand/30 focus:bg-white outline-none text-sm text-slate-600 py-1.5 px-2 transition-all"
-                    />
-                    
-                    {/* Botón para eliminar el tema específico */}
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveItem(modIndex, itemIndex)}
-                      className="text-slate-300 hover:text-red-500 opacity-0 group-hover/item:opacity-100 transition-opacity p-1"
-                      title="Quitar tema"
-                    >
-                      <span className="material-symbols-rounded text-[18px]">close</span>
-                    </button>
-                  </div>
-                ))}
-
-                {/* Botón para agregar un nuevo tema al módulo */}
+              <div className="p-5 md:p-6 pl-6 md:pl-8">
+                {/* Botón para eliminar el módulo entero */}
                 <button
                   type="button"
-                  onClick={() => handleAddItem(modIndex)}
-                  className="mt-2 text-[11px] font-bold text-brand hover:text-navy flex items-center gap-1 transition-colors px-2 py-1"
+                  onClick={() => handleRemoveModule(modIndex)}
+                  className="absolute top-4 right-4 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:border-red-200 transition-colors opacity-0 group-hover:opacity-100 shadow-sm z-10"
+                  title="Eliminar Módulo Completo"
                 >
-                  <span className="material-symbols-rounded text-[14px]">add</span>
-                  Añadir tema
+                  <span className="material-symbols-rounded text-[18px]">delete</span>
                 </button>
-              </div>
 
+                {/* Título del Módulo */}
+                <div className="flex items-start gap-4 mb-6 pr-10">
+                  <div className="w-12 h-12 bg-slate-50 border border-slate-100 text-slate-400 font-black rounded-xl flex items-center justify-center shrink-0 shadow-inner text-lg">
+                    {module.number}
+                  </div>
+                  <div className="flex-1 space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
+                      Título del Módulo
+                    </label>
+                    <input
+                      type="text"
+                      value={module.title || ""}
+                      onChange={(e) => handleUpdateModuleTitle(modIndex, e.target.value)}
+                      placeholder="Ej: Fundamentos básicos..."
+                      className="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none text-sm focus:bg-white focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-bold text-slate-800"
+                    />
+                  </div>
+                </div>
+
+                {/* Lista de Ítems (Temas dentro del módulo) */}
+                <div className="ml-4 md:ml-16 space-y-3 p-4 bg-slate-50/50 rounded-xl border border-slate-100">
+                  <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 block mb-3">
+                    Temas del módulo ({module.items?.length || 0})
+                  </label>
+                  
+                  {module.items && module.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className="flex items-center gap-3 group/item">
+                      {/* Icono decorativo de lista */}
+                      <span className="material-symbols-rounded text-[16px] text-slate-300">subdirectory_arrow_right</span>
+                      
+                      {/* Input del Tema (Apunta a item.description) */}
+                      <input
+                        type="text"
+                        value={item.description || ""} // Extraemos correctamente el string del objeto
+                        onChange={(e) => handleUpdateItem(modIndex, itemIndex, e.target.value)}
+                        placeholder="Descripción del tema..."
+                        className="flex-1 bg-white border border-slate-200 rounded-lg hover:border-slate-300 focus:border-brand focus:ring-2 focus:ring-brand/20 outline-none text-sm text-slate-600 py-2 px-3 transition-all shadow-sm"
+                      />
+                      
+                      {/* Botón para eliminar el tema específico */}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveItem(modIndex, itemIndex)}
+                        className="w-8 h-8 rounded-md flex items-center justify-center text-slate-300 hover:text-red-500 hover:bg-red-50 opacity-0 group-hover/item:opacity-100 transition-all border border-transparent hover:border-red-100"
+                        title="Quitar tema"
+                      >
+                        <span className="material-symbols-rounded text-[18px]">close</span>
+                      </button>
+                    </div>
+                  ))}
+
+                  {/* Botón para agregar un nuevo tema al módulo */}
+                  <button
+                    type="button"
+                    onClick={() => handleAddItem(modIndex)}
+                    className="mt-4 text-[11px] font-bold text-slate-500 hover:text-brand bg-white border border-slate-200 hover:border-brand/30 px-3 py-2 rounded-lg flex items-center gap-1.5 transition-all shadow-sm"
+                  >
+                    <span className="material-symbols-rounded text-[14px]">add</span>
+                    Añadir nuevo tema
+                  </button>
+                </div>
+
+              </div>
             </div>
           ))
         )}

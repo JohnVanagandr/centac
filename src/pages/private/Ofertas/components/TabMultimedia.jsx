@@ -5,26 +5,28 @@ import { ICON_LIBRARY } from "../../../../components/ui/Icons/IconLibrary";
 
 const TabMultimedia = ({ formData, handleChange }) => {
   const availableIconNames = Object.keys(ICON_LIBRARY);
-  const highlights = formData.aboutHighlights || [];
+  
+  // 🌟 AJUSTE CRÍTICO: Usamos snake_case para coincidir con la base de datos de Laravel
+  const highlights = formData.about_highlights || [];
 
   // ==========================================
   // FUNCIÓN MÁGICA: Textarea Auto-ajustable
   // ==========================================
   const handleAutoResize = (e) => {
-    e.target.style.height = "auto"; // Resetea la altura
-    e.target.style.height = `${e.target.scrollHeight}px`; // Ajusta al contenido real
+    e.target.style.height = "auto"; 
+    e.target.style.height = `${e.target.scrollHeight}px`; 
   };
 
   const handleAddHighlight = () => {
     handleChange({
-      target: { name: "aboutHighlights", value: [...highlights, ""] },
+      target: { name: "about_highlights", value: [...highlights, ""] },
     });
   };
 
   const handleRemoveHighlight = (indexToRemove) => {
     const newHighlights = highlights.filter((_, index) => index !== indexToRemove);
     handleChange({
-      target: { name: "aboutHighlights", value: newHighlights },
+      target: { name: "about_highlights", value: newHighlights },
     });
   };
 
@@ -32,7 +34,7 @@ const TabMultimedia = ({ formData, handleChange }) => {
     const newHighlights = [...highlights];
     newHighlights[indexToUpdate] = newValue;
     handleChange({
-      target: { name: "aboutHighlights", value: newHighlights },
+      target: { name: "about_highlights", value: newHighlights },
     });
   };
 
@@ -40,9 +42,9 @@ const TabMultimedia = ({ formData, handleChange }) => {
     <div className="animate-in fade-in space-y-8">
       {/* Cabecera */}
       <div className="border-b border-slate-100 pb-4">
-        <h2 className="text-lg font-black text-slate-800">Multimedia y Presentación</h2>
+        <h2 className="text-lg font-black text-slate-800">Multimedia y SEO</h2>
         <p className="text-xs text-slate-500 mt-1">
-          Configura la imagen principal, el ícono representativo y los textos descriptivos.
+          Configura la imagen principal, el ícono representativo y optimiza el programa para buscadores.
         </p>
       </div>
 
@@ -92,14 +94,14 @@ const TabMultimedia = ({ formData, handleChange }) => {
             </div>
           </div>
 
-          {/* Selector de Ícono usando IconMapper */}
+          {/* Selector de Ícono */}
           <div className="space-y-3">
             <div className="flex justify-between items-end">
                 <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
                 Ícono del Programa
                 </label>
                 <span className="text-[10px] font-bold text-brand bg-brand/10 px-2 py-1 rounded-md">
-                    Seleccionado: {formData.iconName}
+                    Seleccionado: {formData.iconName || "Ninguno"}
                 </span>
             </div>
             
@@ -123,7 +125,7 @@ const TabMultimedia = ({ formData, handleChange }) => {
           </div>
         </div>
 
-        {/* COLUMNA DERECHA: Textos y SEO */}
+        {/* COLUMNA DERECHA: Textos y Puntos Clave */}
         <div className="space-y-8">
           
           {/* Descripción General (AUTO-AJUSTABLE) */}
@@ -140,17 +142,17 @@ const TabMultimedia = ({ formData, handleChange }) => {
               name="desc"
               value={formData.desc || ""}
               onChange={handleChange}
-              onInput={handleAutoResize} // <-- Disparador de tamaño
+              onInput={handleAutoResize}
               placeholder="Describe el programa de forma atractiva..."
-              className="w-full min-h-[200px] px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 resize-none overflow-hidden leading-relaxed shadow-inner shadow-slate-100/50"
+              className="w-full min-h-[140px] px-5 py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 resize-none overflow-hidden leading-relaxed shadow-inner shadow-slate-100/50"
             ></textarea>
           </div>
 
-          {/* Puntos Clave (Highlights) - DISEÑO MEJORADO Y AUTO-AJUSTABLE */}
+          {/* Puntos Clave (Highlights) */}
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
               <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
-                Puntos Clave (Highlights)
+                Puntos Clave (Beneficios)
               </label>
               <button
                 type="button"
@@ -173,23 +175,20 @@ const TabMultimedia = ({ formData, handleChange }) => {
                 highlights.map((highlight, index) => (
                   <div key={index} className="relative group flex bg-white border border-slate-100 rounded-2xl p-1 pr-12 shadow-sm hover:border-brand/20 hover:shadow-md transition-all">
                     
-                    {/* Número/Indicador visual */}
                     <div className="w-10 flex flex-col items-center pt-3 shrink-0">
                       <div className="w-6 h-6 rounded-full bg-slate-50 flex items-center justify-center text-[10px] font-black text-slate-400 border border-slate-100">
                           {index + 1}
                       </div>
                     </div>
                     
-                    {/* Textarea Auto-ajustable */}
                     <textarea
                       value={highlight}
                       onChange={(e) => handleUpdateHighlight(index, e.target.value)}
-                      onInput={handleAutoResize} // <-- Disparador de tamaño
+                      onInput={handleAutoResize}
                       placeholder="Ej: La formación permite desarrollar habilidades para..."
-                      className="w-full min-h-[140px] py-3 bg-transparent border-none outline-none text-sm text-slate-600 resize-none overflow-hidden leading-relaxed"
+                      className="w-full min-h-[80px] py-3 bg-transparent border-none outline-none text-sm text-slate-600 resize-none overflow-hidden leading-relaxed"
                     ></textarea>
                     
-                    {/* Botón Eliminar Flotante */}
                     <button
                       type="button"
                       onClick={() => handleRemoveHighlight(index)}
@@ -201,6 +200,44 @@ const TabMultimedia = ({ formData, handleChange }) => {
                   </div>
                 ))
               )}
+            </div>
+          </div>
+
+          {/* NUEVA SECCIÓN: Metadatos SEO */}
+          <div className="pt-6 border-t border-slate-100 space-y-5">
+            <h3 className="text-sm font-black text-slate-700 flex items-center gap-2">
+                <span className="material-symbols-rounded text-brand text-lg">search</span>
+                Metadatos (SEO)
+            </h3>
+            
+            <div className="space-y-4">
+                <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
+                        Meta Título (Opcional)
+                    </label>
+                    <input
+                        type="text"
+                        name="meta_title"
+                        value={formData.meta_title || ""}
+                        onChange={handleChange}
+                        placeholder="Título para buscadores (Google)..."
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600"
+                    />
+                </div>
+                
+                <div className="space-y-1.5">
+                    <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
+                        Meta Descripción (Opcional)
+                    </label>
+                    <textarea
+                        name="meta_description"
+                        value={formData.meta_description || ""}
+                        onChange={handleChange}
+                        rows="2"
+                        placeholder="Breve resumen para los resultados de búsqueda..."
+                        className="w-full px-4 py-2.5 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 resize-none"
+                    ></textarea>
+                </div>
             </div>
           </div>
 
