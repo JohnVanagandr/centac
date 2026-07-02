@@ -85,7 +85,8 @@ export const useOfertaForm = (id, onSuccessCallback) => {
       return endpoints[tab](id, payload);
     },
     onSuccess: (response, variables) => {
-        toast.success("¡Información guardada con éxito!");
+      const message = response?.message || "Guardado exitoso.";
+      toast.success(message);
 
         queryClient.invalidateQueries(["admin-ofertas"]);
         queryClient.invalidateQueries(["oferta-admin", id]);
