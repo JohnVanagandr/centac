@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from '@tanstack/react-query';
-import { leadService } from "@/services/leadService";
+import { leadService } from "../services/leadService";
 import { useFeedback } from "@/hooks";
 import { leadSchema } from "@/schemas/leadSchema";
 

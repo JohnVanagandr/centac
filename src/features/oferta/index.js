@@ -1,5 +1,5 @@
 // 1. Exportamos TODO lo que el barril interno ya organizó
-export * from './components'; 
+export * from './components/public'; 
 
 // 2. Exportamos la lógica (hooks)
 export * from './hooks/useOfertas';

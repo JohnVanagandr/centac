@@ -20,7 +20,7 @@ export const ofertaService = {
 
   async obtenerPorSlug(slug) {
     try {
-      const respuesta = await ofertaRepository.getBySlug(slug);
+      const respuesta = await ofertaRepository.getBySlug(slug);      
       
       if (respuesta && respuesta.status === 'success') {
         return respuesta.data;
