@@ -23,7 +23,7 @@ const OfertaGrid = ({ items = [] }) => {
           img={oferta.img}
           
           // --- METADATOS Y DISEÑO ---
-          iconName={oferta.iconName}
+          icon_name={oferta.icon_name}
           isTop={oferta.isTop}
           slug={oferta.slug}
           

@@ -69,6 +69,36 @@ export const ofertasAdminService = {
     }
   },
 
+  updateModules: async (programId, payload) => {
+    // Asegúrate de que la URL coincida con tu Route::prefix
+    const response = await api.put(`/admin/oferta-academica/${programId}/modules`, payload);
+    return response.data;
+  },
+
+  updateLearnings: async (programId, payload) => {
+    const response = await api.put(`/admin/oferta-academica/${programId}/learnings`, payload);
+    return response.data;
+  },  
+
+  updateMultimedia: async (programId, payload) => {
+    // Asegúrate de mantener el prefijo /admin/ si lo usaste en el tab anterior
+    const response = await api.put(`/admin/oferta-academica/${programId}/multimedia`, payload);
+    return response.data;
+  },
+
+  /**
+   * Actualizar perfiles e información del instructor.
+   */
+  updateProfiles: async (programId, payload) => {
+    try {
+      const response = await api.put(`/admin/oferta-academica/${programId}/profiles`, payload);
+      return response.data;
+    } catch (error) {
+      console.error(`Error al actualizar los perfiles para la oferta ${programId}:`, error);
+      throw error;
+    }
+  },
+  
   /**
    * Eliminar una oferta (o cambiar estado a inactivo, según su backend).
    * @param {number|string} id - ID de la oferta

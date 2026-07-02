@@ -108,7 +108,7 @@ const CourseHero = ({ data }) => {
               </span>
               <div>
                 <p className="text-white font-extrabold text-lg leading-none">Título que obtiene:</p>
-                <p className="text-slate-300 text-lg mt-1 leading-snug">{data.titleObtained}</p>
+                <p className="text-slate-300 text-lg mt-1 leading-snug">{data.title_obtained}</p>
               </div>
             </div>
           </div>

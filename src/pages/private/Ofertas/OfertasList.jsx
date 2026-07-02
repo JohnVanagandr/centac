@@ -1,6 +1,6 @@
 import React from "react";
 // Importamos el "motor" desde nuestra carpeta de features administrativos
-import OfertasManager from "@/features/oferta/components/admin/OfertasList";
+import OfertasManager from "@/features/oferta/components/admin/OfertasManager";
 
 const OfertasList = () => {
   return (

@@ -25,7 +25,7 @@ const OfertaDetalleView = ({ data }) => {
 
             {/* Columna Derecha: Sidebar */}
             <div className="lg:col-span-4 space-y-8 sticky top-28 h-fit">
-              <CourseInstructor instructor={data.instructor} />
+              {/* <CourseInstructor instructor={data.instructor} /> */}
               <CourseProfiles profiles={data.profiles} />
               <CourseTestimonials testimonials={data.testimonials} />
             </div>
