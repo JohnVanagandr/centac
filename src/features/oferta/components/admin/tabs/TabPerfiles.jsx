@@ -2,15 +2,24 @@ import React from "react";
 import { usePerfiles } from "../../../hooks/usePerfiles";
 
 const TabPerfiles = ({ formData, setFormData }) => {
+  
+  // 1. Limpiamos el hook: Ya no extraemos la lógica vieja del instructor
   const { 
-    instructor,
     profiles, 
-    handleInstructorChange,
     handleEgresadoChange, 
     handleAddRole, 
     handleRemoveRole, 
     handleUpdateRole 
   } = usePerfiles(formData, setFormData);
+
+  // 2. Nuevo manejador plano: Actualiza directamente la raíz del formData
+  const handleInstructorChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   return (
     <div className="animate-in fade-in space-y-10 max-w-4xl mx-auto">
@@ -25,17 +34,17 @@ const TabPerfiles = ({ formData, setFormData }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
                 type="text"
-                name="name"
-                value={instructor.name || ""}
-                onChange={handleInstructorChange}
+                name="instructor_name" 
+                value={formData.instructor_name || ""} 
+                onChange={handleInstructorChange} 
                 placeholder="Nombre del instructor"
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm"
             />
             <input
                 type="text"
-                name="role"
-                value={instructor.role || ""}
-                onChange={handleInstructorChange}
+                name="instructor_role" 
+                value={formData.instructor_role || ""} 
+                onChange={handleInstructorChange} 
                 placeholder="Cargo / Especialidad"
                 className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm"
             />

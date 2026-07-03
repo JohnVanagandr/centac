@@ -26,7 +26,7 @@ const OfertaEditor = () => {
     saveOferta
   } = useOfertaForm(id, () => {
     navigate("/dashboard/ofertas");
-  });
+  });  
 
   const isEditing = Boolean(id);
 
