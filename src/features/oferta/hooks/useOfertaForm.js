@@ -29,12 +29,10 @@ export const useOfertaForm = (id, onSuccessCallback) => {
             isTop: [true, 1, "1"].includes(data.isTop ?? data.is_top),
             description: data.desc || "", 
             img: data.img || "",
-            
-            // 🌟 TRADUCCIÓN INICIAL: Backend (icon_name) -> Frontend (iconName)
             iconName: data.icon_name || "", 
-            
             learnings: data.learnings || [],
-            instructor_id: data.instructor_id || null,
+            instructor_name: data.instructor_name || "",
+            instructor_role: data.instructor_role || "",
             profiles: data.profiles || { egresado: "", profesional: [] },
             modules: data.modules || []
           });
@@ -207,18 +205,36 @@ export const useOfertaForm = (id, onSuccessCallback) => {
       }
 
       case "perfiles": {
-        // Validación de Perfiles
+        // 1. Extracción de datos del estado
         const { egresado, profesional } = formData.profiles || {};
+        const { instructor_name, instructor_role } = formData || {}; // Asumiendo que están en la raíz del estado
+
+        // 2. Validación de Perfiles
         if (!egresado || egresado.trim() === "") {
           toast.error("El perfil de egreso es obligatorio.");
           return;
         }
 
+        // 3. Validación de Instructor
+        if (!instructor_name || instructor_name.trim() === "") {
+          toast.error("El nombre del instructor es obligatorio.");
+          return;
+        }
+
+        if (!instructor_role || instructor_role.trim() === "") {
+          toast.error("El cargo del instructor es obligatorio.");
+          return;
+        }
+
+        // 4. Construcción del Payload
+        // Mezclamos el objeto anidado (profiles) con los datos planos (instructor)
         payload = {
           profiles: {
             egresado: egresado.trim(),
             profesional: profesional ? profesional.filter(r => r.trim() !== "").map(r => r.trim()) : []
-          }
+          },
+          instructor_name: instructor_name.trim(),
+          instructor_role: instructor_role.trim()
         };
         break;
       }

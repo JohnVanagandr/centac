@@ -1,6 +1,7 @@
 import React from "react";
 
 const CourseInstructor = ({ instructor }) => {
+  
   if (!instructor) return null;
 
   // Obtenemos las iniciales para el avatar (Máximo 2 letras)

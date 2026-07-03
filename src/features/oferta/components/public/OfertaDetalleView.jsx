@@ -6,6 +6,7 @@ import {
 } from "./";
 
 const OfertaDetalleView = ({ data }) => {
+  
   return (
     <main className="bg-white min-h-screen">
       <CourseHero data={data} />
@@ -25,7 +26,10 @@ const OfertaDetalleView = ({ data }) => {
 
             {/* Columna Derecha: Sidebar */}
             <div className="lg:col-span-4 space-y-8 sticky top-28 h-fit">
-              {/* <CourseInstructor instructor={data.instructor} /> */}
+              <CourseInstructor instructor={{
+                  name: data.instructor_name || "Instructor por definir", 
+                  role: data.instructor_role || "Sin rol asignado"
+              }} />
               <CourseProfiles profiles={data.profiles} />
               <CourseTestimonials testimonials={data.testimonials} />
             </div>

@@ -30,7 +30,7 @@ export const ofertasAdminService = {
    */
   getById: async (id) => {
     try {
-      const response = await api.get(`${ENDPOINT}/${id}`);
+      const response = await api.get(`${ENDPOINT}/${id}`);      
       return response.data?.data || response.data;
     } catch (error) {
       console.error(`Error al obtener la oferta con ID ${id}:`, error);
