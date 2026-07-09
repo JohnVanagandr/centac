@@ -12,4 +12,11 @@ const ENDPOINTS = {
 
 export const prospectRepository = {
   getProspects: () => get(ENDPOINTS.INDEX),
+  
+  getSummary: async () => {
+    // La instancia 'api' normalmente ya incluye el prefijo '/api', 
+    // por lo que solo pasamos el resto de la ruta.
+    const response = await api.get('/admin/prospects/summary');
+    return response.data;
+  }
 };

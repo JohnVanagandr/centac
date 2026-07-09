@@ -13,21 +13,22 @@ export const Badge = ({
   // MATRIZ DE DISEÑO CENTAC (Variante x Intención)
   const styles = {
     solid: {
-      success:
-        "bg-emerald-500 text-white border-emerald-600 shadow-sm shadow-emerald-200/50",
-      danger:
-        "bg-rose-500 text-white border-rose-600 shadow-sm shadow-rose-200/50",
+      success: "bg-emerald-500 text-white border-emerald-600 shadow-sm shadow-emerald-200/50",
+      danger: "bg-rose-500 text-white border-rose-600 shadow-sm shadow-rose-200/50",
+      warning: "bg-amber-500 text-white border-amber-600 shadow-sm shadow-amber-200/50",
+      info: "bg-blue-500 text-white border-blue-600 shadow-sm shadow-blue-200/50",
       neutral: "bg-slate-500 text-white border-slate-600 shadow-sm",
       // 🎨 COLORES DE MARCA:
-      brand: "bg-brand text-white border-brand-dark shadow-sm shadow-brand/20", // Naranja
-      primary:
-        "bg-primary text-white border-primary-dark shadow-sm shadow-primary/30", // Azul Eléctrico (#0075FF)
-      navy: "bg-navy text-white border-navy-dark shadow-sm shadow-navy/20", // Azul Oscuro
-      gold: "bg-gold text-yellow-900 border-yellow-500 shadow-sm shadow-gold/30", // Advertencias/Nuevos
+      brand: "bg-brand text-white border-brand-dark shadow-sm shadow-brand/20", 
+      primary: "bg-primary text-white border-primary-dark shadow-sm shadow-primary/30", 
+      navy: "bg-navy text-white border-navy-dark shadow-sm shadow-navy/20", 
+      gold: "bg-gold text-yellow-900 border-yellow-500 shadow-sm shadow-gold/30", 
     },
     subtle: {
       success: "bg-emerald-50 text-emerald-700 border-emerald-200",
       danger: "bg-rose-50 text-rose-700 border-rose-200",
+      warning: "bg-amber-50 text-amber-700 border-amber-200",
+      info: "bg-blue-50 text-blue-700 border-blue-200",
       neutral: "bg-slate-100 text-slate-600 border-slate-200",
       // 🎨 COLORES DE MARCA:
       brand: "bg-brand/10 text-brand border-brand/20",
@@ -38,6 +39,8 @@ export const Badge = ({
     soft: {
       success: "bg-emerald-500/20 text-emerald-700 border-emerald-500/30",
       danger: "bg-rose-500/20 text-rose-700 border-rose-500/30",
+      warning: "bg-amber-500/20 text-amber-700 border-amber-500/30",
+      info: "bg-blue-500/20 text-blue-700 border-blue-500/30",
       neutral: "bg-slate-500/20 text-slate-700 border-slate-500/30",
       // 🎨 COLORES DE MARCA:
       brand: "bg-brand/20 text-brand-dark border-brand/30",
@@ -48,6 +51,8 @@ export const Badge = ({
     outline: {
       success: "bg-transparent text-emerald-600 border-emerald-600",
       danger: "bg-transparent text-rose-600 border-rose-600",
+      warning: "bg-transparent text-amber-600 border-amber-600",
+      info: "bg-transparent text-blue-600 border-blue-600",
       neutral: "bg-transparent text-slate-400 border-slate-300",
       // 🎨 COLORES DE MARCA:
       brand: "bg-transparent text-brand border-brand",
@@ -56,15 +61,14 @@ export const Badge = ({
       gold: "bg-transparent text-yellow-600 border-gold",
     },
     glass: {
-      success:
-        "bg-emerald-500/20 backdrop-blur-md text-emerald-900 border-emerald-400/30",
-      danger:
-        "bg-rose-500/20 backdrop-blur-md text-rose-900 border-rose-400/30",
+      success: "bg-emerald-500/20 backdrop-blur-md text-emerald-900 border-emerald-400/30",
+      danger: "bg-rose-500/20 backdrop-blur-md text-rose-900 border-rose-400/30",
+      warning: "bg-amber-500/20 backdrop-blur-md text-amber-900 border-amber-400/30",
+      info: "bg-blue-500/20 backdrop-blur-md text-blue-900 border-blue-400/30",
       neutral: "bg-black/20 backdrop-blur-md text-white border-white/10",
       // 🎨 COLORES DE MARCA:
       brand: "bg-brand/20 backdrop-blur-md text-brand-dark border-brand/30",
-      primary:
-        "bg-white/20 backdrop-blur-md text-white border-white/40 shadow-xl", // Mantenemos tu efecto original genial
+      primary: "bg-white/20 backdrop-blur-md text-white border-white/40 shadow-xl", 
       navy: "bg-navy/40 backdrop-blur-md text-white border-white/20",
       gold: "bg-gold/20 backdrop-blur-md text-yellow-900 border-gold/30",
     },
