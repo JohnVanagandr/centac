@@ -19,20 +19,27 @@ export const sidebarData = [
   },
   {
     id: 3,
+    name: "Sliders",
+    path: "/dashboard/sliders",
+    icon: "list",
+    category: "Principal",
+  },
+  {
+    id: 4,
     name: "PQR",
     path: "/dashboard/pqr",
     icon: "chat_bubble",
     category: "Gestión"
   },
   {
-    id: 4,
+    id: 5,
     name: "Mi Perfil",
     path: "/dashboard/perfil",
     icon: "person",
     category: "Usuario",
   },
   {
-    id: 5,
+    id: 6,
     name: "Solicitudes",
     path: "/dashboard/solicitudes",
     icon: "forum",

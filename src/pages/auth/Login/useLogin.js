@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "@/hooks/useForm";
 import { AuthContext } from "@/context/AuthContext";
 import { authService } from "@/services/authService"; 
-import { ReceiptEuro } from "lucide-react";
 
 export const useLogin = () => {
   const navigate = useNavigate();
