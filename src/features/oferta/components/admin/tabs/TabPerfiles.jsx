@@ -1,23 +1,54 @@
 import React from "react";
-import { usePerfiles } from "../../../hooks/usePerfiles";
 
 const TabPerfiles = ({ formData, setFormData }) => {
   
-  // 1. Limpiamos el hook: Ya no extraemos la lógica vieja del instructor
-  const { 
-    profiles, 
-    handleEgresadoChange, 
-    handleAddRole, 
-    handleRemoveRole, 
-    handleUpdateRole 
-  } = usePerfiles(formData, setFormData);
+  // 1. Lectura directa y segura desde la fuente de verdad absoluta (formData)
+  const profiles = formData.profiles || { egresado: "", profesional: [] };
 
-  // 2. Nuevo manejador plano: Actualiza directamente la raíz del formData
+  // 2. Manejadores Directos (Cirugía exacta: Burlamos cualquier error de hooks externos)
   const handleInstructorChange = (e) => {
     const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleEgresadoChange = (e) => {
+    const value = e.target.value;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      profiles: {
+        ...(prev.profiles || { profesional: [] }),
+        egresado: value
+      }
+    }));
+  };
+
+  const handleAddRole = () => {
+    setFormData(prev => ({
+      ...prev,
+      profiles: {
+        ...(prev.profiles || { egresado: "" }),
+        profesional: [...(prev.profiles?.profesional || []), ""]
+      }
+    }));
+  };
+
+  const handleUpdateRole = (index, value) => {
+    setFormData(prev => ({
+      ...prev,
+      profiles: {
+        ...(prev.profiles || { egresado: "" }),
+        profesional: (prev.profiles?.profesional || []).map((r, i) => i === index ? value : r)
+      }
+    }));
+  };
+
+  const handleRemoveRole = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      profiles: {
+        ...(prev.profiles || { egresado: "" }),
+        profesional: (prev.profiles?.profesional || []).filter((_, i) => i !== index)
+      }
     }));
   };
 
@@ -38,7 +69,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
                 value={formData.instructor_name || ""} 
                 onChange={handleInstructorChange} 
                 placeholder="Nombre del instructor"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-brand"
             />
             <input
                 type="text"
@@ -46,7 +77,7 @@ const TabPerfiles = ({ formData, setFormData }) => {
                 value={formData.instructor_role || ""} 
                 onChange={handleInstructorChange} 
                 placeholder="Cargo / Especialidad"
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm"
+                className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl text-sm outline-none focus:border-brand"
             />
         </div>
       </div>
@@ -55,8 +86,8 @@ const TabPerfiles = ({ formData, setFormData }) => {
       <div className="space-y-3">
         <label className="text-xs font-black uppercase tracking-[2px] text-slate-400 ml-1">Perfil de Egreso</label>
         <textarea
-          value={profiles.egresado}
-          onChange={(e) => handleEgresadoChange(e.target.value)}
+          value={profiles.egresado || ""}
+          onChange={handleEgresadoChange}
           rows="4"
           placeholder="Describe las capacidades del egresado..."
           className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 text-slate-700"
@@ -75,11 +106,11 @@ const TabPerfiles = ({ formData, setFormData }) => {
         </div>
 
         <div className="space-y-2">
-          {profiles.profesional.map((role, index) => (
+          {(profiles.profesional || []).map((role, index) => (
             <div key={index} className="flex gap-2 group">
               <input
                 type="text"
-                value={role}
+                value={role || ""}
                 onChange={(e) => handleUpdateRole(index, e.target.value)}
                 placeholder="Ej: Desarrollador Backend..."
                 className="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:border-brand outline-none"

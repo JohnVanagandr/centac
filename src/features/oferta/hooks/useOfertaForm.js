@@ -3,20 +3,33 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { ofertasAdminService } from "@/services/private/ofertasAdminService";
 
-export const useOfertaForm = (id, onSuccessCallback) => {
+// Importaciones de validadores de dominio
+import { validateBasica } from "./useBasica";
+import { validateMultimedia } from "./useMultimedia";
+import { validateAprendizajes } from "./useAprendizajes";
+import { validateMalla } from "./useMallaCurricular";
+import { validatePerfiles } from "./usePerfiles";
+
+export const useOfertaForm = (idUrl, onSuccessStep) => {
   const queryClient = useQueryClient();
-  const isEditing = Boolean(id);
+  
+  // Determinamos si la vista cargó directamente en modo edición
+  const isEditMode = Boolean(idUrl);
+
+  // Estado interno para almacenar el ID del padre recién creado sin mutar la URL
+  const [createdId, setCreatedId] = useState(null);
+  
+  // currentId define el objetivo de la mutación (sea el de la URL o el recién creado)
+  const currentId = idUrl || createdId;
 
   const [formData, setFormData] = useState({});
-  const [isLoading, setIsLoading] = useState(isEditing);
+  const [isLoading, setIsLoading] = useState(isEditMode);
 
-  // ==========================================
-  // 1. CARGA DE DATOS (GET)
-  // ==========================================
+  // 1. CARGA DE DATOS (GET) - Exclusivo para edición nativa
   useEffect(() => {
-    if (isEditing) {
+    if (isEditMode) {
       setIsLoading(true);
-      ofertasAdminService.getById(id)
+      ofertasAdminService.getById(currentId)
         .then((data) => {
           setFormData({
             title: data.title || "",
@@ -40,11 +53,9 @@ export const useOfertaForm = (id, onSuccessCallback) => {
         .catch(() => toast.error("Error al cargar la información."))
         .finally(() => setIsLoading(false));
     }
-  }, [id, isEditing]);
+  }, [isEditMode, currentId]);
 
-  // ==========================================
   // 2. MANEJADORES DE ESTADO
-  // ==========================================
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
@@ -65,13 +76,15 @@ export const useOfertaForm = (id, onSuccessCallback) => {
     setFormData((prev) => ({ ...prev, title, slug }));
   };
 
-  // ==========================================
-  // 3. MUTACIÓN ORQUESTADA
-  // ==========================================
+  // 3. MUTACIÓN DE ESTADOS
   const mutation = useMutation({
     mutationFn: ({ tab, payload }) => {
-      if (!isEditing) return ofertasAdminService.create(payload);
+      // Si estamos en Info Básica y no existe ID padre, se exige un POST
+      if (tab === "basica" && !currentId) {
+        return ofertasAdminService.create(payload);
+      }
 
+      // De lo contrario, todo es actualización por dominio apuntando al currentId
       const endpoints = {
         basica: ofertasAdminService.update,
         multimedia: ofertasAdminService.updateMultimedia,
@@ -80,170 +93,53 @@ export const useOfertaForm = (id, onSuccessCallback) => {
         perfiles: ofertasAdminService.updateProfiles
       };
       
-      return endpoints[tab](id, payload);
+      return endpoints[tab](currentId, payload);
     },
     onSuccess: (response, variables) => {
-      const message = response?.message || "Guardado exitoso.";
-      toast.success(message);
+      toast.success(response?.message || "Guardado exitoso.");
+      queryClient.invalidateQueries(["admin-ofertas"]);
+      if (currentId) queryClient.invalidateQueries(["oferta-admin", currentId]);
 
-        queryClient.invalidateQueries(["admin-ofertas"]);
-        queryClient.invalidateQueries(["oferta-admin", id]);
-
-        if (variables.shouldRedirect && onSuccessCallback) {
-            onSuccessCallback(response);
-        }
+      // Si es el POST inicial, inyectamos el ID en el estado local y notificamos a la UI
+      if (variables.tab === "basica" && !currentId && response?.data?.id) {
+        setCreatedId(response.data.id);
+        if (onSuccessStep) onSuccessStep(variables.tab, response.data.id);
+      } else {
+        if (onSuccessStep) onSuccessStep(variables.tab, currentId);
+      }
     },
     onError: (err) => {
       const apiErrors = err.response?.data?.errors;
-      const message = apiErrors ? Object.values(apiErrors)[0][0] : "Error al guardar los cambios";
+      const message = apiErrors ? Object.values(apiErrors)[0][0] : "Error en la transacción";
       toast.error(message);
     }
   });
 
-  // ==========================================
-  // 4. CONSTRUCTOR DE PAYLOADS (PUT)
-  // ==========================================
-  const saveOferta = (activeTab, shouldRedirect = false) => {
+  // 4. EJECUTOR
+  const saveOferta = (activeTab) => {
+    
+    // Hard-Block: Exige existencia del padre antes de procesar hijos
+    if (!currentId && activeTab !== "basica") {
+      toast.error("Debe guardar la Información Básica para inicializar el registro.");
+      return;
+    }
+
     let payload = {};
-
-    switch (activeTab) {
-      case "basica":
-        // (Opcional) Puedes agregar validación si lo deseas obligatorio
-        if (!formData.iconName || formData.iconName.trim() === "") {
-          toast.error("Debe seleccionar un ícono representativo.");
-          return;
-        }
-
-        payload = {
-          title: formData.title,
-          slug: formData.slug,
-          subtitle: formData.subtitle,
-          resolution: formData.resolution,
-          duration: formData.duration,
-          modality: formData.modality,
-          title_obtained: formData.title_obtained,
-          is_top: Boolean(formData.isTop),
-          desc: formData.description,
-          icon_name: formData.iconName?.trim(), 
-        };
-        break;
-
-      case "multimedia": {
-        const img = formData.img?.trim();
-
-        if (!img || img === "") {
-          toast.error("La URL de la imagen de portada es obligatoria.");
-          return; 
-        }
-        if (!img.startsWith("http://") && !img.startsWith("https://")) {
-          toast.error("La URL de la imagen debe ser válida (http:// o https://).");
-          return;
-        }
-        payload = {
-          img: img,
-        };
-        break;
+    try {
+      switch (activeTab) {
+        case "basica": payload = validateBasica(formData); break;
+        case "multimedia": payload = validateMultimedia(formData); break;
+        case "aprendizajes": payload = validateAprendizajes(formData); break;
+        case "malla": payload = validateMalla(formData); break;
+        case "perfiles": payload = validatePerfiles(formData); break;
+        default: return;
       }
-      case "aprendizajes": {
-        const currentLearnings = formData.learnings || [];
+    } catch (error) {
+      toast.error(error.message);
+      return; 
+    }
 
-        for (let i = 0; i < currentLearnings.length; i++) {
-          const item = currentLearnings[i];
-          
-          if (!item.title || item.title.trim() === "") {
-            toast.error(`La característica #${i + 1} debe tener un título.`);
-            return;
-          }
-          if (!item.text || item.text.trim() === "") {
-            toast.error(`La característica "${item.title || i + 1}" no tiene descripción.`);
-            return;
-          }
-        }
-        
-        // El payload arma el arreglo limpio y envía "icon" tal como espera tu migración
-        payload = {
-          learnings: currentLearnings.map(l => ({
-            title: l.title.trim(),
-            text: l.text.trim(),
-            icon: l.icon || null
-          }))
-        };
-        break;
-      }
-
-      case "malla": {
-        const currentModules = formData.modules || [];
-
-        for (let i = 0; i < currentModules.length; i++) {
-          const mod = currentModules[i];
-          
-          if (!mod.title || mod.title.trim() === "") {
-            toast.error(`El módulo ${mod.number || i + 1} no tiene título.`);
-            return;
-          }
-          if (!mod.items || mod.items.length === 0) {
-            toast.error(`El módulo "${mod.title}" debe tener al menos un tema.`);
-            return; 
-          }
-          for (let j = 0; j < mod.items.length; j++) {
-            const item = mod.items[j];
-            if (!item.description || item.description.trim() === "") {
-              toast.error(`El tema ${j + 1} del módulo "${mod.title}" está vacío.`);
-              return; 
-            }
-          }
-        }
-
-        payload = { 
-          modules: currentModules.map((mod, index) => ({
-            title: mod.title,
-            number: mod.number || (index + 1),
-            items: (mod.items || []).map(item => item.description)
-          }))
-        };
-        break;
-      }
-
-      case "perfiles": {
-        // 1. Extracción de datos del estado
-        const { egresado, profesional } = formData.profiles || {};
-        const { instructor_name, instructor_role } = formData || {}; // Asumiendo que están en la raíz del estado
-
-        // 2. Validación de Perfiles
-        if (!egresado || egresado.trim() === "") {
-          toast.error("El perfil de egreso es obligatorio.");
-          return;
-        }
-
-        // 3. Validación de Instructor
-        if (!instructor_name || instructor_name.trim() === "") {
-          toast.error("El nombre del instructor es obligatorio.");
-          return;
-        }
-
-        if (!instructor_role || instructor_role.trim() === "") {
-          toast.error("El cargo del instructor es obligatorio.");
-          return;
-        }
-
-        // 4. Construcción del Payload
-        // Mezclamos el objeto anidado (profiles) con los datos planos (instructor)
-        payload = {
-          profiles: {
-            egresado: egresado.trim(),
-            profesional: profesional ? profesional.filter(r => r.trim() !== "").map(r => r.trim()) : []
-          },
-          instructor_name: instructor_name.trim(),
-          instructor_role: instructor_role.trim()
-        };
-        break;
-      }
-      
-      default:
-        return;
-    }    
-
-    mutation.mutate({ tab: activeTab, payload, shouldRedirect });
+    mutation.mutate({ tab: activeTab, payload });
   };
 
   return {
@@ -251,6 +147,7 @@ export const useOfertaForm = (id, onSuccessCallback) => {
     setFormData,
     isLoading,
     isSubmitting: mutation.isPending,
+    isEditMode,
     handleChange,
     handleTitleChange,
     saveOferta
