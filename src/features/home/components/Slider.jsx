@@ -81,7 +81,7 @@ export const Slider = () => {
 
               <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight tracking-tight">
                 {slide.title}
-                <span className="text-brand"> {slide.titleHighlight}</span>
+                <span className="text-brand"> {slide.title_highlight}</span>
               </h2>
 
               <p className="text-slate-300 font-body text-base md:text-xl mb-8 leading-relaxed max-w-xl font-medium">
@@ -91,12 +91,12 @@ export const Slider = () => {
               <div className="flex items-center gap-6">
                 <Button
                   as="a"
-                  href={slide.buttonLink}
+                  href={slide.button_link}
                   intent="brand"
                   size="lg"
                   className="shadow-brand/30 hover:shadow-brand/50 group/btn"
                 >
-                  {slide.buttonText}
+                  {slide.button_text}
                   <svg
                     className="w-5 h-5 group-hover/btn:translate-x-1.5 transition-transform duration-300"
                     fill="none"
