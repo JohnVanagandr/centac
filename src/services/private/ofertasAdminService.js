@@ -112,5 +112,20 @@ export const ofertasAdminService = {
       console.error(`Error al eliminar la oferta con ID ${id}:`, error);
       throw error;
     }
-  }
+  },
+
+  /**
+   * Alterna el estado (activo/inactivo) de una oferta usando PATCH.
+   * @param {number|string} id - ID del programa (program)
+   */
+  updateStatus: async (id) => {
+    try {
+      // Ruta: /admin/oferta-academica/{program}/toggle-status
+      const response = await api.patch(`${ENDPOINT}/${id}/toggle-status`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error al alternar el estado del programa ${id}:`, error);
+      throw error;
+    }
+  },
 };

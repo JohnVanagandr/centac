@@ -1,69 +1,69 @@
 import { useCallback } from "react";
 
 export const usePerfiles = (formData, setFormData) => {
-  const profiles = formData?.profiles || { egresado: "", profesional: [] };
-  const instructor = formData?.instructor || { name: "", role: "" };
 
-  // Lógica Instructor
-  const handleInstructorChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      instructor: {
-        ...prev.instructor,
-        [name]: value,
-      },
-    }));
-  }, [setFormData]);
-
-  // Lógica Perfil de Egreso
   const handleEgresadoChange = (value) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
-      profiles: { ...prev.profiles, egresado: value },
+      profiles: {
+        profesional: [], // Salvavidas: Garantiza que map() no explote
+        ...(prev.profiles || {}),
+        egresado: value
+      }
     }));
   };
 
-  // Lógica Roles Profesionales
   const handleAddRole = useCallback(() => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       profiles: {
-        ...prev.profiles,
-        profesional: [...(prev.profiles.profesional || []), ""],
-      },
+        egresado: "", // Salvavidas
+        ...(prev.profiles || {}),
+        profesional: [...(prev.profiles?.profesional || []), ""]
+      }
     }));
   }, [setFormData]);
 
   const handleRemoveRole = useCallback((indexToRemove) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       profiles: {
-        ...prev.profiles,
-        profesional: prev.profiles.profesional.filter((_, i) => i !== indexToRemove),
-      },
+        ...(prev.profiles || {}),
+        profesional: (prev.profiles?.profesional || []).filter((_, i) => i !== indexToRemove)
+      }
     }));
   }, [setFormData]);
 
   const handleUpdateRole = useCallback((indexToUpdate, value) => {
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       profiles: {
-        ...prev.profiles,
-        profesional: prev.profiles.profesional.map((item, i) =>
-          i === indexToUpdate ? value : item
-        ),
-      },
+        ...(prev.profiles || {}),
+        profesional: (prev.profiles?.profesional || []).map((role, i) => i === indexToUpdate ? value : role)
+      }
     }));
   }, [setFormData]);
 
+  return { handleEgresadoChange, handleAddRole, handleRemoveRole, handleUpdateRole };
+};
+
+// ==========================================
+// VALIDACIÓN PURA
+// ==========================================
+export const validatePerfiles = (formData) => {
+  const { egresado, profesional } = formData.profiles || {};
+  const { instructor_name, instructor_role } = formData || {}; 
+
+  if (!egresado || egresado.trim() === "") throw new Error("El perfil de egreso es obligatorio.");
+  if (!instructor_name || instructor_name.trim() === "") throw new Error("El nombre del instructor es obligatorio.");
+  if (!instructor_role || instructor_role.trim() === "") throw new Error("El cargo del instructor es obligatorio.");
+
   return {
-    instructor,
-    profiles,
-    handleInstructorChange,
-    handleEgresadoChange,
-    handleAddRole,
-    handleRemoveRole,
-    handleUpdateRole,
+    profiles: {
+      egresado: egresado.trim(),
+      profesional: profesional ? profesional.filter(r => r.trim() !== "").map(r => r.trim()) : []
+    },
+    instructor_name: instructor_name.trim(),
+    instructor_role: instructor_role.trim()
   };
 };

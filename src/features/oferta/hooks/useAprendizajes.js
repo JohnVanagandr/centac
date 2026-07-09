@@ -1,16 +1,12 @@
 import { useCallback } from "react";
 
 export const useAprendizajes = (formData, setFormData) => {
-  // Inicializamos el arreglo leyendo de la propiedad learnings (o como decidas llamarla)
   const learnings = formData?.learnings || [];
 
   const handleAddLearning = useCallback(() => {
     setFormData((prev) => ({
       ...prev,
-      learnings: [
-        ...(prev.learnings || []),
-        { title: "", text: "", icon: "" } // Estructura exacta de tu migración
-      ],
+      learnings: [...(prev.learnings || []), { title: "", text: "", icon: "" }],
     }));
   }, [setFormData]);
 
@@ -30,10 +26,30 @@ export const useAprendizajes = (formData, setFormData) => {
     }));
   }, [setFormData]);
 
+  return { learnings, handleAddLearning, handleRemoveLearning, handleChangeLearning };
+};
+
+// ==========================================
+// VALIDACIÓN PURA
+// ==========================================
+export const validateAprendizajes = (formData) => {
+  const currentLearnings = formData.learnings || [];
+  
+  for (let i = 0; i < currentLearnings.length; i++) {
+    const item = currentLearnings[i];
+    if (!item.title || item.title.trim() === "") {
+      throw new Error(`La característica #${i + 1} debe tener un título.`);
+    }
+    if (!item.text || item.text.trim() === "") {
+      throw new Error(`La característica "${item.title || i + 1}" no tiene descripción.`);
+    }
+  }
+  
   return {
-    learnings,
-    handleAddLearning,
-    handleRemoveLearning,
-    handleChangeLearning,
+    learnings: currentLearnings.map(l => ({
+      title: l.title.trim(),
+      text: l.text.trim(),
+      icon: l.icon || null
+    }))
   };
 };
