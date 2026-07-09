@@ -23,6 +23,16 @@ export const prospectsService = {
     }
   },
 
+  getSummary: async () => {
+    try {
+      const response = await api.get(`${ENDPOINT}/summary`);      
+      return response.data.data || response.data;
+    } catch (error) {
+      console.error("Error al obtener el resumen de prospectos:", error);
+      throw error;
+    }
+  },  
+
   // Obtener un prospecto por su ID
   getById: async (id) => {
     try {
