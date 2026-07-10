@@ -1,15 +1,12 @@
-import { Placeholder } from "@/components/ui/Feedback";
+import React from "react";
+import PqrsManager from "@/features/pqrs/components/admin/PqrsManager";
 
-const PqrPage = () => {
+const PqrsPage = () => {
   return (
-    <div className="animate-fade-in">
-      <Placeholder 
-        title="Atención PQR" 
-        icon="forum" 
-        progress={15}
-      />
-    </div>
+    <>
+      <PqrsManager />
+    </>
   );
 };
 
-export default PqrPage;
+export default PqrsPage;

@@ -1,6 +1,6 @@
 import React from "react";
-import { PqrsDefiniciones, PqrsForm } from "./"; // Del barril interno
-import { usePqrs } from "../hooks/usePqrs"; // Del hook de lógica
+import { PqrsDefiniciones, PqrsForm } from "./";
+import { usePqrs } from "../../hooks/usePqrs";
 
 const PqrsContainer = () => {
   // Extraemos la lógica del hook

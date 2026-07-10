@@ -12,6 +12,7 @@ import ProfilePage from "@/pages/private/Profile/ProfilePage";
 import SlidersList from "@/pages/private/sliders/SlidersList";
 import SliderEditPage from "@/pages/private/sliders/SliderEditPage";
 import SliderCreatePage from "@/pages/private/sliders/SliderCreatePage";
+import PqrsDetailPage from "@/pages/private/Pqr/PqrsDetailPage";
 
 export const PrivateRoutes = () => {
   return (
@@ -28,6 +29,7 @@ export const PrivateRoutes = () => {
         <Route path="sliders/nuevo" element={<SliderCreatePage />} />
         <Route path="sliders/editar/:id" element={<SliderEditPage />} />
         <Route path="pqr" element={<PqrPage />} />
+        <Route path="pqr/editar/:id" element={<PqrsDetailPage />} />
         <Route path="perfil" element={<ProfilePage />} />
       </Route>
     </Routes>
