@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useAdminContacts } from "../../hooks/useAdminContacts";
 import { Table, Badge } from "@/components/ui/DataDisplay"; 
 import { Pagination } from "@/components/ui/Pagination"; 
-// Importa SelectField si necesitas filtrar por estados
 
 const ContactsManager = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -46,6 +45,10 @@ const ContactsManager = () => {
       }
     }
 
+    // Calcular la diferencia entre atendidos y pendientes
+    const pendientesCount = contactsList.filter(c => c.status === "pendiente").length;
+    const atendidosCount = contactsList.filter(c => c.status === "atendido").length;
+
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-10">
       
@@ -58,6 +61,18 @@ const ContactsManager = () => {
             Administra las solicitudes de contacto enviadas desde el sitio web.
           </p>
         </div>
+
+        {/* Indicadores de diferencia visuales */}
+        <div className="flex items-center gap-3">
+          <div className="bg-orange-50 border border-orange-200 text-orange-700 px-4 py-2 rounded-xl flex items-center gap-2">
+            <span className="font-bold text-sm">Pendientes:</span>
+            <span className="font-black text-lg">{pendientesCount}</span>
+          </div>
+          <div className="bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-2 rounded-xl flex items-center gap-2">
+            <span className="font-bold text-sm">Atendidos:</span>
+            <span className="font-black text-lg">{atendidosCount}</span>
+          </div>
+        </div>
       </div>
 
       <div className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
@@ -67,22 +82,21 @@ const ContactsManager = () => {
             <span className="material-symbols-rounded text-slate-400">search</span>
             <input 
               type="text"
-              placeholder="Nombre, email o asunto..."
+              placeholder="Nombre, email o mensaje..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full bg-transparent outline-none text-sm font-medium text-navy placeholder:text-slate-400"
             />
           </div>
         </div>
-        
-        {/* Aquí puedes agregar el SelectField para filtrar por estados cuando tengas el endpoint listo */}
       </div>
 
       <div className="space-y-6">
         <Table>
           <Table.Header>
             <Table.HeadCell>Contacto</Table.HeadCell>
-            <Table.HeadCell>Asunto</Table.HeadCell>
+            {/* Cambiamos Asunto por Mensaje ya que el JSON no trae subject */}
+            <Table.HeadCell>Mensaje</Table.HeadCell>
             <Table.HeadCell>Fecha</Table.HeadCell>
             <Table.HeadCell>Estado</Table.HeadCell>
             <Table.HeadCell className="text-right">Acciones</Table.HeadCell>
@@ -97,7 +111,7 @@ const ContactsManager = () => {
               </Table.Row>
             ) : contactsList.length === 0 ? (
               <Table.Row>
-                <Table.Cell colSpan="4" className="text-center py-10 text-slate-400 font-bold uppercase tracking-widest text-xs">
+                <Table.Cell colSpan="5" className="text-center py-10 text-slate-400 font-bold uppercase tracking-widest text-xs">
                   No hay solicitudes de contacto.
                 </Table.Cell>
               </Table.Row>
@@ -106,24 +120,27 @@ const ContactsManager = () => {
                 <Table.Row key={contact.id}>
                   <Table.Cell>
                     <div className="flex flex-col">
-                      <span className="font-black text-navy text-sm">{contact.name}</span>
+                      {/* Corregido a full_name */}
+                      <span className="font-black text-navy text-sm">{contact.full_name}</span>
                       <span className="text-[10px] font-bold text-slate-400 mt-0.5">{contact.email}</span>
                       <span className="text-[10px] font-medium text-slate-400">{contact.phone}</span>
                     </div>
                   </Table.Cell>
                   <Table.Cell>
-                    <span className="text-xs font-bold text-navy truncate max-w-[250px] block">
-                      {contact.subject || "Sin asunto"}
+                    <span className="text-xs font-bold text-navy truncate max-w-[250px] block" title={contact.message}>
+                      {contact.message ? (contact.message.length > 40 ? contact.message.substring(0, 40) + '...' : contact.message) : "Sin mensaje"}
                     </span>
                   </Table.Cell>
                   <Table.Cell>
                     <span className="text-xs font-bold text-slate-600">
-                      {new Date(contact.created_at).toLocaleDateString()}
+                      {/* Mostramos la fecha que viene del backend directamente sin usar new Date() */}
+                      {contact.created_at}
                     </span>
                   </Table.Cell>
                   <Table.Cell>
-                    <Badge variant="solid" intent={contact.status === "Leído" ? "success" : "warning"}>
-                      {contact.status || "Pendiente"}
+                    {/* Ajuste de colores e intenciones según el estado real del backend */}
+                    <Badge variant="solid" intent={contact.status === "atendido" ? "success" : "warning"}>
+                      {contact.status ? contact.status.charAt(0).toUpperCase() + contact.status.slice(1) : "Pendiente"}
                     </Badge>
                   </Table.Cell>
                   <Table.Cell className="text-right">

@@ -11,13 +11,12 @@ const ContactDetail = ({ id }) => {
   if (isLoading) return <div className="p-10 text-center text-slate-500 font-bold">Cargando detalle del contacto...</div>;
   if (isError || !contact) return <div className="p-10 text-center text-red-500 font-bold">Error al cargar el contacto.</div>;
 
-  // Manejadores de acciones
-  const handleMarkAsAttended = () => {
-    updateStatus({ id, status: "Atendido" });
-  };
+  // Estandarizamos el estado a minúsculas
+  const currentStatus = contact.status?.toLowerCase() || "pendiente";
 
-  const handleCloseContact = () => {
-    updateStatus({ id, status: "Cerrado" });
+  // Único manejador de acción
+  const handleMarkAsAttended = () => {
+    updateStatus({ id, status: "atendido" });
   };
 
   return (
@@ -40,22 +39,13 @@ const ContactDetail = ({ id }) => {
         
         {/* Acciones de Ciclo de Vida */}
         <div className="flex items-center gap-3">
-          {contact.status !== "Atendido" && contact.status !== "Cerrado" && (
+          {currentStatus !== "atendido" && (
             <button 
               onClick={handleMarkAsAttended}
               disabled={isUpdating}
               className="bg-brand/10 text-brand px-4 py-2 rounded-xl font-bold text-sm hover:bg-brand/20 transition-colors disabled:opacity-50"
             >
               Marcar como Atendido
-            </button>
-          )}
-          {contact.status !== "Cerrado" && (
-            <button 
-              onClick={handleCloseContact}
-              disabled={isUpdating}
-              className="bg-navy text-white px-4 py-2 rounded-xl font-bold text-sm hover:bg-navy/90 transition-colors disabled:opacity-50"
-            >
-              Cerrar Contacto
             </button>
           )}
         </div>
@@ -70,12 +60,15 @@ const ContactDetail = ({ id }) => {
             <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-4">Información del Solicitante</h3>
             <div className="flex items-center gap-4 mb-4">
               <div className="w-12 h-12 bg-slate-100 border border-slate-200 rounded-xl flex items-center justify-center text-lg font-black text-brand uppercase">
-                {contact.name ? contact.name.charAt(0) : "U"}
+                {contact.full_name ? contact.full_name.charAt(0) : "U"}
               </div>
               <div>
-                <p className="font-black text-navy text-base">{contact.name}</p>
-                <Badge variant="solid" intent={contact.status === "Cerrado" ? "success" : contact.status === "Atendido" ? "info" : "warning"}>
-                  {contact.status || "Pendiente"}
+                <p className="font-black text-navy text-base">{contact.full_name}</p>
+                <Badge 
+                  variant="solid" 
+                  intent={currentStatus === "atendido" ? "success" : "warning"}
+                >
+                  {contact.status ? contact.status.charAt(0).toUpperCase() + contact.status.slice(1) : "Pendiente"}
                 </Badge>
               </div>
             </div>
@@ -93,7 +86,7 @@ const ContactDetail = ({ id }) => {
             <div>
               <p className="text-[11px] font-bold text-slate-400 uppercase">Fecha de Solicitud</p>
               <p className="text-sm font-medium text-navy">
-                {new Date(contact.created_at).toLocaleString()}
+                {contact.created_at}
               </p>
             </div>
           </div>
