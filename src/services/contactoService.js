@@ -9,6 +9,7 @@ export const contactoService = {
       // Delegamos al método estandarizado del repositorio
       const respuesta = await contactoRepository.create(payload);
       return respuesta;
+      
     } catch (error) {
       console.error("Error en contactoService (procesarContacto):", error);
       throw error;

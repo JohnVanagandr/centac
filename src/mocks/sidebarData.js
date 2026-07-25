@@ -45,4 +45,11 @@ export const sidebarData = [
     icon: "forum",
     category: "Gestión",
   },
+  {
+    id: 7,
+    name: "Contactos",
+    path: "/dashboard/contactos",
+    icon: "forum",
+    category: "Gestión",
+  },
 ];

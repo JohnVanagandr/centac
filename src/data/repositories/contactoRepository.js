@@ -2,7 +2,7 @@
 import { createRepository } from '../actions';
 
 // 2. Instancias el repositorio con su endpoint
-const repo = createRepository('/contactos'); 
+const repo = createRepository('/front/contactos'); 
 
 // 3. Exportas directamente lo que la fábrica te devuelve
 export const contactoRepository = {

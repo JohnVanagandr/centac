@@ -13,6 +13,8 @@ import SlidersList from "@/pages/private/sliders/SlidersList";
 import SliderEditPage from "@/pages/private/sliders/SliderEditPage";
 import SliderCreatePage from "@/pages/private/sliders/SliderCreatePage";
 import PqrsDetailPage from "@/pages/private/Pqr/PqrsDetailPage";
+import ContactsPage from "@/pages/private/contacts/ContactsPage";
+import ContactDetailPage from "@/pages/private/contacts/ContactDetailPage";
 
 export const PrivateRoutes = () => {
   return (
@@ -30,6 +32,8 @@ export const PrivateRoutes = () => {
         <Route path="sliders/editar/:id" element={<SliderEditPage />} />
         <Route path="pqr" element={<PqrPage />} />
         <Route path="pqr/editar/:id" element={<PqrsDetailPage />} />
+        <Route path="contactos" element={<ContactsPage />} />
+        <Route path="contactos/ver/:id" element={<ContactDetailPage />} />
         <Route path="perfil" element={<ProfilePage />} />
       </Route>
     </Routes>
