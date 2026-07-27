@@ -39,16 +39,16 @@ const CourseHero = ({ data }) => {
           {/* 2. Título Principal */}
           <h1 className="font-display font-black uppercase leading-[1.1] tracking-tighter mb-5">
             <span className="text-white block text-3xl md:text-4xl lg:text-5xl mb-2">
-              TÉCNICO LABORAL
-            </span>
-            <span className="text-brand block text-4xl md:text-5xl lg:text-6xl">
               {data.title}
             </span>
+            {/* <span className="text-brand block text-4xl md:text-5xl lg:text-6xl">
+              {data.title}
+            </span> */}
           </h1>
 
           {/* 3. Subtítulo */}
           {data.subtitle && (
-            <p className="text-white text-lg md:text-xl mt-6 font-normal tracking-wide max-w-2xl opacity-90">
+            <p className="text-brand text-lg md:text-xl mt-6 font-normal tracking-wide max-w-2xl opacity-90">
               {data.subtitle}
             </p>
           )}
