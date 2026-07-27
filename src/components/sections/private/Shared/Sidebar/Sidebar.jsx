@@ -1,8 +1,13 @@
+// src/components/layout/Sidebar.jsx
 import React from "react";
 import SidebarItem from "./SidebarItem";
 import { sidebarData } from "@/mocks";
+import { useLogout } from "@/hooks/useLogout"; // 🌟 Importamos el hook
 
 const Sidebar = ({ isOpen, onClose }) => {
+  // 🌟 Extraemos la función y el estado de carga
+  const { handleLogout, isLoggingOut } = useLogout();
+
   const menuGroups = sidebarData.reduce((groups, item) => {
     const category = item.category || "General";
     if (!groups[category]) groups[category] = [];
@@ -10,7 +15,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     return groups;
   }, {});
 
-return (
+  return (
     <>
       {isOpen && (
         <div className="fixed inset-0 bg-navy/40 backdrop-blur-sm z-40 lg:hidden" onClick={onClose} />
@@ -18,12 +23,12 @@ return (
 
       <aside className={`
         fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-100
-        grid grid-rows-[auto_1fr_auto] h-[100dvh] /* LA SOLUCIÓN MAESTRA */
+        grid grid-rows-[auto_1fr_auto] h-[100dvh]
         transition-transform duration-300 ease-in-out
         ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
       `}>
         
-        {/* FILA 1: LOGO (Toma su espacio natural) */}
+        {/* FILA 1: LOGO */}
         <div className="px-6 pt-8 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-brand/20">
@@ -36,7 +41,7 @@ return (
           </div>
         </div>
 
-        {/* FILA 2: NAVEGACIÓN (Toma todo el espacio libre y hace scroll) */}
+        {/* FILA 2: NAVEGACIÓN */}
         <div className="overflow-y-auto px-2 custom-scrollbar">
           <nav className="space-y-8 pb-6">
             {Object.entries(menuGroups).map(([category, items]) => (
@@ -54,11 +59,26 @@ return (
           </nav>
         </div>
 
-        {/* FILA 3: PIE (Fijo abajo por estructura, no por posición absoluta) */}
+        {/* FILA 3: PIE (Botón Cerrar Sesión) */}
         <div className="p-6 bg-white border-t border-slate-100">
-          <button className="flex items-center gap-3 w-full px-4 py-3 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all group">
-            <span className="material-symbols-rounded text-[22px]">logout</span>
-            <span className="text-sm font-bold">Cerrar Sesión</span>
+          <button 
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            className={`flex items-center gap-3 w-full px-4 py-3 rounded-xl transition-all group
+              ${isLoggingOut 
+                ? "text-slate-400 bg-slate-50 cursor-wait opacity-80" 
+                : "text-slate-400 hover:text-red-500 hover:bg-red-50"
+              }
+            `}
+          >
+            {isLoggingOut ? (
+              <span className="material-symbols-rounded text-[22px] animate-spin">progress_activity</span>
+            ) : (
+              <span className="material-symbols-rounded text-[22px]">logout</span>
+            )}
+            <span className="text-sm font-bold">
+              {isLoggingOut ? "Cerrando Sesión..." : "Cerrar Sesión"}
+            </span>
           </button>
         </div>
 

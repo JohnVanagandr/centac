@@ -102,6 +102,16 @@ export const authService = {
 
       throw new Error(message || "Error del servidor. Inténtalo más tarde.");
     }
+  },
+
+  async logout() {
+    try {
+      const response = await authRepository.logout();
+      return response;
+    } catch (error) {
+      const backendMessage = error.response?.data?.message || "Error al cerrar sesión.";
+      throw new Error(backendMessage);
+    }
   }
 
 };
