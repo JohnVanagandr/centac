@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { leadService } from "@/services/leadService";
 
 export const useProspects = (filters) => {
-  const { page = 1, status = "", search = "" } = filters;
+  const { page = 1, status = "", search = "" } = filters;  
 
   return useQuery({
     // La llave ahora reacciona a los 3 filtros

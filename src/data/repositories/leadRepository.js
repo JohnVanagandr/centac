@@ -15,10 +15,10 @@ export const leadRepository = {
   addComment: (id, data) => adminLeadRepo.addComment(id, data),
 
   // Dentro de leadRepository...
-  getAllProspectos: (page = 1, status = "") => {
+  getAllProspectos: (page = 1, status = "", search = "") => {
     // 1. Construimos la ruta completa aquí
     const baseUrl = '/admin/prospects';
-    const query = `?page=${page}${status ? `&status=${status}` : ''}`;
+    const query = `?page=${page}${status ? `&status=${status}` : ''}${search ? `&search=${search}` : ''}`;
     
     // 2. Enviamos la ruta completa a getDynamic
     return adminLeadRepo.getDynamic(`${baseUrl}${query}`);

@@ -17,7 +17,7 @@ export const ProspectsFilters = ({
       </span>
       <input
         type="text"
-        placeholder="Buscar por nombre, correo o documento..."
+        placeholder="Buscar por nombre o correo..."
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
         className="w-full pl-12 pr-4 py-3 bg-slate-50 border-transparent focus:bg-white focus:border-brand/30 focus:ring-4 focus:ring-brand/5 rounded-xl text-sm font-medium outline-none transition-all placeholder:text-slate-400"

@@ -10,7 +10,7 @@ export const STATUS_OPTIONS = [
   { value: "Pendiente", label: "Pendiente" },
   { value: "Contactado", label: "Contactado" },
   { value: "Matriculado", label: "Matriculado" },
-  { value: "No Interesado", label: "No Interesado" },
+  { value: "No interesado", label: "No interesado" },
 ];
 
 export const canChangeLeadStatus = (currentStatus) => {

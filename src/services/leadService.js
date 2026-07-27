@@ -1,8 +1,8 @@
 import { leadRepository } from '@/data/repositories/leadRepository';
 
 export const leadService = {
-  getAllProspectos: (page, status) => {
-    return leadRepository.getAllProspectos(page, status);
+  getAllProspectos: ({page, status, search}) => {    
+    return leadRepository.getAllProspectos(page, status, search);
   },
 
   obtenerLeadPorId: async (id) => {
