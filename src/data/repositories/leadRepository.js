@@ -14,6 +14,8 @@ export const leadRepository = {
   update: (id, data) => adminLeadRepo.update(id, data),
   addComment: (id, data) => adminLeadRepo.addComment(id, data),
 
+  getSummary: () => adminLeadRepo.getDynamic('/admin/prospects/summary'),
+
   // Dentro de leadRepository...
   getAllProspectos: (page = 1, status = "", search = "") => {
     // 1. Construimos la ruta completa aquí

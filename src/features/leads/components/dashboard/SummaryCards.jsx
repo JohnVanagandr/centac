@@ -1,10 +1,27 @@
 import React from "react";
 
-export const SummaryCards = ({ summary }) => {  
+export const SummaryCards = ({ summary = {} }) => {  
+  // 🌟 Ajustamos las llaves para que lean exactamente lo que responde el backend
+  // Se mantienen los valores en inglés (unattended, etc.) como respaldo por si falla la API
   const cards = [
-    { label: "Sin Atender", value: summary.unattended ?? 0, icon: "priority_high", color: "bg-amber-50 text-amber-600" },
-    { label: "En Proceso", value: summary.in_process ?? 0, icon: "sync", color: "bg-blue-50 text-blue-600" },
-    { label: "Matriculados", value: summary.enrolled ?? 0, icon: "workspace_premium", color: "bg-emerald-50 text-emerald-600" },
+    { 
+      label: "Pendientes", 
+      value: summary.pendientes ?? summary.unattended ?? 0, 
+      icon: "priority_high", 
+      color: "bg-amber-50 text-amber-600" 
+    },
+    { 
+      label: "Contactados", 
+      value: summary.en_proceso ?? summary.contactados ?? summary.in_process ?? 0, 
+      icon: "sync", 
+      color: "bg-blue-50 text-blue-600" 
+    },
+    { 
+      label: "Matriculados", 
+      value: summary.atendidas ?? summary.matriculados ?? summary.enrolled ?? 0, 
+      icon: "workspace_premium", 
+      color: "bg-emerald-50 text-emerald-600" 
+    },
   ];
 
   return (

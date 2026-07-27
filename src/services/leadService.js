@@ -5,6 +5,15 @@ export const leadService = {
     return leadRepository.getAllProspectos(page, status, search);
   },
 
+  getSummary: async () => {
+    try {
+      const response = await leadRepository.getSummary();
+      return response?.data || response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
   obtenerLeadPorId: async (id) => {
     try {
       const respuesta = await leadRepository.getById(id);
