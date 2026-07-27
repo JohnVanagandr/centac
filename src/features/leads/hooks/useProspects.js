@@ -1,15 +1,17 @@
+// src/hooks/useProspects.js
 import { useQuery } from "@tanstack/react-query";
 import { leadService } from "@/services/leadService";
 
-export const useProspects = (page, statusFilter) => {
+export const useProspects = (filters) => {
+  const { page = 1, status = "", search = "" } = filters;
 
   return useQuery({
-    // 🌟 REGLA DE ORO: Si 'page' no está aquí adentro, la tabla JAMÁS cambiará de página.
-    queryKey: ["prospects", page, statusFilter], 
+    // La llave ahora reacciona a los 3 filtros
+    queryKey: ["prospects", page, status, search], 
     
-    queryFn: () => leadService.getAllProspectos(page, statusFilter),
+    queryFn: () => leadService.getAllProspectos({ page, status, search }),
     
-    // Evita que la tabla parpadee o se ponga en blanco mientras carga la nueva página
-    keepPreviousData: true 
+    keepPreviousData: true,
+    staleTime: 1000 * 60 * 5, // Mantiene los datos frescos por 5 mins para evitar peticiones innecesarias
   });
 };

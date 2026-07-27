@@ -1,40 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProspects } from "./hooks/useProspects";
 import { SummaryCards } from "./components/dashboard/SummaryCards";
-import { StatusFilter } from "./components/dashboard/StatusFilter";
+import { ProspectsFilters } from "./components/dashboard/ProspectsFilters"; // 🌟 Importamos el nuevo filtro
 import { ProspectsTable } from "./components/dashboard/ProspectsTable";
 import { Pagination } from "@/components/ui/Pagination";
 
 export const SolicitudesContenedor = () => {
   const [page, setPage] = useState(1);
   const [statusFilter, setStatusFilter] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
 
-  const { data: apiResponse, isLoading, error } = useProspects(page, statusFilter);
+  // 🌟 Lógica de Debounce: Espera 500ms después de que el usuario deja de escribir
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(searchTerm.trim());
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Si cambia el filtro de estado o la búsqueda, volvemos a la página 1
+  useEffect(() => {
+    setPage(1);
+  }, [statusFilter, debouncedSearch]);
+
+  // Pasamos el nuevo objeto de filtros al Hook
+  const { data: apiResponse, isLoading, error } = useProspects({
+    page,
+    status: statusFilter,
+    search: debouncedSearch
+  });
 
   const backendResponse = apiResponse?.data || {};
-
-  console.log(backendResponse);
-  
-
   const prospects = Array.isArray(backendResponse.data) ? backendResponse.data : [];
   
   const pagination = backendResponse.pagination || {
-    total: 0, 
-    per_page: 10, 
-    current_page: 1, 
-    last_page: 1, 
-    has_more: false,
+    total: 0, per_page: 10, current_page: 1, last_page: 1, has_more: false,
   };
 
   const summary = backendResponse.summary || {
-    unattended: 0, 
-    in_process: 0, 
-    enrolled: 0,
-  };
-
-  const handleStatusChange = (newStatus) => {
-    setStatusFilter(newStatus);
-    setPage(1);
+    unattended: 0, in_process: 0, enrolled: 0,
   };
 
   if (isLoading) {
@@ -57,9 +62,21 @@ export const SolicitudesContenedor = () => {
   return (
     <div className="space-y-8 pb-10">
       <SummaryCards summary={summary} />
-      <StatusFilter statusFilter={statusFilter} onStatusChange={handleStatusChange} />
+      
+      {/* 🌟 Inyectamos el nuevo componente de filtros */}
+      <ProspectsFilters 
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        statusFilter={statusFilter} 
+        onStatusChange={setStatusFilter} 
+      />
+      
       <ProspectsTable data={prospects} />
-      <Pagination pagination={pagination} setPage={setPage} />
+      
+      {/* Ocultamos la paginación si solo hay 1 página */}
+      {pagination.last_page > 1 && (
+        <Pagination pagination={pagination} setPage={setPage} />
+      )}
     </div>
   );
 };

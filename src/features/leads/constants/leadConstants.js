@@ -12,3 +12,7 @@ export const STATUS_OPTIONS = [
   { value: "Matriculado", label: "Matriculado" },
   { value: "No Interesado", label: "No Interesado" },
 ];
+
+export const canChangeLeadStatus = (currentStatus) => {
+  return currentStatus !== "Matriculado";
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useLeadDetail } from "./hooks/useLeadDetail"; // Ajuste la ruta según su estructura
+import { useLeadDetail } from "./hooks/useLeadDetail";
 
 // Componentes Visuales
 import { DetalleHeader } from "./components/dashboard/detalle/DetalleHeader";
@@ -12,7 +12,6 @@ export const SolicitudDetalleContenedor = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 🌟 Delegamos toda la lógica y gestión de estado al Custom Hook
   const {
     solicitud,
     estado,
@@ -20,11 +19,11 @@ export const SolicitudDetalleContenedor = () => {
     nota,
     setNota,
     cargando,
+    isUpdating, // 🌟 Lo recibimos aquí
+    isLocked, 
     handleUpdate,
     handleSaveNota
   } = useLeadDetail(id);
-
-  // ─── Manejo de Interfaces por Estado ────────────────────────────────────────
 
   if (cargando) {
     return (
@@ -36,12 +35,12 @@ export const SolicitudDetalleContenedor = () => {
 
   if (solicitud?.error) {
     return (
-      <div className="p-20 text-center bg-red-50 text-red-600 rounded-2xl m-8 border border-red-100">
+      <div className="p-20 text-center bg-red-50 text-red-600 rounded-[2rem] m-8 border border-red-100 shadow-sm">
         <h3 className="text-xl font-black mb-2 text-red-800">Expediente no disponible</h3>
         <p className="font-medium">Ocurrió un inconveniente al conectar con el servidor.</p>
         <button 
           onClick={() => navigate(-1)} 
-          className="mt-4 px-6 py-2 bg-slate-900 text-white rounded-lg text-xs font-bold uppercase tracking-widest"
+          className="mt-6 px-8 py-3 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-brand transition-colors"
         >
           Regresar
         </button>
@@ -49,15 +48,9 @@ export const SolicitudDetalleContenedor = () => {
     );
   }
 
-  // ─── Renderizado Principal ──────────────────────────────────────────────────
-
   return (
     <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in duration-700 pb-24">
-      <DetalleHeader 
-        id={solicitud.id} 
-        estado={estado} 
-        onBack={() => navigate(-1)} 
-      />
+      <DetalleHeader id={solicitud.id} estado={estado} onBack={() => navigate(-1)} />
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
@@ -75,7 +68,9 @@ export const SolicitudDetalleContenedor = () => {
           <DetalleSidebarActions 
             estado={estado} 
             setEstado={setEstado} 
-            onUpdate={handleUpdate} 
+            onUpdate={handleUpdate}
+            isLocked={isLocked}
+            isUpdating={isUpdating} // 🌟 Se lo pasamos al componente visual
           />
         </div>
       </div>
