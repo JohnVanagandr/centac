@@ -15,14 +15,13 @@ export const Oferta = () => {
         {/* Cabecera de la Sección */}
         <div className="text-center mb-16">
           <span className="text-brand font-display font-black tracking-widest uppercase text-sm mb-2 block">
-            Descubre tu camino
+            CONSTRUYE TU FUTURO
           </span>
           <h3 className="font-display text-4xl lg:text-5xl font-black text-navy uppercase tracking-tight">
             Programas Destacados
           </h3>
           <p className="text-slate-500 font-body mt-4 max-w-2xl mx-auto text-lg leading-relaxed">
-            Nuestros talleres permiten desarrollar prácticas en ambientes
-            seguros, reales y con tecnología de estándar industrial.
+            Diseñados para aprender haciendo, con prácticas en talleres equipados, entornos reales de trabajo y herramientas con estándar industrial. Prepárate con habilidades técnicas que hoy exige el mercado laboral.
           </p>
           <div className="w-20 h-1.5 bg-brand mx-auto mt-6 rounded-full opacity-80"></div>
         </div>

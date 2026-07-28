@@ -59,10 +59,7 @@ export const Estrategia = () => {
           </h3>
 
           <p className="text-slate-500 font-body max-w-3xl mx-auto text-lg md:text-xl leading-relaxed">
-            Estructuramos nuestro modelo de enseñanza en cuatro pilares
-            fundamentales para garantizar un proceso formativo{" "}
-            <span className="text-navy font-bold">ágil, pertinente</span> y
-            conectado con el sector productivo.
+            Estructuramos nuestro modelo de enseñanza en cuatro pilares fundamentales para garantizar un proceso formativo <span className="text-navy font-bold">ágil, pertinente</span> y conectado con el sector productivo.
           </p>
         </div>
 

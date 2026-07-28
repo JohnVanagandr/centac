@@ -28,8 +28,7 @@ export const Contacto = () => {
             </h2>
 
             <p className="text-lg text-slate-300 mb-10 max-w-md font-body leading-relaxed">
-              Nuestro equipo de admisiones está listo para ayudarte a elegir el
-              mejor programa técnico-práctico para impulsar tu éxito laboral.
+              Nuestro equipo de admisiones está listo para ayudarte a elegir el mejor programa para impulsar tu éxito laboral.
             </p>
 
             {/* Detalle visual: Línea de acento */}

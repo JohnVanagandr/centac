@@ -9,11 +9,10 @@ export const FooterIdentity = () => {
         className="h-14 mb-5 opacity-90"
       />
       <p className="text-sm text-slate-300 mb-4 leading-relaxed font-bold font-display tracking-wide uppercase">
-        Corporación Educativa de Tecnología, Arte y Conocimiento
+        CORPORACIÓN EDUCATIVA NACIONAL DE TECNOLOGÍA, ARTE Y CONOCIMIENTO
       </p>
       <p className="text-sm text-slate-400 mb-8 leading-relaxed font-body">
-        Formamos talento a través de programas de corta duración, con un
-        enfoque práctico y orientado al mundo real.
+        Formamos talento a través de programas de corta duración, con un enfoque práctico y orientado al mundo real.
       </p>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">

@@ -56,10 +56,7 @@ export const Nosotros = () => {
               Nuestra Metodología
             </h3>
             <p className="text-slate-500 font-body text-lg md:text-xl leading-relaxed">
-              Creemos que el aprendizaje se consolida cuando se aplica. Rompemos
-              el esquema tradicional para acercarte desde el primer día a las{" "}
-              <span className="text-navy font-bold">dinámicas reales</span> del
-              mercado laboral.
+              Creemos que el aprendizaje se fortalece cuando se aplica. Rompemos el esquema tradicional para acercarte desde el primer día a las <span className="text-navy font-bold">dinámicas reales</span> del mercado laboral.
             </p>
           </Reveal>
 
@@ -74,9 +71,7 @@ export const Nosotros = () => {
                   Escenarios Reales
                 </h4>
                 <p className="text-slate-500 font-body text-sm leading-relaxed">
-                  Contamos con infraestructura moderna y herramientas
-                  especializadas. Desarrolla tus habilidades en ambientes
-                  controlados que simulan la exigencia real.
+                  Contamos con infraestructura moderna y herramientas especializadas. Desarrolla tus habilidades en ambientes controlados que simulan la exigencia del mercado.
                 </p>
               </article>
             </Reveal>
@@ -91,15 +86,13 @@ export const Nosotros = () => {
                     <IconMapper iconName="chart" className="w-8 h-8" />
                   </div>
                   <h4 className="font-display text-2xl lg:text-3xl font-black text-white mb-4 uppercase leading-none">
-                    70% Práctica <br />
+                    80% Práctica <br />
                     <span className="text-primary-light text-xl">
-                      30% Teoría
+                      20% Teoría
                     </span>
                   </h4>
                   <p className="text-slate-300 font-body text-sm leading-relaxed mb-10">
-                    Programas intensivos diseñados para maximizar tu ejecución.
-                    Menos tiempo en el pupitre, más tiempo operando y creando
-                    soluciones.
+                    Programas intensivos diseñados para maximizar tu ejecución. Menos tiempo en el pupitre, más tiempo operando y creando soluciones.
                   </p>
                 </div>
 
@@ -107,12 +100,12 @@ export const Nosotros = () => {
                 <div className="mt-auto relative z-10">
                   <div className="flex justify-between text-[10px] font-black text-white/50 uppercase tracking-widest mb-2">
                     <span>Enfoque Práctico</span>
-                    <span className="text-gold">70%</span>
+                    <span className="text-gold">80%</span>
                   </div>
                   <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden p-0.5 border border-white/5">
                     <div
                       className="h-full bg-gradient-to-r from-brand to-gold rounded-full relative"
-                      style={{ width: "70%" }}
+                      style={{ width: "80%" }}
                     >
                       <div
                         className="absolute inset-0 bg-white/20 animate-shimmer"
@@ -134,9 +127,7 @@ export const Nosotros = () => {
                   Guía Experta
                 </h4>
                 <p className="text-slate-500 font-body text-sm leading-relaxed">
-                  Profesionales activos en la industria. Recibirás orientación
-                  personalizada paso a paso para dominar cada técnica con
-                  precisión.
+                  Aprende técnicas, procesos y métodos reales con acompañamiento cercano y orientación práctica en cada etapa de tu formación.
                 </p>
               </article>
             </Reveal>
