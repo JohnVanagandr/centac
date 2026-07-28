@@ -21,7 +21,7 @@ const CardOferta = ({ title, desc, iconName, icon_name, slug, isTop, img, durati
       <div className="h-56 overflow-hidden relative">
          <div className="absolute top-4 left-4 z-20 flex gap-2">
           {isTop && <Badge variant="solid" intent="gold">Top</Badge>}
-          <Badge variant="glass" intent="primary">70% Práctica</Badge>
+          <Badge variant="glass" intent="primary">80% Práctica</Badge>
         </div>
         <div className="absolute inset-0 bg-navy/40 group-hover:bg-navy/10 transition-colors duration-500 z-10"></div>
         <img
