@@ -37,7 +37,7 @@ export const NosotrosEstrategia = () => {
               <h3 className="text-4xl font-extrabold text-navy tracking-tight">Misión</h3>
             </div>
             <p className="text-xl text-slate-600 leading-relaxed text-justify">
-              Proporcionar a nuestras estudiantes una formación acorde con sus expectativas y necesidades laborales, mediante un enfoque práctico de enseñanza, lenguaje claro y dinámico, y grupos pequeñas que permiten una atención personalizada.
+              Proporcionar a nuestros estudiantes una formación acorde con sus expectativas y necesidades laborales, mediante un enfoque práctico de enseñanza, lenguaje claro y dinámico, y grupos pequeños que permiten una atención personalizada, promoviendo el desarrollo continuo de competencias y actitudes que faciliten su desempeño proactivo, eficaz y eficiente en los campos de formación elegidos
             </p>
           </div>
           
@@ -50,7 +50,7 @@ export const NosotrosEstrategia = () => {
               <h3 className="text-4xl font-extrabold text-navy tracking-tight">Visión</h3>
             </div>
             <p className="text-xl text-slate-600 leading-relaxed text-justify">
-              Ser lider en el departamento de Santander para el año 2020 en capacitación para el trabajo y desarrollo dumano, destacándose por la inserción del mayor número de técnicos operativos al mercado laboral formal.
+              Ser líder en el departamento de Santander para el año 2028 en capacitación para el trabajo y desarrollo humano, así como en la evaluación y certificación de competencias laborales, destacándose por la inserción del mayor número de técnicos operativos al mercado laboral formal y el fortalecimiento de su empleabilidad.
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export const NosotrosEstrategia = () => {
         <div className="pt-20 border-t border-slate-100">
           <div className="mb-20">
             <h3 className="text-5xl font-black text-navy mb-4 tracking-tighter">Valores Institucionales</h3>
-            <p className="text-brand font-bold uppercase tracking-[0.3em] text-sm">Nuestro ADN corporativo</p>
+            {/* <p className="text-brand font-bold uppercase tracking-[0.3em] text-sm">Nuestro ADN corporativo</p> */}
           </div>
           
           {/* Grid de Valores sin Cards */}

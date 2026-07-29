@@ -5,7 +5,7 @@ export const NosotrosHistoria = () => {
     <section className="py-24 bg-slate-50 relative overflow-hidden">
       {/* Marca de agua de año gigante */}
       <div className="absolute top-10 left-0 w-full text-center overflow-hidden pointer-events-none select-none -z-0">
-        <span className="text-[15rem] font-black text-slate-200/50 leading-none">2012</span>
+        <span className="text-[15rem] font-black text-slate-200/50 leading-none">2014</span>
       </div>
 
       <div className="container mx-auto px-4 max-w-5xl relative z-10">
@@ -26,7 +26,7 @@ export const NosotrosHistoria = () => {
               />
               <div className="mt-6 border-t border-slate-300 pt-4">
                 <h3 className="text-2xl font-bold text-navy">Andrés Guillermo Rodriguez</h3>
-                <p className="text-brand font-medium tracking-wide uppercase text-sm">Fundador (Q.E.P.D.)</p>
+                <p className="text-brand font-medium tracking-wide uppercase text-sm">FUNDADOR (Q.E.P.D.)</p>
               </div>
             </div>
           </div>
@@ -34,19 +34,16 @@ export const NosotrosHistoria = () => {
           {/* El texto fluyendo como un libro */}
           <div className="md:col-span-7 space-y-8 text-lg text-slate-700 leading-loose">
             <p className="text-2xl font-medium text-navy leading-snug">
-              Centac nació como un proyecto personal de nuestro fundador, quien, con el apoyo de nuestras actuales directoras Adriana Marcela Ruíz Villamizar y Daniela Alejandra Bonilla Ruiz, soñó con crear un espacio de formación enfocado en el desarrollo técnico y humano.
+              Centac nació como un proyecto personal de nuestro fundador, Andrés Guillermo Rodríguez (Q. E. P. D.), quien, con el apoyo de nuestras actuales directoras Adriana Marcela Ruíz Villamizar y Daniela Alejandra Bonilla Ruiz, soñó con crear un espacio de formación enfocado en el desarrollo técnico y humano. Un lugar donde el conocimiento se compartiera a través de la metodología “aprender haciendo”, y que, al mismo tiempo, promoviera la independencia y el crecimiento financiero de los estudiantes.
             </p>
             <p>
-              Un lugar donde el conocimiento se compartiera a través de la metodologia "aprender haciendo", y que, al mismo tiempo, promoviera la independencia y el crecimiento financiero de los estudiantes.
+              Sueño que se hizo realidad en 2014 en Bucaramanga, con la creación de La Corporación Educativa Nacional de Tecnología, Arte y Conocimiento (CENTAC)
             </p>
             <div className="p-8 bg-white border-l-2 border-brand shadow-sm">
               <p className="font-semibold text-brand">
-                Ese sueño se hizo realidad el 3 de marzo de 2012 en Bucaramanga, con la creación de La Corporación Educativa Nacional de Tecnologia, Arte y Conocimiento (CENTAC).
+                Durante estos 12 años de trayectoria, nuestra corporación ha fomentado el emprendimiento y el desarrollo de ideas de negocio, siendo testigo del rápido ingreso de nuestros estudiantes al mercado y de la generación de ingresos a partir de actividades que les apasionan y potencian su talento.
               </p>
             </div>
-            <p>
-              Durante estos 14 años de trayectoria, nuestra corporación ha fomentado el emprendimiento y el desarrollo de ideas de negocio, siendo testigo del rápido ingreso de nuestros estudiantes al mercado y de la generación de ingresos a partir de actividades que les apasionan y potencian su talento.
-            </p>
             <p>
               Desde nuestros inicios, hemos trabajado con un enfoque práctico que prepara a jóvenes y adultos a enfrentar los retos del entorno productivo y respondiendo a las necesidades reales del mercado laboral.
             </p>

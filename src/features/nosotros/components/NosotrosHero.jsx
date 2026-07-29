@@ -17,7 +17,7 @@ export const NosotrosHero = () => {
             
             <div className="space-y-6 text-lg text-slate-600 leading-relaxed">
               <p>
-                En CENTAC contamos con una infraestructura moderna y herramientas especializadas, diseñadas para brindar una formación técnico-práctica de calidad.
+                En CENTAC contamos con una infraestructura moderna y herramientas especializadas, diseñadas para brindar una formación de calidad.
               </p>
               <p>
                 Nuestros talleres están perfectamente acondicionados y dotados con equipos, materiales y herramientas profesionales, lo que permite a los estudiantes desarrollar sus prácticas en ambientes seguros, reales y controlados, alineados con las exigencias del sector productivo.
