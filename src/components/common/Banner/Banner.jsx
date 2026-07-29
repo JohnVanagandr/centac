@@ -1,6 +1,6 @@
 import React from "react";
 import { Reveal } from "@/components/utils";
-import Button from "@/components/ui/Navigation/Button";
+import {Link} from "@/components/ui/Navigation";
 
 export const Banner = () => {
   return (
@@ -24,14 +24,17 @@ export const Banner = () => {
 
         {/* 4. El CTA que faltaba (Brand porque es la meta de conversión de esta sección) */}
         <div className="mb-16">
-          <Button
-            intent="brand"
-            size="lg"
-            className="shadow-brand/30 hover:shadow-brand/50"
-          >
-            <span className="material-symbols-rounded">chat</span>
-            HABLA CON UNA ASESORA
-          </Button>
+        <Link
+          href="https://api.whatsapp.com/send/?phone=3174323339"
+          variant="button"
+          intent="brand"
+          size="lg"
+          isExternal
+          className="px-8 py-4"
+        >
+          <span className="material-symbols-rounded">chat</span>
+          HABLA CON UNA ASESORA
+        </Link>
         </div>
 
         {/* 5. Contenedor de Aliados Financieros (Mantenemos tu genial truco de grayscale) */}

@@ -20,7 +20,7 @@ export const NosotrosHistoria = () => {
           <div className="md:col-span-5 relative">
             <div className="sticky top-24">
               <img 
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800" 
+                src={`${import.meta.env.BASE_URL}andres.PNG`} 
                 alt="Andrés Guillermo Rodriguez" 
                 className="w-full aspect-[4/5] object-cover rounded-sm grayscale hover:grayscale-0 transition-all duration-700"
               />
