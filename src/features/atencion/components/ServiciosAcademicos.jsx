@@ -5,17 +5,17 @@ export const ServiciosAcademicos = () => {
   const servicios = [
     { 
       t: 'Acompañamiento académico', 
-      d: 'Brindamos orientación constante durante el desarrollo de tu programa para asegurar que nunca te sientas solo en tu aprendizaje.', 
+      d: 'Constante orientación durante el desarrollo de tu programa para asegurar que nunca te sientas solo en tu aprendizaje.', 
       icon: BookOpen 
     },
     { 
       t: 'Calificaciones y constancias', 
-      d: 'Gestionamos de forma ágil la expedición de tus certificados, constancias y todo tu historial de documentos académicos.', 
+      d: 'Gestión eficiente en la expedición de tus certificados, constancias y todo tu historial de documentos académicos.', 
       icon: FileText 
     },
     { 
       t: 'Apoyo a la formación práctica', 
-      d: 'Facilitamos el acceso organizado a los talleres, herramientas y recursos físicos necesarios para la metodología de aprender haciendo.', 
+      d: 'Acceso a los talleres, herramientas y recursos físicos necesarios para la metodología de aprender haciendo.', 
       icon: Wrench 
     },
     { 
@@ -30,7 +30,7 @@ export const ServiciosAcademicos = () => {
     },
     { 
       t: 'Programación y calendario', 
-      d: 'Información siempre clara y oportuna sobre fechas de inicio de clases, cronogramas de actividades y eventos académicos.', 
+      d: 'Información siempre clara y oportuna sobre fechas de inicio de clases, cronogramas de actividades y eventos académicos', 
       icon: CalendarIcon 
     }
   ];
@@ -54,7 +54,7 @@ export const ServiciosAcademicos = () => {
             </div>
             
             <p className="text-xl text-slate-600 leading-relaxed">
-              En CENTAC hemos diseñado un ecosistema de atención que te acompaña desde tu primer día hasta tu certificación, garantizando las mejores condiciones para tu aprendizaje.
+              Hemos diseñado un ecosistema de atención que te acompaña desde tu primer día hasta tu certificación, garantizando las mejores condiciones para tu aprendizaje.
             </p>
             
             <div className="p-6 bg-slate-50 border-l-4 border-brand rounded-r-2xl">
@@ -114,12 +114,14 @@ export const ServiciosAcademicos = () => {
               <h3 className="text-4xl font-black text-white tracking-tight">Bienestar y seguridad</h3>
               <div className="space-y-6 text-lg text-slate-300 leading-relaxed font-medium">
                 <p>
-                  Promovemos un entorno de formación seguro, respetuoso y responsable. Velamos por el estricto cumplimiento de las normas de seguridad y el uso adecuado de equipos de protección, vitales en nuestros espacios de práctica.
+                  El área de Bienestar y Seguridad busca garantizar condiciones adecuadas para el aprendizaje, prevenir riesgos y fortalecer una cultura de autocuidado, contribuyendo a una experiencia formativa organizada y confiable dentro de la institución.
                 </p>
-                <div className="inline-flex items-center gap-4 bg-brand text-navy px-6 py-3 rounded-full font-bold">
-                  <span className="w-2 h-2 rounded-full bg-navy animate-pulse"></span>
-                  El bienestar es pilar de nuestro modelo educativo
-                </div>
+                <p>
+                  Velamos por el cumplimiento de normas de seguridad, el uso adecuado de herramientas, equipos y elementos de protección, especialmente en los espacios de práctica. Asimismo, fomentamos la convivencia, el respeto mutuo y la responsabilidad individual, como pilares fundamentales del proceso educativo.
+                </p>
+                <p>
+                  Promovemos un entorno de formación seguro, respetuoso y responsable, orientado al bienestar integral de nuestros estudiantes durante el desarrollo de las prácticas y  actividades académicas.
+                </p>
               </div>
             </div>
           </div>

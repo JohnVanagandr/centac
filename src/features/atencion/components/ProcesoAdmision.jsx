@@ -45,7 +45,7 @@ export const ProcesoAdmision = () => {
             Admisiones e Inscripciones
           </h2>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Hemos diseñado un proceso rápido, claro y sin complicaciones para que comiences tu formación técnica hoy mismo.
+            Hemos diseñado un proceso de tres pasos, claro y sin complicaciones para que comiences tu formación hoy mismo.
           </p>
         </div>
 
