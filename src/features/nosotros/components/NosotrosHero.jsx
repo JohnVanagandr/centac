@@ -39,14 +39,14 @@ export const NosotrosHero = () => {
             <div className="grid grid-cols-2 gap-6 items-center">
               <div className="space-y-6">
                 <img 
-                  src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=800" 
+                  src={`${import.meta.env.BASE_URL}fachada.jpeg`} 
                   alt="Instalaciones" 
                   className="rounded-br-[4rem] rounded-tl-2xl shadow-2xl w-full h-80 object-cover"
                 />
               </div>
               <div className="space-y-6 -mt-20">
                 <img 
-                  src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=800" 
+                  src={`${import.meta.env.BASE_URL}instalaciones.jpeg`} 
                   alt="Talleres" 
                   className="rounded-tl-[4rem] rounded-br-2xl shadow-xl w-full h-96 object-cover"
                 />
