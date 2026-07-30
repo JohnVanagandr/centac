@@ -6,8 +6,7 @@ const ContactoInfo = () => {
       <div>
         <h3 className="text-2xl font-bold text-navy mb-4">Nuestra Sede</h3>
         <p className="text-slate-600 leading-relaxed">
-          Acércate a nuestras instalaciones o comunícate por nuestros canales oficiales. 
-          En CENTAC estamos listos para guiarte en tu proceso de formación académica.
+          Acércate a nuestras instalaciones o comunícate por nuestros canales oficiales. En CENTAC estamos listos para guiarte en tu proceso de formación académica.
         </p>
       </div>
 
@@ -20,7 +19,7 @@ const ContactoInfo = () => {
           </div>
           <div>
             <h4 className="font-bold text-navy text-lg">Sede Principal</h4>
-            <p className="text-slate-600 mt-1">Calle Falsa 123, Bucaramanga, Santander</p>
+            <p className="text-slate-600 mt-1">CRA 33ª #18-28, Bucaramanga, Santander</p>
           </div>
         </div>
 
@@ -31,7 +30,7 @@ const ContactoInfo = () => {
           </div>
           <div>
             <h4 className="font-bold text-navy text-lg">Líneas de Atención</h4>
-            <p className="text-slate-600 mt-1">+57 (607) 123 4567 <br/> +57 300 123 4567</p>
+            <p className="text-slate-600 mt-1">+57 3174323339 <br/> +57 3164471656</p>
           </div>
         </div>
 
@@ -42,7 +41,7 @@ const ContactoInfo = () => {
           </div>
           <div>
             <h4 className="font-bold text-navy text-lg">Correo Electrónico</h4>
-            <p className="text-slate-600 mt-1">admisiones@centac.edu.co</p>
+            <p className="text-slate-600 mt-1">info@centac.edu.co</p>
           </div>
         </div>
       </div>
