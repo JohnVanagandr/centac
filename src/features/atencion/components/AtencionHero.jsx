@@ -35,7 +35,7 @@ export const AtencionHero = () => {
             <div className="relative rounded-br-[4rem] rounded-tl-3xl overflow-hidden shadow-2xl">
               {/* 💡 Imagen de soporte/atención al estudiante */}
               <img 
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800" 
+                src={`${import.meta.env.BASE_URL}atencion.jpeg`}
                 alt="Atención al estudiante CENTAC" 
                 className="w-full h-[400px] object-cover"
               />
