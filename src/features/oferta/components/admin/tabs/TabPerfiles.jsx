@@ -2,13 +2,28 @@ import React from "react";
 
 const TabPerfiles = ({ formData, setFormData }) => {
   
-  // 1. Lectura directa y segura desde la fuente de verdad absoluta (formData)
-  const profiles = formData.profiles || { egresado: "", profesional: [] };
+  // 1. Definimos una estructura base segura para evitar "undefined"
+  const defaultProfiles = { estudiante: "", egresado: "", profesional: [] };
+  
+  // 2. Lectura directa fusionando lo que viene de formData con nuestra estructura base
+  const profiles = { ...defaultProfiles, ...(formData.profiles || {}) };
 
-  // 2. Manejadores Directos (Cirugía exacta: Burlamos cualquier error de hooks externos)
+  // 3. Manejadores Directos corregidos
   const handleInstructorChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleEstudianteChange = (e) => {
+    const value = e.target.value;
+    setFormData(prev => ({
+      ...prev,
+      profiles: {
+        ...defaultProfiles,
+        ...prev.profiles,
+        estudiante: value // Ahora sí actualiza correctamente 'estudiante'
+      }
+    }));
   };
 
   const handleEgresadoChange = (e) => {
@@ -16,8 +31,9 @@ const TabPerfiles = ({ formData, setFormData }) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        ...(prev.profiles || { profesional: [] }),
-        egresado: value
+        ...defaultProfiles,
+        ...prev.profiles,
+        egresado: value // Actualiza solo 'egresado', conservando lo demás
       }
     }));
   };
@@ -26,7 +42,8 @@ const TabPerfiles = ({ formData, setFormData }) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        ...(prev.profiles || { egresado: "" }),
+        ...defaultProfiles,
+        ...prev.profiles,
         profesional: [...(prev.profiles?.profesional || []), ""]
       }
     }));
@@ -36,7 +53,8 @@ const TabPerfiles = ({ formData, setFormData }) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        ...(prev.profiles || { egresado: "" }),
+        ...defaultProfiles,
+        ...prev.profiles,
         profesional: (prev.profiles?.profesional || []).map((r, i) => i === index ? value : r)
       }
     }));
@@ -46,7 +64,8 @@ const TabPerfiles = ({ formData, setFormData }) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        ...(prev.profiles || { egresado: "" }),
+        ...defaultProfiles,
+        ...prev.profiles,
         profesional: (prev.profiles?.profesional || []).filter((_, i) => i !== index)
       }
     }));
@@ -82,11 +101,23 @@ const TabPerfiles = ({ formData, setFormData }) => {
         </div>
       </div>
 
+      {/* Perfil de Estudiante */}
+      <div className="space-y-3">
+        <label className="text-xs font-black uppercase tracking-[2px] text-slate-400 ml-1">Perfil de Estudiante</label>
+        <textarea
+          value={profiles.estudiante}
+          onChange={handleEstudianteChange}
+          rows="4"
+          placeholder="Describe el perfil del estudiante o aspirante ideal..."
+          className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 text-slate-700"
+        />
+      </div>
+
       {/* Perfil de Egreso */}
       <div className="space-y-3">
         <label className="text-xs font-black uppercase tracking-[2px] text-slate-400 ml-1">Perfil de Egreso</label>
         <textarea
-          value={profiles.egresado || ""}
+          value={profiles.egresado}
           onChange={handleEgresadoChange}
           rows="4"
           placeholder="Describe las capacidades del egresado..."
@@ -106,11 +137,11 @@ const TabPerfiles = ({ formData, setFormData }) => {
         </div>
 
         <div className="space-y-2">
-          {(profiles.profesional || []).map((role, index) => (
+          {profiles.profesional.map((role, index) => (
             <div key={index} className="flex gap-2 group">
               <input
                 type="text"
-                value={role || ""}
+                value={role}
                 onChange={(e) => handleUpdateRole(index, e.target.value)}
                 placeholder="Ej: Desarrollador Backend..."
                 className="flex-1 px-4 py-3 bg-white border border-slate-200 rounded-xl text-sm focus:border-brand outline-none"

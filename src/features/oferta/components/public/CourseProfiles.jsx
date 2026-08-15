@@ -11,7 +11,30 @@ const CourseProfiles = ({ profiles }) => {
       <div className="absolute top-0 right-0 w-40 h-40 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors duration-700"></div>
 
       <div className="relative z-10">
-        {/* --- 1. Perfil del Egresado --- */}
+        
+        {/* --- 1. Perfil del Estudiante (NUEVA SECCIÓN) --- */}
+        <div className="mb-10">
+          <div className="flex items-center gap-4 mb-5">
+            {/* 🔵 PRIMARY: Burbuja de ícono para estudiante */}
+            <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center shrink-0 border border-white/10 group-hover:border-primary/50 transition-colors duration-500">
+              {/* Asumiendo que 'user', 'academic-cap' o 'book-open' existe en tu IconMapper */}
+              <IconMapper iconName="user" className="w-6 h-6 text-primary" />
+            </div>
+            <h4 className="font-display font-black text-xl uppercase tracking-tight">
+              Perfil del <span className="text-primary">Estudiante</span>
+            </h4>
+          </div>
+          {/* 🌌 SLATE: Textos de prueba para validación visual */}
+          <p className="text-slate-300 text-sm leading-relaxed font-body font-light">
+            {profiles.estudiante || 
+              "El aspirante ideal cuenta con un interés genuino por el aprendizaje técnico, disposición para la resolución de problemas y habilidades básicas que le permitirán asimilar los fundamentos del programa de manera efectiva."}
+          </p>
+        </div>
+
+        {/* Separador */}
+        <div className="w-full h-px bg-white/10 mb-10"></div>
+
+        {/* --- 2. Perfil del Egresado --- */}
         <div className="mb-10">
           <div className="flex items-center gap-4 mb-5">
             {/* 🟠 BRAND: Burbuja de ícono de acción */}
@@ -31,7 +54,7 @@ const CourseProfiles = ({ profiles }) => {
         {/* Separador */}
         <div className="w-full h-px bg-white/10 mb-10"></div>
 
-        {/* --- 2. Perfil Profesional (Campo Ocupacional) --- */}
+        {/* --- 3. Perfil Profesional (Campo Ocupacional) --- */}
         <div>
           <div className="flex items-center gap-4 mb-6">
             {/* 🔵 PRIMARY: Burbuja de ícono secundaria */}
@@ -51,7 +74,11 @@ const CourseProfiles = ({ profiles }) => {
           </p>
 
           <ul className="space-y-3">
-            {profiles.profesional.map((item, index) => (
+            {/* Se agrega fallback vacío [] en caso de que profiles.profesional aún no llegue del backend */}
+            {(profiles.profesional || [
+              "Técnico en mantenimiento (Mock visual)", 
+              "Asistente de instalación (Mock visual)"
+            ]).map((item, index) => (
               <li
                 key={index}
                 className="flex items-start gap-3 text-sm text-slate-200 font-body group/list"
