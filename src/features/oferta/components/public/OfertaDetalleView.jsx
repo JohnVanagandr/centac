@@ -29,7 +29,7 @@ const OfertaDetalleView = ({ data }) => {
               <CourseInstructor instructor={{
                   name: data.instructor_name || "Instructor por definir", 
                   role: data.instructor_role || "Sin rol asignado"
-              }} />
+              }} /> 
               <CourseProfiles profiles={data.profiles} />
               <CourseTestimonials testimonials={data.testimonials} />
             </div>
