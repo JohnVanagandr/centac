@@ -42,6 +42,7 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
             isTop: [true, 1, "1"].includes(data.isTop ?? data.is_top),
             description: data.desc || "", 
             img: data.img || "",
+            video_url: data.video_url || "",
             iconName: data.icon_name || "", 
             learnings: data.learnings || [],
             instructor_name: data.instructor_name || "",

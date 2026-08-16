@@ -2,7 +2,6 @@ import React from "react";
 import Button from "@/components/ui/Navigation/Button"; 
 import { useOfertas } from "../../hooks/useOfertas";
 
-// Cambiamos a exportación nombrada por convención
 const CourseHero = ({ data }) => {
 
   const scrollToSection = (sectionId) => {
@@ -41,9 +40,6 @@ const CourseHero = ({ data }) => {
             <span className="text-white block text-3xl md:text-4xl lg:text-5xl mb-2">
               {data.title}
             </span>
-            {/* <span className="text-brand block text-4xl md:text-5xl lg:text-6xl">
-              {data.title}
-            </span> */}
           </h1>
 
           {/* 3. Subtítulo */}
@@ -65,12 +61,20 @@ const CourseHero = ({ data }) => {
               Inscríbete Ahora
             </Button>
 
-            <Button variant="outline" intent="white" size="lg">
-              Ver clase demostrativa
-            </Button>
+            {/* Renderizado condicional: Solo se muestra si hay video */}
+            {data.video_url && (
+              <Button 
+                variant="outline" 
+                intent="white" 
+                size="lg"
+                onClick={() => scrollToSection('video-promocional')}
+              >
+                Ver clase demostrativa
+              </Button>
+            )}
           </div>
 
-          {/* 5. Bloques de Información (Sin cambios, tu estructura está genial) */}
+          {/* 5. Bloques de Información */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-3xl">
             {/* Duración */}
             <div className="flex items-start gap-4">
