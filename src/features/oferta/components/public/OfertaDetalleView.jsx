@@ -5,6 +5,8 @@ import {
   CourseTestimonials, CourseEnrollment
 } from "./";
 
+import { ProgramaVideo } from './ProgramaVideo';
+
 const OfertaDetalleView = ({ data }) => {
   
   return (
@@ -22,6 +24,10 @@ const OfertaDetalleView = ({ data }) => {
             {/* Columna Izquierda */}
             <div className="lg:col-span-8 space-y-10">
               <CourseModules modules={data.modules} />
+              
+              {/* === NUEVO: VIDEO DE YOUTUBE === */}
+              {/* Inyectado inmediatamente después de la malla curricular */}
+              <ProgramaVideo videoUrl={data.video_url} />
             </div>
 
             {/* Columna Derecha: Sidebar */}
