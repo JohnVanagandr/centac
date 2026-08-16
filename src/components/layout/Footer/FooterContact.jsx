@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// Si ya no usas 'Link' en ninguna otra parte de este archivo, puedes eliminar esta importación
+import { Link } from 'react-router-dom'; 
 
 export const FooterContact = () => {
   return (
@@ -56,15 +57,27 @@ export const FooterContact = () => {
           </span>
         </li>
         
-        {/* Enlaces legales orquestados con React Router */}
-        <li className="pt-6 border-t border-white/10 flex flex-wrap gap-4 font-display font-bold uppercase text-[11px] tracking-widest mt-4">
-          <Link to="/aviso-legal" className="hover:text-brand transition-colors duration-300">
-            Aviso legal
-          </Link>
+        {/* Documentos Legales Descargables */}
+        <li className="pt-6 border-t border-white/10 flex flex-wrap gap-4 font-display font-bold uppercase text-[11px] tracking-widest mt-4 leading-relaxed">
+          <a href="/documentos-legales/PEI-CENTAC.pdf" target="_blank" rel="noopener noreferrer" download className="hover:text-brand transition-colors duration-300">
+            PEI Institucional
+          </a>
           <span className="text-white/20">|</span>
-          <Link to="/politica-privacidad" className="hover:text-brand transition-colors duration-300">
-            Política de Privacidad
-          </Link>
+          <a href="/documentos-legales/POLIITICA-DE-TRATAMIENTO-Y-PROTECCION-DE-DATOS-PERSONALES.pdf" target="_blank" rel="noopener noreferrer" download className="hover:text-brand transition-colors duration-300">
+            Tratamiento de Datos
+          </a>
+          <span className="text-white/20">|</span>
+          <a href="/documentos-legales/PROTOCOLO-ATENCION-VIOLENCIAS.pdf" target="_blank" rel="noopener noreferrer" download className="hover:text-brand transition-colors duration-300">
+            Atención Violencias
+          </a>
+          <span className="text-white/20">|</span>
+          <a href="/documentos-legales/REGLAMENTO-ACADEEMICO-Y-ESTUDIANTIL.pdf" target="_blank" rel="noopener noreferrer" download className="hover:text-brand transition-colors duration-300">
+            Reglamento Estudiantil
+          </a>
+          <span className="text-white/20">|</span>
+          <a href="/documentos-legales/TEERMINOS-Y-CONDICIONES-DEL-SITIO-WEB.pdf" target="_blank" rel="noopener noreferrer" download className="hover:text-brand transition-colors duration-300">
+            Términos y Condiciones
+          </a>
         </li>
       </ul>
     </div>
