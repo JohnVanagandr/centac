@@ -80,9 +80,12 @@ export const ofertasAdminService = {
     return response.data;
   },  
 
-  updateMultimedia: async (programId, payload) => {
-    // Asegúrate de mantener el prefijo /admin/ si lo usaste en el tab anterior
-    const response = await api.put(`/admin/oferta-academica/${programId}/multimedia`, payload);
+  updateMultimedia: async (id, formDataPayload) => {
+    const response = await api.post(`/admin/oferta-academica/${id}/multimedia`, formDataPayload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     return response.data;
   },
 

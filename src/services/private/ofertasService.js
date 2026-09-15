@@ -5,10 +5,6 @@ const ENDPOINT = '/oferta-academica';
 export const ofertasService = {
   // Obtener todos los programas
   getAll: async () => {
-    // const params = new URLSearchParams();
-    // const relaciones = ['modulos', 'testimonios', 'highlights', 'aprendizajes', 'perfiles_ocupacionales'];
-    
-    // relaciones.forEach(rel => params.append('_embed', rel));
 
     const response = await api.get(`${ENDPOINT}`);
     console.log(response);

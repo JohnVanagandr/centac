@@ -110,8 +110,15 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
       }
     },
     onError: (err) => {
+      // Errores de validación (422)
       const apiErrors = err.response?.data?.errors;
-      const message = apiErrors ? Object.values(apiErrors)[0][0] : "Error en la transacción";
+      // Errores de sistema controlados (500, 403, 404)
+      const serverMessage = err.response?.data?.message;
+      
+      const message = apiErrors 
+        ? Object.values(apiErrors)[0][0] 
+        : (serverMessage || "Error crítico en el servidor");
+        
       toast.error(message);
     }
   });
@@ -129,7 +136,21 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
     try {
       switch (activeTab) {
         case "basica": payload = validateBasica(formData); break;
-        case "multimedia": payload = validateMultimedia(formData); break;
+        case "multimedia": 
+          const multiData = validateMultimedia(formData); 
+          // 1. Instanciamos el constructor nativo para envío de archivos
+          payload = new FormData();
+          
+          // 2. Adjuntamos la imagen SOLO si es un archivo físico nuevo
+          if (multiData.img instanceof File) {
+            payload.append("img", multiData.img);
+          }
+          
+          // 3. Adjuntamos los datos adicionales
+          if (multiData.video_url) {
+            payload.append("video_url", multiData.video_url);
+          }
+          break;
         case "aprendizajes": payload = validateAprendizajes(formData); break;
         case "malla": payload = validateMalla(formData); break;
         case "perfiles": payload = validatePerfiles(formData); break;

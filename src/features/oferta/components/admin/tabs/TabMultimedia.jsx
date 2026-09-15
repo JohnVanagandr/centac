@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useMemo } from "react";
 
-const TabMultimedia = ({ formData, handleChange }) => {
-  // Función auxiliar para extraer el ID del video y validar el formato de YouTube
+const TabMultimedia = ({ formData, handleChange, setFormData }) => {
+  // Función auxiliar para extraer el ID del video
   const getYouTubeId = (url) => {
     if (!url) return null;
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
@@ -10,6 +10,26 @@ const TabMultimedia = ({ formData, handleChange }) => {
   };
 
   const videoId = getYouTubeId(formData.video_url);
+
+  // Manejador nativo para el archivo físico
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Guardamos el objeto File (no un texto) en el estado global del formulario
+      setFormData((prev) => ({ ...prev, img: file }));
+    }
+  };
+
+  // Lógica inteligente para la vista previa
+  const imagePreviewUrl = useMemo(() => {
+    if (!formData.img) return null;
+    // Si es un objeto File (recién subido), creamos una URL temporal en memoria
+    if (formData.img instanceof File) {
+      return URL.createObjectURL(formData.img);
+    }
+    // Si es un string, significa que es la URL que vino desde el backend (modo edición)
+    return formData.img;
+  }, [formData.img]);
 
   return (
     <div className="animate-in fade-in space-y-8 max-w-3xl mx-auto">
@@ -23,25 +43,25 @@ const TabMultimedia = ({ formData, handleChange }) => {
 
       <div className="space-y-10">
         
-        {/* ÚNICA SECCIÓN: Imagen Principal (Hero) */}
+        {/* SECCIÓN 1: Imagen Principal (Hero) - REFACTORIZADA PARA ARCHIVOS */}
         <div className="space-y-4">
           <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
-            Imagen de Portada (URL)
+            Imagen de Portada (Archivo físico)
           </label>
+          
           <input
-            type="text"
+            type="file"
             name="img"
-            value={formData.img || ""}
-            onChange={handleChange}
-            placeholder="https://images.unsplash.com/photo-..."
-            className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600"
+            accept="image/jpeg, image/png, image/webp"
+            onChange={handleFileChange}
+            className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-brand/10 file:text-brand hover:file:bg-brand/20 cursor-pointer"
           />
           
-          {/* Vista Previa */}
+          {/* Vista Previa Inteligente */}
           <div className="w-full aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 relative flex items-center justify-center shadow-sm">
-            {formData.img ? (
+            {imagePreviewUrl ? (
               <img 
-                src={formData.img} 
+                src={imagePreviewUrl} 
                 alt="Vista previa" 
                 className="w-full h-full object-cover"
                 onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'flex'; }}
@@ -54,12 +74,12 @@ const TabMultimedia = ({ formData, handleChange }) => {
             )}
             <div className="absolute inset-0 hidden flex-col items-center justify-center text-slate-400 bg-slate-100">
                <span className="material-symbols-rounded text-4xl mb-2">broken_image</span>
-               <span className="text-xs font-bold">Enlace no disponible</span>
+               <span className="text-xs font-bold">Enlace/Archivo no disponible</span>
             </div>
           </div>
         </div>
 
-        {/* SECCIÓN 2: Video de YouTube (NUEVO) */}
+        {/* SECCIÓN 2: Video de YouTube (Se mantiene intacta) */}
         <div className="space-y-4 pt-6 border-t border-slate-100">
           <div className="flex items-center justify-between">
              <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
@@ -73,20 +93,17 @@ const TabMultimedia = ({ formData, handleChange }) => {
             value={formData.video_url || ""}
             onChange={handleChange}
             placeholder="Ej: https://www.youtube.com/watch?v=..."
-            // Cambiamos el color del borde a rojo si escriben algo pero no logramos extraer un ID válido
             className={`w-full px-4 py-3 bg-slate-50 border rounded-xl outline-none text-sm focus:bg-white transition-all text-slate-600 ${
               formData.video_url && !videoId ? 'border-red-300 focus:border-red-400' : 'border-slate-100 focus:border-brand/30'
             }`}
           />
           
-          {/* Mensaje de validación para enlaces incorrectos */}
           {formData.video_url && !videoId && (
             <p className="text-xs text-red-500 font-medium ml-1">
               El formato del enlace no parece ser válido. Asegúrate de copiar la URL correcta de YouTube.
             </p>
           )}
 
-          {/* Vista Previa Video */}
           <div className="w-full aspect-video bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 relative flex items-center justify-center shadow-sm">
             {videoId ? (
               <iframe

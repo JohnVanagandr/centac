@@ -1,15 +1,23 @@
 export const validateMultimedia = (formData) => {
-  const img = formData.img?.trim();
-  const video_url = formData.video_url?.trim(); // Extraemos y limpiamos el campo del video
+  const img = formData.img;
+  // Extraemos y limpiamos el campo del video
+  const video_url = typeof formData.video_url === 'string' ? formData.video_url.trim() : null; 
 
-  if (!img || img === "") {
-    throw new Error("La URL de la imagen de portada es obligatoria.");
-  }
-  if (!img.startsWith("http://") && !img.startsWith("https://")) {
-    throw new Error("La URL de la imagen debe ser válida (http:// o https://).");
+  if (!img) {
+    throw new Error("La imagen de portada es obligatoria.");
   }
 
-  // NUEVO: Validación opcional para el video de YouTube
+  // Validamos si es un string (solo sucede cuando carga la info del backend y el usuario NO ha seleccionado archivo nuevo)
+  if (typeof img === 'string') {
+    if (!img.startsWith("http://") && !img.startsWith("https://")) {
+      throw new Error("La URL de la imagen existente no es válida.");
+    }
+  } else if (!(img instanceof File)) {
+    // Si no es un string ni un objeto File, hay un estado corrupto
+    throw new Error("El archivo de imagen no es válido.");
+  }
+
+  // Validación opcional para el video de YouTube
   if (video_url && video_url !== "") {
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = video_url.match(regExp);
@@ -20,9 +28,9 @@ export const validateMultimedia = (formData) => {
     }
   }
 
-  // Agregamos el video_url al objeto final (enviamos null si lo dejaron en blanco para limpiar la BD)
+  // Retornamos los datos purificados listos para empaquetarse
   return { 
-    img,
+    img, // Puede ser un File (nueva imagen) o un String (imagen existente)
     video_url: video_url || null 
   };
 };
