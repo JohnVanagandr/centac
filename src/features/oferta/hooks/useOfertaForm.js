@@ -77,6 +77,29 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
     setFormData((prev) => ({ ...prev, title, slug }));
   };
 
+  // 🔥 NUEVO: Manejador estricto para interceptar la imagen desde la selección
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    
+    if (!file) return; // Si el usuario cancela la selección, no hacemos nada
+
+    const MAX_SIZE_MB = 2;
+    const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
+
+    // Validación temprana: Cortamos el flujo antes de ensuciar el estado o la memoria
+    if (file.size > MAX_SIZE_BYTES) {
+      toast.error(`La imagen es demasiado pesada. El tamaño máximo permitido es ${MAX_SIZE_MB}MB.`);
+      e.target.value = null; // Limpiamos el input para evitar un estado corrupto
+      return; 
+    }
+
+    // Si pasa la validación física, actualizamos el estado general
+    setFormData((prev) => ({
+      ...prev,
+      img: file
+    }));
+  };
+
   // 3. MUTACIÓN DE ESTADOS
   const mutation = useMutation({
     mutationFn: ({ tab, payload }) => {
@@ -172,6 +195,7 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
     isEditMode,
     handleChange,
     handleTitleChange,
+    handleImageChange,
     saveOferta
   };
 };

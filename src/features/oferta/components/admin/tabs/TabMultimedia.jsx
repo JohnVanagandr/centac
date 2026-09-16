@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
-const TabMultimedia = ({ formData, handleChange, setFormData }) => {
+// 1. Recibimos handleImageChange por props (asegúrate de pasarlo desde tu componente padre)
+const TabMultimedia = ({ formData, handleChange, handleImageChange }) => {
   // Función auxiliar para extraer el ID del video
   const getYouTubeId = (url) => {
     if (!url) return null;
@@ -10,15 +11,6 @@ const TabMultimedia = ({ formData, handleChange, setFormData }) => {
   };
 
   const videoId = getYouTubeId(formData.video_url);
-
-  // Manejador nativo para el archivo físico
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Guardamos el objeto File (no un texto) en el estado global del formulario
-      setFormData((prev) => ({ ...prev, img: file }));
-    }
-  };
 
   // Lógica inteligente para la vista previa
   const imagePreviewUrl = useMemo(() => {
@@ -43,7 +35,7 @@ const TabMultimedia = ({ formData, handleChange, setFormData }) => {
 
       <div className="space-y-10">
         
-        {/* SECCIÓN 1: Imagen Principal (Hero) - REFACTORIZADA PARA ARCHIVOS */}
+        {/* SECCIÓN 1: Imagen Principal (Hero) */}
         <div className="space-y-4">
           <label className="text-[10px] font-black uppercase tracking-[2px] text-slate-400 ml-1">
             Imagen de Portada (Archivo físico)
@@ -53,7 +45,8 @@ const TabMultimedia = ({ formData, handleChange, setFormData }) => {
             type="file"
             name="img"
             accept="image/jpeg, image/png, image/webp"
-            onChange={handleFileChange}
+            // 2. Conectamos directamente el manejador blindado de nuestro hook
+            onChange={handleImageChange}
             className="w-full px-4 py-3 bg-slate-50 border border-slate-100 rounded-xl outline-none text-sm focus:bg-white focus:border-brand/30 transition-all text-slate-600 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-brand/10 file:text-brand hover:file:bg-brand/20 cursor-pointer"
           />
           

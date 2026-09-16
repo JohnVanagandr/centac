@@ -57,6 +57,7 @@ const OfertaEditor = () => {
     isEditMode,
     handleChange,
     handleTitleChange,
+    handleImageChange,
     saveOferta
   } = useOfertaForm(id, handleSuccessStep);
 
@@ -144,7 +145,11 @@ const OfertaEditor = () => {
           <TabInfoBasica formData={formData} handleChange={handleChange} handleTitleChange={handleTitleChange} />
         )}
         {activeTab === "multimedia" && (
-          <TabMultimedia formData={formData} handleChange={handleChange} setFormData={setFormData} />
+          <TabMultimedia 
+            formData={formData} 
+            handleChange={handleChange} 
+            handleImageChange={handleImageChange} 
+          />
         )}
         {activeTab === "aprendizajes" && (
           <TabAprendizajes formData={formData} setFormData={setFormData} />

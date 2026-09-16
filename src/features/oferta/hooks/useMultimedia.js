@@ -7,13 +7,20 @@ export const validateMultimedia = (formData) => {
     throw new Error("La imagen de portada es obligatoria.");
   }
 
-  // Validamos si es un string (solo sucede cuando carga la info del backend y el usuario NO ha seleccionado archivo nuevo)
+  // 1. Validamos si es un string (solo sucede cuando carga la info del backend y no han cambiado la foto)
   if (typeof img === 'string') {
     if (!img.startsWith("http://") && !img.startsWith("https://")) {
       throw new Error("La URL de la imagen existente no es válida.");
     }
-  } else if (!(img instanceof File)) {
-    // Si no es un string ni un objeto File, hay un estado corrupto
+  } 
+  // 2. Validamos si es un archivo físico nuevo y aplicamos el parche de peso
+  else if (img instanceof File) {
+    if (img.size > 2 * 1024 * 1024) { // Límite estricto de 2MB
+      throw new Error("La imagen es demasiado pesada. El tamaño máximo permitido es 2MB.");
+    }
+  } 
+  // 3. Si no es un string ni un objeto File, hay un estado corrupto
+  else {
     throw new Error("El archivo de imagen no es válido.");
   }
 
@@ -30,7 +37,7 @@ export const validateMultimedia = (formData) => {
 
   // Retornamos los datos purificados listos para empaquetarse
   return { 
-    img, // Puede ser un File (nueva imagen) o un String (imagen existente)
+    img, 
     video_url: video_url || null 
   };
 };
