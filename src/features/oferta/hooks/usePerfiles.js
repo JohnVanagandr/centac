@@ -2,7 +2,6 @@ import { useCallback } from "react";
 
 export const usePerfiles = (formData, setFormData) => {
 
-  // 1. NUEVO: Manejador para el perfil del estudiante
   const handleEstudianteChange = (value) => {
     setFormData(prev => ({
       ...prev,
@@ -19,8 +18,8 @@ export const usePerfiles = (formData, setFormData) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        estudiante: "", // Salvavidas: Garantiza que no se pierda al editar egresado
-        profesional: [], // Salvavidas: Garantiza que map() no explote
+        estudiante: "", 
+        profesional: [], 
         ...(prev.profiles || {}),
         egresado: value
       }
@@ -31,8 +30,8 @@ export const usePerfiles = (formData, setFormData) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        estudiante: "", // Salvavidas
-        egresado: "", // Salvavidas
+        estudiante: "", 
+        egresado: "", 
         ...(prev.profiles || {}),
         profesional: [...(prev.profiles?.profesional || []), ""]
       }
@@ -43,7 +42,7 @@ export const usePerfiles = (formData, setFormData) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        estudiante: "", // Salvavidas
+        estudiante: "", 
         ...(prev.profiles || {}),
         profesional: (prev.profiles?.profesional || []).filter((_, i) => i !== indexToRemove)
       }
@@ -54,14 +53,13 @@ export const usePerfiles = (formData, setFormData) => {
     setFormData(prev => ({
       ...prev,
       profiles: {
-        estudiante: "", // Salvavidas
+        estudiante: "", 
         ...(prev.profiles || {}),
         profesional: (prev.profiles?.profesional || []).map((role, i) => i === indexToUpdate ? value : role)
       }
     }));
   }, [setFormData]);
 
-  // Exportamos el nuevo manejador
   return { 
     handleEstudianteChange, 
     handleEgresadoChange, 
@@ -75,23 +73,38 @@ export const usePerfiles = (formData, setFormData) => {
 // VALIDACIÓN PURA
 // ==========================================
 export const validatePerfiles = (formData) => {
-  // 2. Extraemos el estudiante del objeto profiles
   const { estudiante, egresado, profesional } = formData.profiles || {};
-  const { instructor_name, instructor_role } = formData || {};
+  // Extraemos la imagen del estado global
+  const { instructor_name, instructor_role, instructor_image } = formData || {};
 
-  // 3. NUEVO: Agregamos la regla de validación para estudiante
   if (!estudiante || estudiante.trim() === "") throw new Error("El perfil del estudiante es obligatorio.");
   if (!egresado || egresado.trim() === "") throw new Error("El perfil de egreso es obligatorio.");
   if (!instructor_name || instructor_name.trim() === "") throw new Error("El nombre del instructor es obligatorio.");
   if (!instructor_role || instructor_role.trim() === "") throw new Error("El cargo del instructor es obligatorio.");
 
+  // 🔥 NUEVO: Validación de seguridad para la imagen del instructor
+  if (instructor_image) {
+    if (typeof instructor_image === 'string') {
+      if (!instructor_image.startsWith("http://") && !instructor_image.startsWith("https://")) {
+        throw new Error("La URL de la imagen del instructor no es válida.");
+      }
+    } else if (instructor_image instanceof File) {
+      if (instructor_image.size > 2 * 1024 * 1024) {
+        throw new Error("La imagen del instructor es demasiado pesada. El tamaño máximo permitido es 2MB.");
+      }
+    } else {
+      throw new Error("El archivo de la imagen del instructor no es válido.");
+    }
+  }
+
   return {
     profiles: {
-      estudiante: estudiante.trim(), // Limpiamos los espacios en blanco del nuevo campo
+      estudiante: estudiante.trim(), 
       egresado: egresado.trim(),
       profesional: profesional ? profesional.filter(r => r.trim() !== "").map(r => r.trim()) : []
     },
     instructor_name: instructor_name.trim(),
-    instructor_role: instructor_role.trim()
+    instructor_role: instructor_role.trim(),
+    instructor_image: instructor_image || null // Retornamos la imagen purificada
   };
 };

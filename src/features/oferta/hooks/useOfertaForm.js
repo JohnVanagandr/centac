@@ -47,6 +47,10 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
             learnings: data.learnings || [],
             instructor_name: data.instructor_name || "",
             instructor_role: data.instructor_role || "",
+            
+            // 🔥 CORRECCIÓN: Inyectamos la imagen del instructor al estado global
+            instructor_image: data.instructor_image || null,
+            
             profiles: data.profiles || { egresado: "", profesional: [] },
             modules: data.modules || []
           });
@@ -77,23 +81,21 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
     setFormData((prev) => ({ ...prev, title, slug }));
   };
 
-  // 🔥 NUEVO: Manejador estricto para interceptar la imagen desde la selección
+  // Manejador estricto para interceptar la imagen principal desde la selección
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     
-    if (!file) return; // Si el usuario cancela la selección, no hacemos nada
+    if (!file) return; 
 
     const MAX_SIZE_MB = 2;
     const MAX_SIZE_BYTES = MAX_SIZE_MB * 1024 * 1024;
 
-    // Validación temprana: Cortamos el flujo antes de ensuciar el estado o la memoria
     if (file.size > MAX_SIZE_BYTES) {
       toast.error(`La imagen es demasiado pesada. El tamaño máximo permitido es ${MAX_SIZE_MB}MB.`);
-      e.target.value = null; // Limpiamos el input para evitar un estado corrupto
+      e.target.value = null; 
       return; 
     }
 
-    // Si pasa la validación física, actualizamos el estado general
     setFormData((prev) => ({
       ...prev,
       img: file
@@ -133,9 +135,7 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
       }
     },
     onError: (err) => {
-      // Errores de validación (422)
       const apiErrors = err.response?.data?.errors;
-      // Errores de sistema controlados (500, 403, 404)
       const serverMessage = err.response?.data?.message;
       
       const message = apiErrors 
@@ -161,22 +161,38 @@ export const useOfertaForm = (idUrl, onSuccessStep) => {
         case "basica": payload = validateBasica(formData); break;
         case "multimedia": 
           const multiData = validateMultimedia(formData); 
-          // 1. Instanciamos el constructor nativo para envío de archivos
           payload = new FormData();
-          
-          // 2. Adjuntamos la imagen SOLO si es un archivo físico nuevo
           if (multiData.img instanceof File) {
             payload.append("img", multiData.img);
           }
-          
-          // 3. Adjuntamos los datos adicionales
           if (multiData.video_url) {
             payload.append("video_url", multiData.video_url);
           }
           break;
         case "aprendizajes": payload = validateAprendizajes(formData); break;
         case "malla": payload = validateMalla(formData); break;
-        case "perfiles": payload = validatePerfiles(formData); break;
+        case "perfiles": 
+          const perfilesData = validatePerfiles(formData);
+          payload = new FormData();
+          
+          // SPOOFING: Engañamos a Laravel para que acepte archivos en una ruta de actualización
+          payload.append("_method", "PUT");
+          payload.append("instructor_name", perfilesData.instructor_name || "");
+          payload.append("instructor_role", perfilesData.instructor_role || "");
+          
+          if (perfilesData.instructor_image instanceof File) {
+            payload.append("instructor_image", perfilesData.instructor_image);
+          }
+          
+          payload.append("profiles[estudiante]", perfilesData.profiles.estudiante || "");
+          payload.append("profiles[egresado]", perfilesData.profiles.egresado || "");
+          
+          if (perfilesData.profiles.profesional?.length > 0) {
+            perfilesData.profiles.profesional.forEach((prof, index) => {
+              payload.append(`profiles[profesional][${index}]`, prof);
+            });
+          }
+          break;
         default: return;
       }
     } catch (error) {

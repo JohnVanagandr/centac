@@ -1,12 +1,14 @@
 import React from "react";
 
 const CourseInstructor = ({ instructor }) => {
-  
   if (!instructor) return null;
 
-  // Obtenemos las iniciales para el avatar (Máximo 2 letras)
+  // Soportamos tanto 'image' como 'instructor_image' según cómo lo pase el componente padre
+  const imageUrl = instructor.instructor_image || instructor.image;
+
+  // Obtenemos las iniciales para el avatar (Máximo 2 letras) como fallback
   const initials = instructor.name
-    .split(" ")
+    ?.split(" ")
     .map((n) => n[0])
     .join("")
     .substring(0, 2);
@@ -14,9 +16,19 @@ const CourseInstructor = ({ instructor }) => {
   return (
     // 🌌 SLATE & PRIMARY: Cambiamos bordes y sombras al tono corporativo, y el hover a primary
     <div className="bg-white rounded-3xl p-6 border border-slate-100 shadow-lg shadow-slate-200/40 text-center group hover:border-primary/30 transition-colors duration-300">
-      {/* 🔵 PRIMARY: El avatar cambia a azul eléctrico al interactuar */}
-      <div className="w-24 h-24 bg-navy rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-display font-black shadow-inner group-hover:bg-primary group-hover:scale-105 transition-all duration-300">
-        {initials}
+      
+      {/* 🔵 PRIMARY: El avatar cambia a azul eléctrico al interactuar. 
+          Agregamos overflow-hidden para que la imagen respete el borde circular */}
+      <div className="w-24 h-24 bg-navy rounded-full mx-auto mb-4 flex items-center justify-center text-white text-3xl font-display font-black shadow-inner group-hover:bg-primary group-hover:scale-105 transition-all duration-300 overflow-hidden relative">
+        {imageUrl ? (
+          <img 
+            src={imageUrl} 
+            alt={`Avatar de ${instructor.name}`} 
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <span>{initials}</span>
+        )}
       </div>
 
       <h4 className="font-display font-black text-navy text-xl mb-1">

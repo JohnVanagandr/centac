@@ -89,12 +89,10 @@ export const ofertasAdminService = {
     return response.data;
   },
 
-  /**
-   * Actualizar perfiles e información del instructor.
-   */
   updateProfiles: async (programId, payload) => {
     try {
-      const response = await api.put(`/admin/oferta-academica/${programId}/profiles`, payload);
+      // 🔥 FIX 3: Cambiado de api.put a api.post
+      const response = await api.post(`/admin/oferta-academica/${programId}/profiles`, payload);
       return response.data;
     } catch (error) {
       console.error(`Error al actualizar los perfiles para la oferta ${programId}:`, error);
