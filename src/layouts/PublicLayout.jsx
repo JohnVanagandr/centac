@@ -1,6 +1,6 @@
 import React from "react";
 
-import {BackToTop} from "../components/ui/Navigation";
+import {BackToTop, WhatsAppButton} from "../components/ui/Navigation";
 import { PageHeader, Banner } from "@/components/common";
 import {Header, Footer } from "@/components/layout";
 
@@ -17,6 +17,7 @@ const PublicLayout = ({ children, title, subtitle, category }) => {
       </main>
       <Banner />
       <Footer />
+      <WhatsAppButton />
       <BackToTop />
     </div>
   );

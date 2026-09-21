@@ -1,7 +1,7 @@
 import React from "react";
 import {Header, Footer } from "@/components/layout";
 import { Banner } from "@/components/common";
-import {BackToTop} from "../components/ui/Navigation";
+import {BackToTop, WhatsAppButton} from "../components/ui/Navigation";
 
 const DetailLayout = ({ children }) => {
 
@@ -15,7 +15,7 @@ const DetailLayout = ({ children }) => {
       </main>
       <Banner />
       <Footer />
-      
+      <WhatsAppButton />
       {/* El botón flotante renderizado a nivel de Layout */}
       <BackToTop />
     </div>
