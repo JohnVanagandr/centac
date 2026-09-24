@@ -1,13 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useNavbar } from "@/components/layout/Header/hooks/useNavbar";
-import { AuthContext } from "@/context/AuthContext";
 import {TopBar, NavActions, MobileMenu, Navigation} from "./";
 
 export const Header = () => {
   const { isMenuOpen, isScrolled, isHome, toggleMenu, closeMenu } = useNavbar();
-  const { isLoggedIn, logout, user } = useContext(AuthContext);
-
+  
   return (
     <>
       <header className="fixed top-0 w-full z-50 flex flex-col transition-all duration-500 ease-in-out">
@@ -49,12 +47,8 @@ export const Header = () => {
             <Navigation isHome={isHome} closeMenu={closeMenu} />
 
             <NavActions
-              isHome={isHome}
               isScrolled={isScrolled}
               toggleMenu={toggleMenu}
-              isLoggedIn={isLoggedIn}
-              onLogout={logout}
-              user={user}
             />
           </div>
         </div>
@@ -64,9 +58,6 @@ export const Header = () => {
         isMenuOpen={isMenuOpen}
         closeMenu={closeMenu}
         isHome={isHome}
-        isLoggedIn={isLoggedIn}
-        onLogout={logout}
-        user={user}
       />
     </>
   );
