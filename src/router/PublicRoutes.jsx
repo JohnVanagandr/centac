@@ -10,7 +10,8 @@ import {
   Pqr,
   Contacto,
   AvisoLegalPage,
-  PoliticaPrivacidadPage
+  PoliticaPrivacidadPage,
+  Biblioteca
 } from "@/pages/public";
 
 export const PublicRoutes = () => {
@@ -18,10 +19,11 @@ export const PublicRoutes = () => {
     <Routes>
       <Route index element={<Home />} />
       <Route path="nosotros" element={<Nosotros />} />
-      <Route path="servicios/atencion" element={<Atencion />} />
       <Route path="ofertas" element={<CatalogoOfertas />} />
       <Route path="oferta/:slug" element={<OfertaDetalle />} />
+      <Route path="servicios/atencion" element={<Atencion />} />
       <Route path="servicios/pqr" element={<Pqr />} />
+      <Route path="servicios/biblioteca" element={<Biblioteca />} />
       <Route path="contacto" element={<Contacto />} />
       <Route path="aviso-legal" element={< AvisoLegalPage />} />
       <Route path="politica-privacidad" element={< PoliticaPrivacidadPage />} />
